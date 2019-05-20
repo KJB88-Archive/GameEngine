@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+GNAC_ACW/.vs/GNAC_ACW/v15/.suo
+GNAC_ACW/.vs/GNAC_ACW/v15/Browse.VC.db
+*.ipch
+*.log

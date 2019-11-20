@@ -21,14 +21,13 @@ class GraphicsManager
 {
 
 public:
-	GraphicsManager(int, int, HWND);
+	GraphicsManager(int width, int height, HWND);
 	virtual ~GraphicsManager();
 
 	// Platform independent resource setup
 	void CreateShader();
-
-
 	void CreateCamera();
+
 	bool OnFrame();
 
 private:
@@ -44,6 +43,6 @@ private:
 	GLRenderer* m_renderer;
 #endif
 
-GraphicsManager(const GraphicsManager&) = delete;
-GraphicsManager* operator=(const GraphicsManager&) = delete;
+	GraphicsManager(const GraphicsManager&) = delete;
+	GraphicsManager* operator=(const GraphicsManager&) = delete;
 };

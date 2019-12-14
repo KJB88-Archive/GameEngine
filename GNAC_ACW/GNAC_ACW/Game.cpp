@@ -8,23 +8,37 @@ Game::Game()
 
 	InitializeWindows(screenWidth, screenHeight);
 
+	// Create Time Manager
+	m_time = new TimeManager();
+	if (!m_time)
+	{
+		printf("GAME: Unable to create TimeManager object.\n");
+	}
+
 	// Create Input Manager
 	m_input = new InputManager();
 	if (!m_input)
 	{
-		// ERROR
+		printf("GAME: Unable to create InputManager object.\n");
 	}
 
 	// Create Graphics Manager
 	m_graphics = new GraphicsManager(screenWidth, screenHeight, m_hWnd);
 	if (!m_graphics)
 	{
-		// ERROR
+		printf("GAME: Unable to create GraphicsManager object.\n");
 	}
+
 }
 
 Game::~Game()
 {
+	if (m_time)
+	{
+		delete m_time;
+		m_time = nullptr;
+	}
+
 	if (m_graphics)
 	{
 		delete m_graphics;
@@ -49,7 +63,7 @@ void Game::InitializeWindows(int& screenWidth, int& screenHeight)
 	// Implement windows application data
 	ApplicationHandle = this;
 	m_hInstance = GetModuleHandle(NULL);
-	m_applicationName = L"Engine";
+	m_applicationName = "Engine";
 
 	// Setup Window
 	wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;

@@ -5,6 +5,7 @@
 
 #include "InputManager.h"
 #include "GraphicsManager.h"
+#include "TimeManager.h"
 
 class Game
 {
@@ -22,12 +23,13 @@ private:
 	void InitializeWindows(int&, int&);
 	void ShutdownWindows();
 
-	LPCWSTR m_applicationName;
+	LPCSTR m_applicationName;
 	HINSTANCE m_hInstance;
 	HWND m_hWnd;
 
 	InputManager* m_input;
 	GraphicsManager* m_graphics;
+	TimeManager* m_time;
 
 	Game(const Game&) = delete;
 	Game* operator=(const Game&) = delete;

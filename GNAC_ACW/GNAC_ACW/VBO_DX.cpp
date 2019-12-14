@@ -1,6 +1,7 @@
 #include "VBO_DX.h"
 
 #include "GraphicsManager.h"
+
 VBO_DX::VBO_DX()
 {
 

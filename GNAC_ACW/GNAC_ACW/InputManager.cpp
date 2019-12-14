@@ -8,6 +8,8 @@ InputManager::InputManager()
 	{
 		m_keys[i] = false;
 	}
+
+	printf("INPUT: InputManager created and initialized.\n");
 }
 
 InputManager::~InputManager()

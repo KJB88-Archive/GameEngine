@@ -1,4 +1,5 @@
 #include "GraphicsManager.h"
+#include "TimeManager.h"
 
 GraphicsManager::GraphicsManager(int screenWidth, int screenHeight, HWND hWnd)
 	: Manager("Graphics"), m_renderer(nullptr), m_mesh(nullptr), m_shader(nullptr), m_camera(nullptr)
@@ -13,6 +14,8 @@ GraphicsManager::GraphicsManager(int screenWidth, int screenHeight, HWND hWnd)
 #else
 	m_renderer = new GLRenderer(screenWidth, screenHeight, hWnd, SCREEN_DEPTH, SCREEN_NEAR);
 #endif
+
+	printf("GRAPHICS: GraphicsManager created and initialized.\n");
 }
 
 GraphicsManager::~GraphicsManager()

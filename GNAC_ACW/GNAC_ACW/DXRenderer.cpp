@@ -1,5 +1,5 @@
 #include "DXRenderer.h"
-#include <stdlib.h>
+#include "stdio.h"
 
 using namespace DirectX;
 
@@ -104,21 +104,21 @@ void DXRenderer::InitializeCoreD3D(int screenWidth, int screenHeight, HWND hwnd)
 		&swapChainDesc, &m_swapChain, &m_device, NULL, &m_context);
 	if (FAILED(result))
 	{
-		// DEBUG
+		printf("DIRECTX: Failed to create graphics device, swap chain or graphics context.\n");
 	}
 
 	// Setup back buffer
 	result = m_swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&backBufferPtr);
 	if (FAILED(result))
 	{
-		// DEBUG
+		printf("DIRECTX: Failed to get back buffer.\n");
 	}
 
-	// Create
+	// Create Render Target View
 	result = m_device->CreateRenderTargetView(backBufferPtr, NULL, &m_renderTargetView);
 	if (FAILED(result))
 	{
-		// DEBUG
+		printf("DIRECTX: Failed to create render target view.\n");
 	}
 
 	backBufferPtr->Release();
@@ -152,7 +152,7 @@ void DXRenderer::InitializeSecondaryD3D(int screenWidth, int screenHeight)
 	result = m_device->CreateTexture2D(&depthBufferDesc, NULL, &m_depthStencilBuffer);
 	if (FAILED(result))
 	{
-		// DEBUG
+		printf("DIRECTX: Failed to create depth stencil buffer.\n");
 	}
 
 	// Init. Stencil State
@@ -181,7 +181,7 @@ void DXRenderer::InitializeSecondaryD3D(int screenWidth, int screenHeight)
 	result = m_device->CreateDepthStencilState(&depthStencilDesc, &m_depthStencilState);
 	if (FAILED(result))
 	{
-		// DEBUG
+		printf("DIRECTX: Failed to create depth stencil state.\n");
 	}
 
 	m_context->OMSetDepthStencilState(m_depthStencilState, 1);
@@ -196,7 +196,7 @@ void DXRenderer::InitializeSecondaryD3D(int screenWidth, int screenHeight)
 	result = m_device->CreateDepthStencilView(m_depthStencilBuffer, &depthStencilViewDesc, &m_depthStencilView);
 	if (FAILED(result))
 	{
-		// DEBUG
+		printf("DIRECTX: Failed to create depth stencil view.\n");
 	}
 
 	// Bind RTV and DSB to render pipeline
@@ -217,7 +217,7 @@ void DXRenderer::InitializeSecondaryD3D(int screenWidth, int screenHeight)
 	result = m_device->CreateRasterizerState(&rasterDesc, &m_rasterState);
 	if (FAILED(result))
 	{
-		// DEBUG
+		printf("DIRECTX: Failed to create rasterizer state.\n");
 	}
 
 	m_context->RSSetState(m_rasterState);
@@ -231,6 +231,7 @@ void DXRenderer::InitializeSecondaryD3D(int screenWidth, int screenHeight)
 	viewport.TopLeftY = 0.0f;
 
 	m_context->RSSetViewports(1, &viewport);
+
 }
 
 void DXRenderer::InitializeMatricesD3D(int screenWidth, int screenHeight, float screenDepth, float screenNear)

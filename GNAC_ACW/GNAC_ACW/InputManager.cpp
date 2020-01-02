@@ -1,15 +1,13 @@
 #include "InputManager.h"
 
 InputManager::InputManager()
-	: Manager("Input")
+	: Manager("Input Manager")
 {
 	// Default keys to false
 	for (int i = 0; i < 256; ++i)
 	{
 		m_keys[i] = false;
 	}
-
-	printf("INPUT: InputManager created and initialized.\n");
 }
 
 InputManager::~InputManager()

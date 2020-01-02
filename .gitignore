@@ -34,3 +34,16 @@ GNAC_ACW/.vs/GNAC_ACW/v15/.suo
 GNAC_ACW/.vs/GNAC_ACW/v15/Browse.VC.db
 *.ipch
 *.log
+*.ilk
+*.pdb
+*.tlog
+*.pdb
+*.idb
+*.pdb
+*.db
+GNAC_ACW/.vs/GNAC_ACW/v16/.suo
+*.filters
+*.vcxproj
+*.pdb
+*.pdb
+GNAC_ACW/GNAC_ACW/Debug/vc141.pdb

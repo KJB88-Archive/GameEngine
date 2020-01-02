@@ -1,11 +1,12 @@
 #include "Game.h"
 
 Game::Game()
-	: m_input(nullptr), m_graphics(nullptr)
+	: m_input(nullptr), m_graphics(nullptr), m_time(nullptr), m_scene(nullptr)
 {
 	int screenWidth = 0, screenHeight = 0;
 	bool result;
 
+	// Initialize the Window
 	InitializeWindows(screenWidth, screenHeight);
 
 	// Create Time Manager
@@ -29,6 +30,12 @@ Game::Game()
 		printf("GAME: Unable to create GraphicsManager object.\n");
 	}
 
+	// Create Scene Manager
+	m_scene = new SceneManager();
+	if (!m_scene)
+	{
+		printf("GAME: Unable to create SceneManager object.\n");
+	}
 }
 
 Game::~Game()
@@ -49,6 +56,12 @@ Game::~Game()
 	{
 		delete m_input;
 		m_input = nullptr;
+	}
+
+	if (m_scene)
+	{
+		delete m_scene;
+		m_scene = nullptr;
 	}
 
 	ShutdownWindows();
@@ -153,6 +166,7 @@ bool Game::OnFrame()
 	{
 		return false;
 	}
+
 
 	result = m_graphics->OnFrame();
 	if (!result)

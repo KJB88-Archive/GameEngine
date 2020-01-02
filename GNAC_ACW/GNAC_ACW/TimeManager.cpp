@@ -4,13 +4,11 @@ using namespace std::chrono;
 #include <ctime>
 
 TimeManager::TimeManager()
-	: Manager("Time")
+	: Manager("Time Manager")
 {
 	timer = steady_clock();
 	m_currentTime = steady_clock::now();
 	m_previousTime = steady_clock::now();
-
-	printf("TIME: TimeManager created and initialized.\n");
 }
 
 TimeManager::~TimeManager()

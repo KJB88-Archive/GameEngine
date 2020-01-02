@@ -5,12 +5,11 @@ class Manager
 {
 public:
 
-	Manager(std::string name)
-		: m_name(name) {};
-	virtual ~Manager() {};
+	Manager(const std::string& name);
+	virtual ~Manager();
 
-	std::string GetName() { return m_name; }
+	const std::string& GetName();
 
 private:
-	std::string m_name;
+	const std::string& m_name;
 };

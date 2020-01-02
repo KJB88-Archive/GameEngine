@@ -3,9 +3,11 @@
 #include "windowsx.h"
 #define WIN32_LEAN_AND_MEAN
 
+// Management Systems
 #include "InputManager.h"
 #include "GraphicsManager.h"
 #include "TimeManager.h"
+#include "SceneManager.h"
 
 class Game
 {
@@ -30,6 +32,7 @@ private:
 	InputManager* m_input;
 	GraphicsManager* m_graphics;
 	TimeManager* m_time;
+	SceneManager* m_scene;
 
 	Game(const Game&) = delete;
 	Game* operator=(const Game&) = delete;

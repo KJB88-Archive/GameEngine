@@ -8,6 +8,7 @@ public:
 
 	Component();
 	Component(const std::string& inName);
+	Component(const Component& other);
 	virtual ~Component();
 
 	const std::string& GetName();

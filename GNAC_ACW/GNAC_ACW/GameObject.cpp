@@ -5,7 +5,7 @@ GameObject::GameObject()
 {
 	InitializeCoreResources();
 
-	printf("GameObject: %s created.\n", name.c_str());
+	printf("GAMEOBJECT: %s created.\n", name.c_str());
 }
 
 GameObject::GameObject(const std::string& name)
@@ -13,7 +13,7 @@ GameObject::GameObject(const std::string& name)
 {
 	InitializeCoreResources();
 
-	printf("GameObject: %s created.\n", name.c_str());
+	printf("GAMEOBJECT: %s created.\n", name.c_str());
 }
 
 GameObject::GameObject(const std::string& name, const std::string& tag)
@@ -21,7 +21,15 @@ GameObject::GameObject(const std::string& name, const std::string& tag)
 {
 	InitializeCoreResources();
 
-	printf("GameObject: %s created.\n", name.c_str());
+	printf("GAMEOBJECT: %s created.\n", name.c_str());
+}
+
+GameObject::GameObject(const GameObject& other)
+	: name("NO NAME"), tag("NO TAG")
+{
+	name = other.name;
+	tag = other.tag;
+	components = other.components;
 }
 
 GameObject::~GameObject()
@@ -47,24 +55,25 @@ void GameObject::Render()
 	// STUB
 }
 
-Component& GameObject::GetComponent(const std::string& componentName)
+Component* const GameObject::GetComponent(const std::string& componentName)
 {
 	for (int i = 0; i < components.size(); ++i)
 	{
-		if (components[i].GetName() == componentName)
+		if (components[i]->GetName() == componentName)
 		{
+
 			return components[i];
 		}
 	}
 }
 
-void GameObject::AddComponent(Component component)
+void GameObject::AddComponent(Component* component)
 {
-	components.emplace_back(&component);
+	components.push_back(component);
 }
 
 void GameObject::InitializeCoreResources()
 {
 	transform = new Transform();
-	components = std::vector<Component>();
+	components = std::vector<Component*>();
 }

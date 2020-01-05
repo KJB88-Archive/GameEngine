@@ -210,6 +210,9 @@
     <ClInclude Include="GameScene.h">
       <Filter>Game Files\Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="PassthroughVertex.hlsl">

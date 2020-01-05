@@ -15,13 +15,14 @@ public:
 
 	const std::string& GetName();
 
-	void AddGameObject(GameObject go);
+	void AddGameObject(GameObject* go);
 	void RemoveGameObject(const std::string& objName);
+
+protected:
+	std::vector<GameObject*> objects;
 
 private:
 
 	const std::string& name;
-	std::vector<GameObject> objects;
-
 	void InitializeCoreResources();
 };

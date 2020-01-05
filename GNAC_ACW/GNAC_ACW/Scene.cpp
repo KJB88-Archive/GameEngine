@@ -5,7 +5,7 @@ Scene::Scene(const std::string& name)
 {
 	InitializeCoreResources();
 
-	printf("Scene created.\n");
+	printf("SCENE: %s created.\n", name.c_str());
 }
 
 Scene::~Scene()
@@ -15,7 +15,7 @@ Scene::~Scene()
 
 void Scene::InitializeCoreResources()
 {
-	objects = std::vector<GameObject>();
+	objects = std::vector<GameObject*>();
 }
 
 const std::string& Scene::GetName()
@@ -23,16 +23,16 @@ const std::string& Scene::GetName()
 	return name;
 }
 
-void Scene::AddGameObject(GameObject go)
+void Scene::AddGameObject(GameObject* go)
 {
-	objects.emplace_back(go);
+	objects.push_back(go);
 }
 
 void Scene::RemoveGameObject(const std::string& objName)
 {
 	for (int i = 0; i < objects.size(); ++i)
 	{
-		if (objects[i].name == objName)
+		if (objects[i]->name == objName)
 		{
 			objects.erase(objects.begin() + i);
 		}

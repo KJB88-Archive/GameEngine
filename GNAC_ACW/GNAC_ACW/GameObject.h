@@ -3,6 +3,7 @@
 
 #include "Transform.h"
 #include "Component.h"
+#include "Object.h"
 
 class GameObject
 {
@@ -12,10 +13,11 @@ public:
 	GameObject();
 	GameObject(const std::string& name);
 	GameObject(const std::string& name, const std::string& tag);
+	GameObject(const GameObject& other);
 	virtual ~GameObject();
 
-	const std::string& name;
-	const std::string& tag;
+	std::string name;
+	std::string tag;
 
 	Transform* transform;
 
@@ -23,13 +25,13 @@ public:
 	virtual void Update();
 	virtual void Render();
 
-	Component& GetComponent(const std::string& componentName);
-	void AddComponent(Component component);
+	Component* const GetComponent(const std::string& componentName);
+	void AddComponent(Component* component);
 
 private:
 
 	// Component container
-	std::vector<Component> components;
-
+	std::vector<Component*> components;
+	
 	void InitializeCoreResources();
 };

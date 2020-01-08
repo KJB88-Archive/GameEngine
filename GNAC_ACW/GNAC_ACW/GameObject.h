@@ -3,7 +3,6 @@
 
 #include "Transform.h"
 #include "Component.h"
-#include "Object.h"
 
 class GameObject
 {

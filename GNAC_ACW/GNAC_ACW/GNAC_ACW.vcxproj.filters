@@ -136,9 +136,6 @@
     <ClCompile Include="TestObject.cpp">
       <Filter>Game Files\GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DXShader.h">
@@ -215,9 +212,6 @@
     </ClInclude>
     <ClInclude Include="Logger.h">
       <Filter>Header Files\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

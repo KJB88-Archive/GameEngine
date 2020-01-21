@@ -4,6 +4,9 @@
 
 #include <queue>
 
+// TEMP
+#include "GraphicsManager.h"
+
 class SceneManager
 	: Manager
 {
@@ -16,8 +19,8 @@ public:
 	void PushScene(Scene* newScene);
 	Scene* GetCurrentScene();
 
-	void UpdateCurrentScene();
-	void RenderCurrentScene();
+	void UpdateScene(float deltaTime);
+	void RenderScene(GraphicsManager* gm);
 
 private:
 

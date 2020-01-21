@@ -31,3 +31,13 @@ void SceneManager::PushScene(Scene* newScene)
 {
 	scenes.push(newScene);
 }
+
+void SceneManager::UpdateScene(float deltaTime)
+{
+	scenes.front()->Update(deltaTime);
+}
+
+void SceneManager::RenderScene(GraphicsManager* gm)
+{
+
+}

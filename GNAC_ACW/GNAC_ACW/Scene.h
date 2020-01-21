@@ -10,7 +10,7 @@ public:
 	Scene(const std::string& name);
 	virtual ~Scene();
 
-	virtual void Update() = 0;
+	virtual void Update(float deltaTime) = 0;
 	virtual void Render() = 0;
 
 	const std::string& GetName();

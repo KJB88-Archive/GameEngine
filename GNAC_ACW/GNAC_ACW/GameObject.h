@@ -3,7 +3,6 @@
 
 #include "Transform.h"
 #include "Component.h"
-#include "Object.h"
 
 class GameObject
 {
@@ -22,7 +21,7 @@ public:
 	Transform* transform;
 
 	virtual void Initialize();
-	virtual void Update();
+	virtual void Update(float deltaTime);
 	virtual void Render();
 
 	Component* const GetComponent(const std::string& componentName);

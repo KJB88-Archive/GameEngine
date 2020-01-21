@@ -10,7 +10,7 @@ public:
 	virtual ~GameScene();
 
 	virtual void Initialize();
-	virtual void Update();
+	virtual void Update(float deltaTime);
 	virtual void Render();
 
 private:

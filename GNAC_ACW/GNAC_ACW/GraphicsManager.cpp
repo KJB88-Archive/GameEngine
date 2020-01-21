@@ -43,20 +43,19 @@ GraphicsManager::~GraphicsManager()
 	}
 }
 
-bool GraphicsManager::OnFrame()
-{
-	bool result = Render();
-	if (!result)
-	{
-		return false;
-	}
+//bool GraphicsManager::OnFrame()
+//{
+//	bool result = Render();
+//	if (!result)
+//	{
+//		return false;
+//	}
+//
+//	return true;
+//}
 
-	return true;
-}
-
-bool GraphicsManager::Render()
+void GraphicsManager::BeginScene()
 {
-	DirectX::XMMATRIX world, view, proj;
 	m_renderer->BeginScene(0.5f, 0.5f, 0.5f, 1.0f);
 
 	m_camera->Render();
@@ -64,11 +63,34 @@ bool GraphicsManager::Render()
 	m_renderer->GetWorldMatrix(world);
 	m_camera->GetViewMatrix(view);
 	m_renderer->GetProjectionMatrix(proj);
+}
 
+void GraphicsManager::Draw()
+{
 	m_mesh->Render(m_renderer->GetContext());
+}
 
+void GraphicsManager::EndScene()
+{
 	m_shader->Render(m_renderer->GetContext(), m_mesh->GetIndexCount(), world, view, proj);
 	m_renderer->EndScene();
-
-	return true;
 }
+
+//bool GraphicsManager::Render()
+//{
+//	DirectX::XMMATRIX world, view, proj;
+//	m_renderer->BeginScene(0.5f, 0.5f, 0.5f, 1.0f);
+//
+//	m_camera->Render();
+//
+//	m_renderer->GetWorldMatrix(world);
+//	m_camera->GetViewMatrix(view);
+//	m_renderer->GetProjectionMatrix(proj);
+//
+//	m_mesh->Render(m_renderer->GetContext());
+//
+//	m_shader->Render(m_renderer->GetContext(), m_mesh->GetIndexCount(), world, view, proj);
+//	m_renderer->EndScene();
+//
+//	return true;
+//}

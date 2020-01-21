@@ -213,6 +213,9 @@
     <ClInclude Include="Logger.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
+    <ClInclude Include="GraphicsContext.h">
+      <Filter>Header Files\Base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="PassthroughVertex.hlsl">

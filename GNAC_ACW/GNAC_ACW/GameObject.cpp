@@ -45,7 +45,7 @@ void GameObject::Initialize()
 	// STUB
 }
 
-void GameObject::Update()
+void GameObject::Update(float deltaTime)
 {
 	// STUB
 }

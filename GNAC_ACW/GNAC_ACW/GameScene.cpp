@@ -24,7 +24,7 @@ void GameScene::Initialize()
 
 }
 
-void GameScene::Update()
+void GameScene::Update(float deltaTime)
 {
 
 }

@@ -25,16 +25,23 @@ public:
 	virtual ~GraphicsManager();
 
 	// Platform independent resource setup
-	void CreateShader();
-	void CreateCamera();
+	//void CreateShader();
+	//void CreateCamera();
 
 	bool OnFrame();
+
+	// Renering
+	void BeginScene();
+	void Draw();
+	void EndScene();
 
 private:
 
 	bool Render();
 
-#ifdef DX_BUILD 
+
+#ifdef DX_BUILD
+	DirectX::XMMATRIX world, view, proj;
 	DXRenderer* m_renderer;
 	DXMesh* m_mesh;
 	DXCamera* m_camera;

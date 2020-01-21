@@ -162,17 +162,21 @@ bool Game::OnFrame()
 {
 	bool result;
 
+	// Check if we want to close the application
+	// TODO - Replace with main menu??
 	if (m_input->IsKeyDown(VK_ESCAPE))
 	{
 		return false;
 	}
 
+	// Update
+	m_scene->UpdateScene(m_time->GetDeltaTime()); // Main update call
 
-	result = m_graphics->OnFrame();
-	if (!result)
-	{
-		return false;
-	}
+	// Render
+	m_graphics->BeginScene();
+	//m_scene->RenderScene(m_graphics); // Main render call
+	m_graphics->Draw();
+	m_graphics->EndScene();
 
 	return true;
 }

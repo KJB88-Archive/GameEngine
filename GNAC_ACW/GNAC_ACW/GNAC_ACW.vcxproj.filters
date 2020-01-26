@@ -73,6 +73,9 @@
     <Filter Include="Resource Files\Shaders">
       <UniqueIdentifier>{322e33e7-01f4-4c6b-96d8-16450b3ff758}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\NewFilter1">
+      <UniqueIdentifier>{2337b822-b213-4aba-bbfe-7329d551448f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -204,9 +207,6 @@
     <ClInclude Include="Thread.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="GameScene.h">
       <Filter>Game Files\Scenes</Filter>
     </ClInclude>
@@ -215,6 +215,9 @@
     </ClInclude>
     <ClInclude Include="GraphicsContext.h">
       <Filter>Header Files\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderComponent.h">
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

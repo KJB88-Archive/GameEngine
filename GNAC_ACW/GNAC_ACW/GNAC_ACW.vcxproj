@@ -161,7 +161,7 @@
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="GraphicsContext.h" />
     <ClInclude Include="Logger.h" />
-    <ClInclude Include="Renderer.h" />
+    <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="TestObject.h" />

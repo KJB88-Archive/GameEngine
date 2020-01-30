@@ -1,39 +1,39 @@
-#include "Transform.h"
+#include "TransformComponent.h"
 
-Transform::Transform()
+TransformComponent::TransformComponent()
 	: position(Vector3(0.0f, 0.0f, 0.0f)), rotation(Vector3(0.0f, 0.0f, 0.0f)), scale(Vector3(1.0f, 1.0f, 1.0f)), parent(nullptr)
 {
 }
 
-Transform::Transform(Vector3 pos)
+TransformComponent::TransformComponent(Vector3 pos)
 	: position(pos), rotation(Vector3(0.0f, 0.0f, 0.0f)), scale(Vector3(1.0f, 1.0f, 1.0f)), parent(nullptr)
 {
 
 }
 
-Transform::Transform(Vector3 pos, Vector3 rot)
+TransformComponent::TransformComponent(Vector3 pos, Vector3 rot)
 	: position(pos), rotation(rot), scale(Vector3(1.0f, 1.0f, 1.0f)), parent(nullptr)
 {
 
 }
 
-Transform::Transform(Vector3 pos, Vector3 rot, Vector3 scale)
+TransformComponent::TransformComponent(Vector3 pos, Vector3 rot, Vector3 scale)
 	: position(pos), rotation(rot), scale(scale), parent(nullptr)
 {
 
 }
 
-Transform::~Transform()
+TransformComponent::~TransformComponent()
 {
 	
 }
 
-void Transform::SetParent(Transform* newParent)
+void TransformComponent::SetParent(TransformComponent* newParent)
 {
 	parent = newParent;
 }
 
-Transform* Transform::GetParent()
+TransformComponent* TransformComponent::GetParent()
 {
 	return parent;
 }

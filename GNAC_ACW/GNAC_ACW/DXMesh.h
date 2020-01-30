@@ -8,7 +8,6 @@ class DXMesh
 public:
 
 	DXMesh(ID3D11Device*);
-	DXMesh(const DXMesh&);
 	~DXMesh();
 
 	int GetIndexCount() { return m_iCount; }
@@ -27,4 +26,6 @@ private:
 
 	ID3D11Buffer *m_vBuffer, *m_iBuffer;
 	int m_vCount, m_iCount;
+
+	DXMesh(const DXMesh&);
 };

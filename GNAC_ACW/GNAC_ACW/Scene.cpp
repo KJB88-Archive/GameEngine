@@ -15,7 +15,7 @@ Scene::~Scene()
 
 void Scene::InitializeCoreResources()
 {
-	objects = std::vector<GameObject*>();
+	objects = std::vector<Entity*>();
 }
 
 const std::string& Scene::GetName()
@@ -23,7 +23,7 @@ const std::string& Scene::GetName()
 	return name;
 }
 
-void Scene::AddGameObject(GameObject* go)
+void Scene::AddGameObject(Entity* go)
 {
 	objects.push_back(go);
 }

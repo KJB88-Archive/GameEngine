@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <string>
-#include "GameObject.h"
+#include "Entity.h"
 
 class Scene
 {
@@ -15,11 +15,11 @@ public:
 
 	const std::string& GetName();
 
-	void AddGameObject(GameObject* go);
+	void AddGameObject(Entity* go);
 	void RemoveGameObject(const std::string& objName);
 
 protected:
-	std::vector<GameObject*> objects;
+	std::vector<Entity*> objects;
 
 private:
 

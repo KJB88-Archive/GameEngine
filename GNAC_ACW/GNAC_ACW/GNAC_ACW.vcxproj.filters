@@ -127,9 +127,6 @@
     <ClCompile Include="GameScene.cpp">
       <Filter>Game Files\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="TestObject.cpp">
-      <Filter>Deprecated</Filter>
-    </ClCompile>
     <ClCompile Include="Entity.cpp">
       <Filter>Source Files\Base</Filter>
     </ClCompile>
@@ -197,9 +194,6 @@
     </ClInclude>
     <ClInclude Include="RenderComponent.h">
       <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="TestObject.h">
-      <Filter>Deprecated</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
       <Filter>Header Files\Base</Filter>

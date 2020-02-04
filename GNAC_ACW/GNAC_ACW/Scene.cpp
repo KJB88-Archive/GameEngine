@@ -1,7 +1,7 @@
 #include "Scene.h"
 
-Scene::Scene(const std::string& name)
-	: name(name)
+Scene::Scene(const int id, const std::string& name)
+	: id(id), name(name)
 {
 	InitializeCoreResources();
 
@@ -10,12 +10,12 @@ Scene::Scene(const std::string& name)
 
 Scene::~Scene()
 {
-	objects.clear();
+	entities.clear();
 }
 
 void Scene::InitializeCoreResources()
 {
-	objects = std::vector<Entity*>();
+	entities = std::vector<Entity*>();
 }
 
 const std::string& Scene::GetName()
@@ -23,18 +23,40 @@ const std::string& Scene::GetName()
 	return name;
 }
 
-void Scene::AddGameObject(Entity* go)
+const int Scene::GetID()
 {
-	objects.push_back(go);
+	return id;
 }
 
-void Scene::RemoveGameObject(const std::string& objName)
+void Scene::AddEntity(Entity* go)
 {
-	for (int i = 0; i < objects.size(); ++i)
+	entities.emplace_back(go);
+}
+
+void Scene::RemoveEntity(const std::string& objName)
+{
+	// Loop through entities
+	for (int i = 0; i < entities.size(); ++i)
 	{
-		if (objects[i]->name == objName)
+		// Check if the entity name is matched
+		if (entities[i]->name == objName)
 		{
-			objects.erase(objects.begin() + i);
+			// Erase that entity
+			entities.erase(entities.begin() + i);
+		}
+	}
+}
+
+void Scene::RemoveEntity(const int id)
+{
+	// Loop through entities
+	for (int i = 0; i < entities.size(); ++i)
+	{
+		// Check if entity id is matched
+		if (entities[i]->id == id)
+		{
+			// Erase that entity
+			entities.erase(entities.begin() + i);
 		}
 	}
 }

@@ -27,12 +27,13 @@ public:
 	// Platform independent resource setup
 	//void CreateShader();
 	//void CreateCamera();
+	static GraphicsManager* instance;
 
 	bool OnFrame();
 
 	// Renering
 	void BeginScene();
-	void Draw();
+	void Draw(DXMesh* mesh);
 	void EndScene();
 
 private:

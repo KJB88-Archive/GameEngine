@@ -37,7 +37,7 @@ void SceneManager::UpdateScene(float deltaTime)
 	scenes.front()->Update(deltaTime);
 }
 
-void SceneManager::RenderScene(GraphicsManager* gm)
+void SceneManager::RenderScene()
 {
-
+	GetCurrentScene()->Render();
 }

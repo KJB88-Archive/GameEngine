@@ -24,20 +24,32 @@ public:
 	GraphicsManager(int width, int height, HWND);
 	virtual ~GraphicsManager();
 
+#ifdef DX_BUILD
+	DXRenderer* GetRenderer();
+#else
+	GLRenderer* GetRenderer();
+#endif
+
 	// Platform independent resource setup
 	//void CreateShader();
 	//void CreateCamera();
 
-	bool OnFrame();
+	static GraphicsManager* instance;
 
-	// Renering
+	//bool OnFrame();
+
+	// Pre-render setup
 	void BeginScene();
-	void Draw();
+
+	// Draw given mesh
+	void Draw(DXMesh* mesh);
+
+	// Flip swapchain
 	void EndScene();
 
 private:
 
-	bool Render();
+	//bool Render();
 
 
 #ifdef DX_BUILD

@@ -1,9 +1,13 @@
 #include "GraphicsManager.h"
 #include "TimeManager.h"
 
+GraphicsManager* GraphicsManager::instance = nullptr;
+
 GraphicsManager::GraphicsManager(int screenWidth, int screenHeight, HWND hWnd)
 	: Manager("Graphics Manager"), m_renderer(nullptr), m_mesh(nullptr), m_shader(nullptr), m_camera(nullptr)
 {
+	instance = this;
+
 #ifdef DX_BUILD 
 	m_renderer = new DXRenderer(screenWidth, screenHeight, hWnd, SCREEN_DEPTH, SCREEN_NEAR);
 	m_camera = new DXCamera();
@@ -43,6 +47,18 @@ GraphicsManager::~GraphicsManager()
 	}
 }
 
+#ifdef DX_BUILD
+DXRenderer* GraphicsManager::GetRenderer()
+{
+	return m_renderer;
+}
+#else
+GLRenderer* GraphicsManager::GetRenderer()
+{
+	return m_renderer;
+}
+#endif
+
 //bool GraphicsManager::OnFrame()
 //{
 //	bool result = Render();
@@ -65,9 +81,9 @@ void GraphicsManager::BeginScene()
 	m_renderer->GetProjectionMatrix(proj);
 }
 
-void GraphicsManager::Draw()
+void GraphicsManager::Draw(DXMesh* mesh)
 {
-	m_mesh->Render(m_renderer->GetContext());
+	mesh->Render(m_renderer->GetContext());
 }
 
 void GraphicsManager::EndScene()

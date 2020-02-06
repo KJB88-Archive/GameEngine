@@ -1,26 +1,28 @@
 #pragma once
 #include <vector>
 
-#include "Component.h"
-
+#include "IComponent.h"
+#include "GraphicsManager.h"
 class Entity
 {
 
 public:
-
+	
 	Entity(int id, const std::string& name);
 	virtual ~Entity();
 
 	const int id;
 	std::string name;
 
-	Component* const GetComponent(const std::string& componentName);
-	void AddComponent(Component* component);
+	IComponent* const GetComponent(const IComponent::ComponentTypes componentType);
+	void AddComponent(IComponent* component);
 
+	void Draw();
 private:
 
 	// Component container
-	std::vector<Component*> components;
+	std::vector<IComponent*> components;
 
 	Entity(const Entity& other);
+
 };

@@ -1,16 +1,30 @@
 #pragma once
-#include "Component.h"
+#include "IComponent.h"
+#include "DXMesh.h"
+#include "GraphicsManager.h"
 
-class RenderComponent
-	: Component
+class RenderComponent : public IComponent
 {
 public:
 	RenderComponent();
 	virtual ~RenderComponent();
 
+	// Inherited via IComponent
+	virtual ComponentTypes ComponentType() override;
+
+	DXMesh* mesh;
+
+	void Draw();
+
 private:
+
+	// TEMP SINGLE
+	GraphicsManager* gm;
+
+	// TODO - Replace with generic wrappers
+	//DXShader* shader;
 
 	// Shader* shader;
 	// Mesh* mesh;
-	// Material* mat // color, tex, etc
+	// Material* mat // colour, tex, normalmap, etc
 };

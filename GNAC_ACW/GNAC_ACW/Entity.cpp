@@ -1,11 +1,12 @@
 #include "Entity.h"
+#include "RenderComponent.h"
 
 Entity::Entity(int id, const std::string& name)
 	: id(id), name(name)
 {
-	components = std::vector<Component*>();
+	components = std::vector<IComponent*>();
 
-	printf("GAMEOBJECT: %i : %s created.\n", id, name.c_str());
+	printf("GAMEOBJECT: %i:%s created.\n", id, name.c_str());
 }
 
 Entity::~Entity()
@@ -13,11 +14,11 @@ Entity::~Entity()
 	components.clear();
 }
 
-Component* const Entity::GetComponent(const std::string& componentName)
+IComponent* const Entity::GetComponent(const IComponent::ComponentTypes componentType)
 {
-	for (int i = 0; i < components.size(); ++i)
+	for (int i = 0; i < (int)components.size(); i++)
 	{
-		if (components[i]->GetName() == componentName)
+		if (components[i]->ComponentType() == componentType)
 		{
 
 			return components[i];
@@ -25,7 +26,13 @@ Component* const Entity::GetComponent(const std::string& componentName)
 	}
 }
 
-void Entity::AddComponent(Component* component)
+void Entity::AddComponent(IComponent* component)
 {
 	components.push_back(component);
+}
+
+void Entity::Draw()
+{
+	RenderComponent* rc = (RenderComponent*)GetComponent(IComponent::COMPONENT_RENDER);
+	rc->Draw();
 }

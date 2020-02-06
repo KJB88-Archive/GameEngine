@@ -174,8 +174,8 @@ bool Game::OnFrame()
 
 	// Render
 	m_graphics->BeginScene();
-	//m_scene->RenderScene(m_graphics); // Main render call
-	m_graphics->Draw();
+	m_scene->RenderScene(); // Main render call
+	//m_graphics->Draw();
 	m_graphics->EndScene();
 
 	return true;

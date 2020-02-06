@@ -20,7 +20,7 @@ public:
 	Scene* GetCurrentScene();
 
 	void UpdateScene(float deltaTime);
-	void RenderScene(GraphicsManager* gm);
+	void RenderScene();
 
 private:
 

@@ -162,7 +162,9 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="IComponent.h" />
+    <ClInclude Include="ISystem.h" />
     <ClInclude Include="RenderComponent.h" />
+    <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="TimeManager.h" />

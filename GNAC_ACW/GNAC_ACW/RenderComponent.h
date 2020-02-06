@@ -23,8 +23,4 @@ private:
 
 	// TODO - Replace with generic wrappers
 	//DXShader* shader;
-private:
-	// Shader* shader;
-	// Mesh* mesh;
-	// Material* mat // colour, tex, normalmap, etc
 };

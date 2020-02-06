@@ -16,9 +16,6 @@
     <Filter Include="Header Files\DirectX">
       <UniqueIdentifier>{0d527c3c-361e-4e6b-a818-a122c5bf63d6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Core">
-      <UniqueIdentifier>{4d5f7a03-34e7-47f2-835b-95cd359e7c8b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Base">
       <UniqueIdentifier>{759138cf-24a1-475d-9c5c-c7b0337505f4}</UniqueIdentifier>
     </Filter>
@@ -30,9 +27,6 @@
     </Filter>
     <Filter Include="Source Files\DirectX">
       <UniqueIdentifier>{1be120f8-0462-4718-a481-1e7472ac4cc1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Core">
-      <UniqueIdentifier>{74d02415-d8d4-4bc1-9015-090fc1780c36}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Platform Independent Graphics">
       <UniqueIdentifier>{a8c029d4-ab70-45a4-8686-c87bab7b29d3}</UniqueIdentifier>
@@ -73,8 +67,14 @@
     <Filter Include="Source Files\Systems">
       <UniqueIdentifier>{10729ed2-0f9c-4599-b0cd-37f467dfc975}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Deprecated">
-      <UniqueIdentifier>{a26cb3b1-a470-4efa-bf06-076ec3fe606d}</UniqueIdentifier>
+    <Filter Include="Header Files\Systems">
+      <UniqueIdentifier>{e632cc90-1fa6-48c5-b2ec-fc977e19d519}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Managers">
+      <UniqueIdentifier>{74d02415-d8d4-4bc1-9015-090fc1780c36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Managers">
+      <UniqueIdentifier>{4d5f7a03-34e7-47f2-835b-95cd359e7c8b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -82,17 +82,14 @@
     <ClCompile Include="Mesh.cpp">
       <Filter>Source Files\Platform Independent Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="VBO_DX.cpp">
-      <Filter>Source Files\Platform Independent Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="GraphicsManager.cpp">
-      <Filter>Source Files\Core</Filter>
+      <Filter>Source Files\Managers</Filter>
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
-      <Filter>Source Files\Core</Filter>
+      <Filter>Source Files\Managers</Filter>
     </ClCompile>
     <ClCompile Include="TimeManager.cpp">
-      <Filter>Source Files\Core</Filter>
+      <Filter>Source Files\Managers</Filter>
     </ClCompile>
     <ClCompile Include="Vector3.cpp">
       <Filter>Source Files\Math</Filter>
@@ -101,10 +98,7 @@
       <Filter>Source Files\Base</Filter>
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
-      <Filter>Source Files\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Source Files\Core</Filter>
+      <Filter>Source Files\Managers</Filter>
     </ClCompile>
     <ClCompile Include="DXShader.cpp">
       <Filter>Source Files\DirectX</Filter>
@@ -132,6 +126,12 @@
     </ClCompile>
     <ClCompile Include="RenderComponent.cpp">
       <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VBO_DX.cpp">
+      <Filter>Source Files\DirectX</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -166,19 +166,16 @@
       <Filter>Header Files\DirectX</Filter>
     </ClInclude>
     <ClInclude Include="GraphicsManager.h">
-      <Filter>Header Files\Core</Filter>
+      <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="InputManager.h">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Header Files\Core</Filter>
+      <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="TimeManager.h">
-      <Filter>Header Files\Core</Filter>
+      <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
-      <Filter>Header Files\Core</Filter>
+      <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>Header Files\Base</Filter>
@@ -198,8 +195,17 @@
     <ClInclude Include="TransformComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="IComponent.h">
-      <Filter>Header Files\Base</Filter>
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderSystem.h">
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="ISystem.h">
+      <Filter>Header Files\Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

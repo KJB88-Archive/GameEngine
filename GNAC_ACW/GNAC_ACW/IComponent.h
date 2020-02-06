@@ -4,7 +4,6 @@
 class IComponent
 {
 public:
-
 	enum ComponentTypes
 	{
 		COMPONENT_NONE = 0,
@@ -12,14 +11,12 @@ public:
 		COMPONENT_RENDER = 1 << 1,
 
 	};
-
+	
 	IComponent(ComponentTypes type)
 	{
 		componentType = type;
 	};
-
 	~IComponent() {};
-
 	virtual ComponentTypes ComponentType() = 0;
 
 protected:

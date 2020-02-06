@@ -1,7 +1,6 @@
 #include "GameScene.h"
 #include "TransformComponent.h"
 #include "RenderComponent.h"
-#include "IComponent.h"
 
 GameScene::GameScene()
 	: Scene(0, "Game Scene")
@@ -9,6 +8,7 @@ GameScene::GameScene()
 	Entity* newEntity = new Entity(0, "New Entity");
 	newEntity->AddComponent(new TransformComponent(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(0.0f, 0.0f, 0.0f)));
 	newEntity->AddComponent(new RenderComponent());
+
 	AddEntity(newEntity);
 
 	//printf("SCENE: GameObject with name %s, exists at position %f, %f %f with a Component with name %s",

@@ -14,7 +14,6 @@ RenderComponent::~RenderComponent()
 {
 
 }
-
 IComponent::ComponentTypes RenderComponent::ComponentType()
 {
 	return componentType;

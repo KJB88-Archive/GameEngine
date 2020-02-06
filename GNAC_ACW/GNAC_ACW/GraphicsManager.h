@@ -33,6 +33,7 @@ public:
 	// Platform independent resource setup
 	//void CreateShader();
 	//void CreateCamera();
+	static GraphicsManager* instance;
 
 	static GraphicsManager* instance;
 

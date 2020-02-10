@@ -1,5 +1,7 @@
 #pragma once
 #include "Scene.h"
+#include "RenderSystem.h"
+
 class GameScene
 	: public Scene
 {
@@ -14,4 +16,6 @@ public:
 	virtual void Render();
 
 private:
+
+	RenderSystem* renderSystem;
 };

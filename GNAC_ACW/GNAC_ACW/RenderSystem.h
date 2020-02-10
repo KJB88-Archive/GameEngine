@@ -5,8 +5,7 @@ class RenderSystem
 {
 public:
 	RenderSystem(GraphicsManager* gm);
-	~RenderSystem();
-
+	virtual ~RenderSystem();
 
 private:
 

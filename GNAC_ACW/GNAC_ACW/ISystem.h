@@ -1,4 +1,6 @@
 #pragma once
+#include <vector>
+#include "Entity.h"
 
 class ISystem
 {
@@ -15,7 +17,9 @@ public:
 		systemType = type;
 	}
 
-	virtual SystemType SystemType() = 0;
+	virtual SystemType Type() = 0;
+	virtual void ProcessEntities(std::vector<Entity> entities) = 0;
+
 private:
 
 	SystemType systemType;

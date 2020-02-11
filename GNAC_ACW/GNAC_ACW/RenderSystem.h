@@ -11,14 +11,15 @@ public:
 
 	// Inherited via ISystem
 	virtual void ProcessEntities(std::vector<Entity*> entities) override;
-	virtual SystemType Type() override;
+	virtual SystemType GetType() override;
+
 private:
 
-	//const IComponent::ComponentTypes mask = 
-	//	(IComponent::COMPONENT_RENDER | IComponent::COMPONENT_TRANSFORM)
+	const IComponent::ComponentTypes MASK =
+		(IComponent::COMPONENT_RENDER | IComponent::COMPONENT_TRANSFORM);
 
-	// Ref to abstracted renderer
-	GraphicsManager* gm;
+		// Ref to abstracted renderer
+		GraphicsManager* gm;
 
 	RenderSystem(const RenderSystem& other);
 };

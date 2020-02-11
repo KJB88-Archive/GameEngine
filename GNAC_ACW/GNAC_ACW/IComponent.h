@@ -1,10 +1,11 @@
 #pragma once
 #include <string>
 
-// TODO - Make truly abstract
 class IComponent
 {
+
 public:
+
 	enum ComponentTypes
 	{
 		COMPONENT_NONE = 0,
@@ -12,7 +13,7 @@ public:
 		COMPONENT_RENDER = 1 << 1,
 
 	};
-	
+
 	IComponent(ComponentTypes type)
 	{
 		componentType = type;
@@ -20,6 +21,7 @@ public:
 
 	~IComponent() {};
 	virtual ComponentTypes ComponentType() = 0;
+
 
 protected:
 
@@ -29,3 +31,8 @@ private:
 	
 	IComponent(const IComponent& other);
 };
+
+inline IComponent::ComponentTypes operator|(IComponent::ComponentTypes a, IComponent::ComponentTypes b)
+{
+	return static_cast<IComponent::ComponentTypes>(static_cast<int>(a) | static_cast<int>(b));
+}

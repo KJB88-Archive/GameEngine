@@ -35,8 +35,6 @@ public:
 	//void CreateCamera();
 	static GraphicsManager* instance;
 
-	static GraphicsManager* instance;
-
 	//bool OnFrame();
 
 	// Pre-render setup

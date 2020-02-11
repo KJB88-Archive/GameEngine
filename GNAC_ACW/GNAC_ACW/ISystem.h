@@ -7,7 +7,7 @@ class ISystem
 {
 public:
 
-	
+
 	enum SystemType
 	{
 		SYSTEM_TRANSFORM,
@@ -19,10 +19,9 @@ public:
 		systemType = type;
 	}
 
-	virtual SystemType Type() = 0;
+	virtual SystemType GetType() = 0;
 	virtual void ProcessEntities(std::vector<Entity*> entities) = 0;
 
-private:
-
+protected:
 	SystemType systemType;
 };

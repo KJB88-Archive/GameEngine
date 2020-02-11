@@ -15,6 +15,7 @@ public:
 	std::string name;
 
 	IComponent* const GetComponent(const IComponent::ComponentTypes componentType);
+	std::vector<IComponent*> GetComponents();
 	void AddComponent(IComponent* component);
 
 	void Draw();

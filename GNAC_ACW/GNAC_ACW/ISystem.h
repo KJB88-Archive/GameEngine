@@ -1,11 +1,13 @@
 #pragma once
 #include <vector>
 #include "Entity.h"
+#include "IComponent.h"
 
 class ISystem
 {
 public:
 
+	
 	enum SystemType
 	{
 		SYSTEM_TRANSFORM,
@@ -18,7 +20,7 @@ public:
 	}
 
 	virtual SystemType Type() = 0;
-	virtual void ProcessEntities(std::vector<Entity> entities) = 0;
+	virtual void ProcessEntities(std::vector<Entity*> entities) = 0;
 
 private:
 

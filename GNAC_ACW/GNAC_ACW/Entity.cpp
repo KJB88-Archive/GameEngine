@@ -26,6 +26,11 @@ IComponent* const Entity::GetComponent(const IComponent::ComponentTypes componen
 	}
 }
 
+std::vector<IComponent*> Entity::GetComponents()
+{
+	return components;
+}
+
 void Entity::AddComponent(IComponent* component)
 {
 	components.push_back(component);

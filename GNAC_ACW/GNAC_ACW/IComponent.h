@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 
+// TODO - Make truly abstract
 class IComponent
 {
 public:
@@ -16,6 +17,7 @@ public:
 	{
 		componentType = type;
 	};
+
 	~IComponent() {};
 	virtual ComponentTypes ComponentType() = 0;
 

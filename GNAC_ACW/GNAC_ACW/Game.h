@@ -3,11 +3,14 @@
 #include "windowsx.h"
 #define WIN32_LEAN_AND_MEAN
 
-// Management Systems
+// Management
 #include "InputManager.h"
 #include "GraphicsManager.h"
 #include "TimeManager.h"
 #include "SceneManager.h"
+
+// Systems
+#include "RenderSystem.h"
 
 class Game
 {
@@ -29,10 +32,15 @@ private:
 	HINSTANCE m_hInstance;
 	HWND m_hWnd;
 
+	// Core Managers
 	InputManager* m_input;
 	GraphicsManager* m_graphics;
 	TimeManager* m_time;
 	SceneManager* m_scene;
+
+	// Systems
+	RenderSystem* m_renderSystem;
+
 
 	Game(const Game&) = delete;
 	Game* operator=(const Game&) = delete;

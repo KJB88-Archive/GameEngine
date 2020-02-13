@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include "Entity.h"
+#include "RenderSystem.h"
 
 class Scene
 {
@@ -11,7 +12,7 @@ public:
 	virtual ~Scene();
 
 	virtual void Update(float deltaTime) = 0;
-	virtual void Render() = 0;
+	virtual void Render(RenderSystem* renderer) = 0;
 
 	const int GetID();
 	const std::string& GetName();

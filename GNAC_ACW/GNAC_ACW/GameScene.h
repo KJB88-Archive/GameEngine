@@ -13,7 +13,7 @@ public:
 
 	virtual void Initialize();
 	virtual void Update(float deltaTime);
-	virtual void Render();
+	virtual void Render(RenderSystem* renderer);
 
 private:
 

@@ -19,8 +19,3 @@ IComponent::ComponentTypes RenderComponent::ComponentType()
 {
 	return componentType;
 }
-
-void RenderComponent::Draw()
-{
-	gm->Draw(mesh);
-}

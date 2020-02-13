@@ -16,7 +16,7 @@ public:
 private:
 
 	const IComponent::ComponentTypes MASK =
-		(IComponent::COMPONENT_RENDER | IComponent::COMPONENT_TRANSFORM);
+		(IComponent::COMPONENT_RENDER);
 
 		// Ref to abstracted renderer
 		GraphicsManager* gm;

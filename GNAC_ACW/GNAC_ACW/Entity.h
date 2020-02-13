@@ -18,7 +18,7 @@ public:
 	std::vector<IComponent*> GetComponents();
 	void AddComponent(IComponent* component);
 
-	void Draw();
+	//void Draw();
 private:
 
 	// Component container

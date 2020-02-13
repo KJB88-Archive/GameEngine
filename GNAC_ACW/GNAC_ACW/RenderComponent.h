@@ -14,7 +14,7 @@ public:
 
 	DXMesh* mesh;
 
-	void Draw();
+	//void Draw();
 
 private:
 

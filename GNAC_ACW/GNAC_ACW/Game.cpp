@@ -9,6 +9,7 @@ Game::Game()
 	// Initialize the Window
 	InitializeWindows(screenWidth, screenHeight);
 
+	// MANAGERS
 	// Create Time Manager
 	m_time = new TimeManager();
 	if (!m_time)
@@ -35,6 +36,14 @@ Game::Game()
 	if (!m_scene)
 	{
 		printf("GAME: Unable to create SceneManager object.\n");
+	}
+
+	// SYSTEMS
+	// Create Render System
+	m_renderSystem = new RenderSystem(m_graphics);
+	if (!m_renderSystem)
+	{
+		printf("GAME: Unable to create RenderSystem object.\n");
 	}
 }
 
@@ -174,7 +183,7 @@ bool Game::OnFrame()
 
 	// Render
 	m_graphics->BeginScene();
-	m_scene->RenderScene(); // Main render call
+	m_scene->RenderScene(m_renderSystem); // Main render call
 	//m_graphics->Draw();
 	m_graphics->EndScene();
 

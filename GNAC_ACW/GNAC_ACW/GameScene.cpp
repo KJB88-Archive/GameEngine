@@ -39,7 +39,8 @@ void GameScene::Update(float deltaTime)
 
 }
 
-void GameScene::Render()
+void GameScene::Render(RenderSystem* render)
 {
-	entities[0]->Draw();
+	render->ProcessEntities(entities);
+	//entities[0]->Draw();
 }

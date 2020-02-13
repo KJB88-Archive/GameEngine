@@ -36,8 +36,8 @@ void Entity::AddComponent(IComponent* component)
 	components.push_back(component);
 }
 
-void Entity::Draw()
-{
-	RenderComponent* rc = (RenderComponent*)GetComponent(IComponent::COMPONENT_RENDER);
-	rc->Draw();
-}
+//void Entity::Draw()
+//{
+//	RenderComponent* rc = (RenderComponent*)GetComponent(IComponent::COMPONENT_RENDER);
+//	rc->Draw();
+//}

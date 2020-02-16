@@ -4,9 +4,9 @@
 #define WIN32_LEAN_AND_MEAN
 
 // Management
-#include "InputManager.h"
-#include "GraphicsManager.h"
-#include "TimeManager.h"
+#include "Input.h"
+#include "Graphics.h"
+#include "Time.h"
 #include "SceneManager.h"
 
 // Systems
@@ -33,9 +33,9 @@ private:
 	HWND m_hWnd;
 
 	// Core Managers
-	InputManager* m_input;
-	GraphicsManager* m_graphics;
-	TimeManager* m_time;
+	Input* m_input;
+	Graphics* m_graphics;
+	Time* m_time;
 	SceneManager* m_scene;
 
 	// Systems

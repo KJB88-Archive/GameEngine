@@ -1,25 +1,25 @@
 #pragma once
 #include "ISystem.h"
 
-#include "GraphicsManager.h"
+#include "Graphics.h"
 
-class RenderSystem : ISystem
+class RenderSystem 
+	: public ISystem
 {
 public:
-	RenderSystem(GraphicsManager* gm);
+	RenderSystem(Graphics* graphics);
 	virtual ~RenderSystem();
 
 	// Inherited via ISystem
 	virtual void ProcessEntities(std::vector<Entity*> entities) override;
-	virtual SystemType GetType() override;
 
 private:
 
 	const IComponent::ComponentTypes MASK =
 		(IComponent::COMPONENT_RENDER);
 
-		// Ref to abstracted renderer
-		GraphicsManager* gm;
+		// Ref to renderer
+		Graphics* graphics;
 
 	RenderSystem(const RenderSystem& other);
 };

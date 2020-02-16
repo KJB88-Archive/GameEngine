@@ -1,7 +1,7 @@
 #pragma once
 #include "Vertex.h"
 
-class GraphicsManager;
+class Graphics;
 
 class VBO
 {
@@ -10,8 +10,8 @@ public:
 	VBO() {};
 	virtual ~VBO() {};
 
-	virtual void Create(GraphicsManager* gm, Vertex vertices[], int noOfVerts) = 0;
-	virtual void Draw(GraphicsManager* gm) = 0;
+	virtual void Create(Graphics* gm, Vertex vertices[], int noOfVerts) = 0;
+	virtual void Draw(Graphics* gm) = 0;
 
 protected:
 

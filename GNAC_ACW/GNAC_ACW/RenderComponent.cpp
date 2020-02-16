@@ -1,5 +1,5 @@
 #include "RenderComponent.h"
-#include "GraphicsManager.h"
+#include "Graphics.h"
 
 RenderComponent::RenderComponent() 
 	: IComponent(COMPONENT_RENDER)

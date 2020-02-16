@@ -11,21 +11,21 @@ Game::Game()
 
 	// MANAGERS
 	// Create Time Manager
-	m_time = new TimeManager();
+	m_time = new Time();
 	if (!m_time)
 	{
 		printf("GAME: Unable to create TimeManager object.\n");
 	}
 
 	// Create Input Manager
-	m_input = new InputManager();
+	m_input = new Input();
 	if (!m_input)
 	{
 		printf("GAME: Unable to create InputManager object.\n");
 	}
 
 	// Create Graphics Manager
-	m_graphics = new GraphicsManager(screenWidth, screenHeight, m_hWnd);
+	m_graphics = new Graphics(screenWidth, screenHeight, m_hWnd);
 	if (!m_graphics)
 	{
 		printf("GAME: Unable to create GraphicsManager object.\n");

@@ -5,7 +5,7 @@
 #include <queue>
 
 // TEMP
-#include "GraphicsManager.h"
+#include "Graphics.h"
 
 class SceneManager
 	: Manager

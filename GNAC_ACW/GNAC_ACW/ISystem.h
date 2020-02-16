@@ -6,22 +6,27 @@
 class ISystem
 {
 public:
-
-
 	enum SystemType
 	{
-		SYSTEM_TRANSFORM,
-		SYSTEM_RENDER,
+		INPUT,
+		RENDER,
+		PHYSICS
 	};
 
 	ISystem(SystemType type)
+		: systemType(type)
 	{
-		systemType = type;
+
 	}
 
-	virtual SystemType GetType() = 0;
+	SystemType GetType()
+	{
+		return systemType;
+	}
+
 	virtual void ProcessEntities(std::vector<Entity*> entities) = 0;
 
 protected:
+
 	SystemType systemType;
 };

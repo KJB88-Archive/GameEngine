@@ -142,8 +142,8 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GameScene.cpp" />
-    <ClCompile Include="GraphicsManager.cpp" />
-    <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="Input.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Manager.cpp" />
     <ClCompile Include="Mesh.cpp" />
@@ -151,7 +151,7 @@
     <ClCompile Include="RenderSystem.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
-    <ClCompile Include="TimeManager.cpp" />
+    <ClCompile Include="Time.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
     <ClCompile Include="VBO_DX.cpp" />
     <ClCompile Include="Vector3.cpp" />
@@ -168,12 +168,12 @@
     <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="TimeManager.h" />
+    <ClInclude Include="Time.h" />
     <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="VBO_DX.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="GraphicsManager.h" />
-    <ClInclude Include="InputManager.h" />
+    <ClInclude Include="Graphics.h" />
+    <ClInclude Include="Input.h" />
     <ClInclude Include="Manager.h" />
     <ClInclude Include="DXShader.h" />
     <ClInclude Include="Mesh.h" />

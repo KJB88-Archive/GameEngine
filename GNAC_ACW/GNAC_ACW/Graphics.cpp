@@ -1,10 +1,11 @@
-#include "GraphicsManager.h"
-#include "TimeManager.h"
+#include "Graphics.h"
 
-GraphicsManager* GraphicsManager::instance = nullptr;
+#include "RenderSystem.h"
 
-GraphicsManager::GraphicsManager(int screenWidth, int screenHeight, HWND hWnd)
-	: Manager("Graphics Manager"), m_renderer(nullptr), m_mesh(nullptr), m_shader(nullptr), m_camera(nullptr)
+Graphics* Graphics::instance = nullptr;
+
+Graphics::Graphics(int screenWidth, int screenHeight, HWND hWnd)
+	: Manager("Graphics"), m_renderer(nullptr), m_mesh(nullptr), m_shader(nullptr), m_camera(nullptr)
 {
 	instance = this;
 
@@ -20,7 +21,7 @@ GraphicsManager::GraphicsManager(int screenWidth, int screenHeight, HWND hWnd)
 #endif
 }
 
-GraphicsManager::~GraphicsManager()
+Graphics::~Graphics()
 {
 	if (m_shader)
 	{
@@ -48,7 +49,7 @@ GraphicsManager::~GraphicsManager()
 }
 
 #ifdef DX_BUILD
-DXRenderer* GraphicsManager::GetRenderer()
+DXRenderer* Graphics::GetRenderer()
 {
 	return m_renderer;
 }
@@ -70,7 +71,12 @@ GLRenderer* GraphicsManager::GetRenderer()
 //	return true;
 //}
 
-void GraphicsManager::BeginScene()
+RenderSystem* Graphics::GetSystem()
+{
+
+}
+
+void Graphics::BeginScene()
 {
 	m_renderer->BeginScene(0.5f, 0.5f, 0.5f, 1.0f);
 
@@ -81,12 +87,12 @@ void GraphicsManager::BeginScene()
 	m_renderer->GetProjectionMatrix(proj);
 }
 
-void GraphicsManager::Draw(DXMesh* mesh)
+void Graphics::Draw(DXMesh* mesh)
 {
 	mesh->Render(m_renderer->GetContext());
 }
 
-void GraphicsManager::EndScene()
+void Graphics::EndScene()
 {
 	m_shader->Render(m_renderer->GetContext(), m_mesh->GetIndexCount(), world, view, proj);
 	m_renderer->EndScene();

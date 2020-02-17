@@ -16,13 +16,13 @@
 const float SCREEN_DEPTH = 1000.0f;
 const float SCREEN_NEAR = 0.1f;
 
-class GraphicsManager
+class Graphics
 	: public Manager
 {
 
 public:
-	GraphicsManager(int width, int height, HWND);
-	virtual ~GraphicsManager();
+	Graphics(int width, int height, HWND);
+	virtual ~Graphics();
 
 #ifdef DX_BUILD
 	DXRenderer* GetRenderer();
@@ -33,8 +33,9 @@ public:
 	// Platform independent resource setup
 	//void CreateShader();
 	//void CreateCamera();
-	static GraphicsManager* instance;
+	static Graphics* instance;
 
+	RenderSystem* GetSystem();
 	//bool OnFrame();
 
 	// Pre-render setup
@@ -50,6 +51,7 @@ private:
 
 	//bool Render();
 
+	std::vector<RenderSystem*> renderSystems;
 
 #ifdef DX_BUILD
 	DirectX::XMMATRIX world, view, proj;
@@ -61,6 +63,6 @@ private:
 	GLRenderer* m_renderer;
 #endif
 
-	GraphicsManager(const GraphicsManager&) = delete;
-	GraphicsManager* operator=(const GraphicsManager&) = delete;
+	Graphics(const Graphics&) = delete;
+	Graphics* operator=(const Graphics&) = delete;
 };

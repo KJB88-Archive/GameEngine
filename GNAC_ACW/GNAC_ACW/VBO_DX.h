@@ -16,8 +16,8 @@ public:
 	VBO_DX();
 	virtual ~VBO_DX();
 
-	virtual void Create(GraphicsManager* gm, Vertex vertices[], int noOfVerts);
-	virtual void Draw(GraphicsManager* gm);
+	virtual void Create(Graphics* gm, Vertex vertices[], int noOfVerts);
+	virtual void Draw(Graphics* gm);
 
 private:
 	Microsoft::WRL::ComPtr<ID3D11Buffer> m_vbo;

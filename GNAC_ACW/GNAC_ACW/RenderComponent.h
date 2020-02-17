@@ -1,7 +1,7 @@
 #pragma once
 #include "IComponent.h"
 #include "DXMesh.h"
-#include "GraphicsManager.h"
+#include "Graphics.h"
 
 class RenderComponent : public IComponent
 {
@@ -19,7 +19,7 @@ public:
 private:
 
 	// TEMP SINGLE
-	GraphicsManager* gm;
+	Graphics* gm;
 
 	// TODO - Replace with generic wrappers
 	//DXShader* shader;

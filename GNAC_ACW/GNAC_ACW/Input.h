@@ -1,11 +1,11 @@
 #pragma once
 #include "Manager.h"
-class InputManager
+class Input
 	: public Manager
 {
 public:
-	InputManager();
-	virtual ~InputManager();
+	Input();
+	virtual ~Input();
 
 	void KeyDown(unsigned int);
 	void KeyUp(unsigned int);
@@ -20,6 +20,6 @@ private:
 	bool m_keys[256];
 	bool m_LMB;
 
-	InputManager(const InputManager&) = delete;
-	InputManager* operator=(const InputManager&) = delete;
+	Input(const Input&) = delete;
+	Input* operator=(const Input&) = delete;
 };

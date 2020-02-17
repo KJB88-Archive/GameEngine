@@ -2,12 +2,12 @@
 #include <chrono>
 #include "Manager.h"
 
-class TimeManager
+class Time
 	: public Manager
 {
 public:
-	TimeManager();
-	~TimeManager();
+	Time();
+	~Time();
 
 	void Update();
 
@@ -21,6 +21,6 @@ private:
 	std::chrono::steady_clock::time_point m_previousTime;
 	float m_deltaTime;
 
-	TimeManager(const TimeManager&) = delete;
-	TimeManager& operator=(const TimeManager&) = delete;
+	Time(const Time&) = delete;
+	Time& operator=(const Time&) = delete;
 };

@@ -19,6 +19,7 @@ public:
 	const std::string& GetName();
 
 	void AddSystem(ISystem* system);
+	void RemoveSystem(ISystem::SystemType type);
 
 	void AddEntity(Entity* go);
 	void RemoveEntity(const std::string& objName);

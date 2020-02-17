@@ -16,6 +16,7 @@ Scene::~Scene()
 void Scene::InitializeCoreResources()
 {
 	entities = std::vector<Entity*>();
+	systems = std::vector<ISystem*>();
 }
 
 const std::string& Scene::GetName()
@@ -26,6 +27,22 @@ const std::string& Scene::GetName()
 const int Scene::GetID()
 {
 	return id;
+}
+
+void Scene::AddSystem(ISystem* system)
+{
+	systems.emplace_back(system);
+}
+
+void Scene::RemoveSystem(ISystem::SystemType type)
+{
+	for (int i = 0; i < systems.size; ++i)
+	{
+		if (systems[i]->GetType() == type)
+		{
+			systems.erase(systems.begin() + i);
+		}
+	}
 }
 
 void Scene::AddEntity(Entity* go)

@@ -25,8 +25,11 @@ public:
 private:
 
 	bool OnFrame();
-	void InitializeWindows(int&, int&);
-	void ShutdownWindows();
+	//void InitializeWindows(int&, int&);
+	//void ShutdownWindows();
+
+	void CreateCoreManagers(int&, int&);
+	void CreateSystems();
 
 	LPCSTR m_applicationName;
 	HINSTANCE m_hInstance;

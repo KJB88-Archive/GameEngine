@@ -1,13 +1,13 @@
 #pragma once
 #include "ISystem.h"
+class Graphics;
 
-#include "Graphics.h"
 
 class RenderSystem 
 	: public ISystem
 {
 public:
-	RenderSystem(Graphics* graphics);
+		RenderSystem(Graphics* graphics);
 	virtual ~RenderSystem();
 
 	// Inherited via ISystem

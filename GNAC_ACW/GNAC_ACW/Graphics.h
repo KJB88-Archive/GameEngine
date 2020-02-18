@@ -3,6 +3,8 @@
 
 #include "windows.h"
 #include "Manager.h"
+#include "RenderSystem.h"
+#include <vector>
 
 #ifdef DX_BUILD
 #include "DXRenderer.h"
@@ -50,8 +52,8 @@ public:
 private:
 
 	//bool Render();
-
-	std::vector<RenderSystem*> renderSystems;
+	RenderSystem* renderSystem;
+	//std::vector<RenderSystem*> renderSystems;
 
 #ifdef DX_BUILD
 	DirectX::XMMATRIX world, view, proj;

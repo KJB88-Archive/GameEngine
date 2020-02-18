@@ -36,7 +36,7 @@ void Scene::AddSystem(ISystem* system)
 
 void Scene::RemoveSystem(ISystem::SystemType type)
 {
-	for (int i = 0; i < systems.size; ++i)
+	for (int i = 0; i < systems.size(); ++i)
 	{
 		if (systems[i]->GetType() == type)
 		{

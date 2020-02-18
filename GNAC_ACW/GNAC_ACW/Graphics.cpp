@@ -19,6 +19,8 @@ Graphics::Graphics(int screenWidth, int screenHeight, HWND hWnd)
 #else
 	m_renderer = new GLRenderer(screenWidth, screenHeight, hWnd, SCREEN_DEPTH, SCREEN_NEAR);
 #endif
+
+	
 }
 
 Graphics::~Graphics()
@@ -73,7 +75,12 @@ GLRenderer* GraphicsManager::GetRenderer()
 
 RenderSystem* Graphics::GetSystem()
 {
+	if (renderSystem == NULL)
+	{
+		renderSystem = new RenderSystem(this);
+	}
 
+	return renderSystem;
 }
 
 void Graphics::BeginScene()

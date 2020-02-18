@@ -1,11 +1,11 @@
 #include "RenderSystem.h"
 
 #include "RenderComponent.h"
+#include "Entity.h"
 
-RenderSystem::RenderSystem(Graphics* gm)
+RenderSystem::RenderSystem(Graphics* graphics)
 	: ISystem(RENDER), graphics(graphics)
 {
-	gm = gm->instance;
 }
 
 RenderSystem::~RenderSystem()

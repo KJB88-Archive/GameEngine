@@ -1,6 +1,8 @@
 #include "Window.h"
 
-Window::Window(int& screenWidth, int& screenHeight)
+Window::Window(int& screenWidth, int& screenHeight, Input* input)
+	:input(input), appName(NULL), hInstance(NULL), hWnd(NULL),
+	screenWidth(screenWidth), screenHeight(screenHeight)
 {
 	WNDCLASSEX wc;
 	DEVMODE dmScreenSettings;
@@ -40,6 +42,11 @@ Window::Window(int& screenWidth, int& screenHeight)
 	ShowWindow(hWnd, SW_SHOW);
 	SetForegroundWindow(hWnd);
 	SetFocus(hWnd);
+
+	// Set up messaging
+	ZeroMemory(&msg, sizeof(MSG));
+
+	printf("WINDOW: Created and initialized.\n");
 }
 
 Window::~Window()
@@ -53,25 +60,58 @@ Window::~Window()
 	appHandle = nullptr;
 }
 
+HWND Window::GetHWND()
+{
+	return hWnd;
+}
+
+LPCSTR Window::GetAppName()
+{
+	return appName;
+}
+
+HINSTANCE Window::GetHINSTANCE()
+{
+	return hInstance;
+}
+
+bool Window::Messaging()
+{
+	// Handle Windows Messaging
+	if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+	{
+		TranslateMessage(&msg);
+		DispatchMessage(&msg);
+	}
+
+	// If exit signal
+	if (msg.message == WM_QUIT)
+	{
+		return true;
+	}
+
+	return false;
+}
+
 LRESULT CALLBACK Window::MessageHandler(HWND hWnd, UINT uMessage, WPARAM wParam, LPARAM lParam)
 {
 	switch (uMessage)
 	{
 		// Keyboard checks
 	case WM_KEYDOWN:
-		m_input->KeyDown((unsigned int)wParam);
+		input->KeyDown((unsigned int)wParam);
 		break;
 
 	case WM_KEYUP:
-		m_input->KeyUp((unsigned int)wParam);
+		input->KeyUp((unsigned int)wParam);
 		break;
 
 	case WM_LBUTTONDOWN:
-		m_input->MouseDown((unsigned int)wParam, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
+		input->MouseDown((unsigned int)wParam, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
 		break;
 
 	case WM_LBUTTONUP:
-		m_input->MouseUp((unsigned int)wParam, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
+		input->MouseUp((unsigned int)wParam, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
 		break;
 
 	default:
@@ -81,7 +121,6 @@ LRESULT CALLBACK Window::MessageHandler(HWND hWnd, UINT uMessage, WPARAM wParam,
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT uMessage, WPARAM wParam, LPARAM lParam)
 {
-
 	switch (uMessage)
 	{
 	case WM_DESTROY:
@@ -93,6 +132,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMessage, WPARAM wParam, LPARAM lParam)
 		return 0;
 
 	default:
-		return ApplicationHandle->MessageHandler(hWnd, uMessage, wParam, lParam);
+		return appHandle->MessageHandler(hWnd, uMessage, wParam, lParam);
 	}
 }

@@ -3,6 +3,10 @@
 #include "windowsx.h"
 #define WIN32_LEAN_AND_MEAN
 
+// Window
+#include "Window.h"
+
+
 // Management
 #include "Input.h"
 #include "Graphics.h"
@@ -20,7 +24,7 @@ public:
 
 	void Run();
 
-	LRESULT CALLBACK MessageHandler(HWND, UINT, WPARAM, LPARAM);
+	//LRESULT CALLBACK MessageHandler(HWND, UINT, WPARAM, LPARAM);
 
 private:
 
@@ -30,24 +34,27 @@ private:
 
 	void CreateCoreManagers(int&, int&);
 	void CreateSystems();
+	void InitializeWindow(int&, int&);
 
-	LPCSTR m_applicationName;
-	HINSTANCE m_hInstance;
-	HWND m_hWnd;
+	//LPCSTR m_applicationName;
+	//HINSTANCE m_hInstance;
+	//HWND m_hWnd;
+
+	Window* window;
 
 	// Core Managers
-	Input* m_input;
-	Graphics* m_graphics;
-	Time* m_time;
-	SceneManager* m_scene;
+	Input* input;
+	Graphics* graphics;
+	Time* time;
+	SceneManager* sceneManager;
 
 	// Systems
-	RenderSystem* m_renderSystem;
+	RenderSystem* renderSystem;
 
 
 	Game(const Game&) = delete;
 	Game* operator=(const Game&) = delete;
 };
-
-static LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
-static Game* ApplicationHandle = 0;
+//
+//static LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
+//static Game* ApplicationHandle = 0;

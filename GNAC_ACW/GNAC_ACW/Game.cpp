@@ -1,7 +1,7 @@
 #include "Game.h"
 
 Game::Game()
-	: m_input(nullptr), m_graphics(nullptr), m_time(nullptr), m_scene(nullptr)
+	: input(nullptr), graphics(nullptr), time(nullptr), sceneManager(nullptr)
 {
 	int screenWidth = 0, screenHeight = 0;
 	bool result;
@@ -9,34 +9,36 @@ Game::Game()
 	// Initialize the Window
 	//InitializeWindows(screenWidth, screenHeight);
 
+	InitializeWindow(screenWidth, screenHeight);
 	CreateCoreManagers(screenWidth, screenHeight);
 	CreateSystems();
+
 }
 
 Game::~Game()
 {
-	if (m_time)
+	if (time)
 	{
-		delete m_time;
-		m_time = nullptr;
+		delete time;
+		time = nullptr;
 	}
 
-	if (m_graphics)
+	if (graphics)
 	{
-		delete m_graphics;
-		m_graphics = nullptr;
+		delete graphics;
+		graphics = nullptr;
 	}
 
-	if (m_input)
+	if (input)
 	{
-		delete m_input;
-		m_input = nullptr;
+		delete input;
+		input = nullptr;
 	}
 
-	if (m_scene)
+	if (sceneManager)
 	{
-		delete m_scene;
-		m_scene = nullptr;
+		delete sceneManager;
+		sceneManager = nullptr;
 	}
 
 	//ShutdownWindows();
@@ -45,29 +47,29 @@ Game::~Game()
 void Game::CreateCoreManagers(int& screenWidth, int& screenHeight)
 {
 	// Create Time Manager
-	m_time = new Time();
-	if (!m_time)
+	time = new Time();
+	if (!time)
 	{
 		printf("GAME: Unable to create TimeManager object.\n");
 	}
 
 	// Create Input Manager
-	m_input = new Input();
-	if (!m_input)
+	input = new Input();
+	if (!input)
 	{
 		printf("GAME: Unable to create InputManager object.\n");
 	}
 
 	// Create Graphics Manager
-	m_graphics = new Graphics(screenWidth, screenHeight, m_hWnd);
-	if (!m_graphics)
+	graphics = new Graphics(screenWidth, screenHeight, window->GetHWND());
+	if (!graphics)
 	{
 		printf("GAME: Unable to create GraphicsManager object.\n");
 	}
 
 	// Create Scene Manager
-	m_scene = new SceneManager();
-	if (!m_scene)
+	sceneManager = new SceneManager();
+	if (!sceneManager)
 	{
 		printf("GAME: Unable to create SceneManager object.\n");
 	}
@@ -76,11 +78,16 @@ void Game::CreateCoreManagers(int& screenWidth, int& screenHeight)
 void Game::CreateSystems()
 {
 // Create Render System
-	m_renderSystem = new RenderSystem(m_graphics);
-	if (!m_renderSystem)
+	renderSystem = new RenderSystem(graphics);
+	if (!renderSystem)
 	{
 		printf("GAME: Unable to create RenderSystem object.\n");
 	}
+}
+
+void Game::InitializeWindow(int& screenWidth, int& screenHeight)
+{
+	window = new Window(screenWidth, screenHeight, input);
 }
 
 //void Game::InitializeWindows(int& screenWidth, int& screenHeight)
@@ -140,23 +147,12 @@ void Game::Run()
 {
 	MSG msg;
 	bool done, result;
-
-	// Init. MSG
-	ZeroMemory(&msg, sizeof(MSG));
-
 	// Loop until quit
 	done = false;
 	while (!done)
 	{
-		// Handle Windows Messaging
-		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
-		{
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
-		}
-
-		// If exit signal
-		if (msg.message == WM_QUIT)
+		// Window messaging
+		if (window->Messaging())
 		{
 			done = true;
 		}
@@ -164,6 +160,8 @@ void Game::Run()
 		{
 			// Loop game logic
 			result = OnFrame();
+
+			// Game is over, exit 
 			if (!result)
 			{
 				done = true;
@@ -178,21 +176,20 @@ bool Game::OnFrame()
 {
 	bool result;
 
-	// Check if we want to close the application
-	// TODO - Replace with main menu??
-	if (m_input->IsKeyDown(VK_ESCAPE))
+	// If Escape is pressed, close the application
+	if (input->IsKeyDown(VK_ESCAPE))
 	{
 		return false;
 	}
 
 	// Update
-	m_scene->UpdateScene(m_time->GetDeltaTime()); // Main update call
+	sceneManager->UpdateScene(time->GetDeltaTime()); // Main update call
 
 	// Render
-	m_graphics->BeginScene();
-	m_scene->RenderScene(m_renderSystem); // Main render call
+	graphics->BeginScene();
+	sceneManager->RenderScene(renderSystem); // Main render call
 	//m_graphics->Draw();
-	m_graphics->EndScene();
+	graphics->EndScene();
 
 	return true;
 }

@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
-#include "Entity.h"
 #include "IComponent.h"
+class Entity;
 
 class ISystem
 {

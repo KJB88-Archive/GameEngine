@@ -24,21 +24,13 @@ public:
 
 	void Run();
 
-	//LRESULT CALLBACK MessageHandler(HWND, UINT, WPARAM, LPARAM);
-
 private:
 
 	bool OnFrame();
-	//void InitializeWindows(int&, int&);
-	//void ShutdownWindows();
 
 	void CreateCoreManagers(int&, int&);
 	void CreateSystems();
 	void InitializeWindow(int&, int&);
-
-	//LPCSTR m_applicationName;
-	//HINSTANCE m_hInstance;
-	//HWND m_hWnd;
 
 	Window* window;
 

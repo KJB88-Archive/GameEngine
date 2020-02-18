@@ -6,6 +6,8 @@
 #include <d3d11.h>
 #include <DirectXMath.h>
 
+#include "DX_VBO.h"
+
 class DXRenderer
 {
 public:
@@ -18,6 +20,8 @@ public:
 
 	ID3D11Device* GetDevice() { return m_device; }
 	ID3D11DeviceContext* GetContext() { return m_context; }
+
+	DX_VBO* CreateVBO();
 
 	void GetProjectionMatrix(DirectX::XMMATRIX&);
 	void GetWorldMatrix(DirectX::XMMATRIX&);

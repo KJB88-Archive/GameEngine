@@ -251,6 +251,10 @@ void DXRenderer::InitializeMatricesD3D(int screenWidth, int screenHeight, float 
 	m_ortho = XMMatrixOrthographicLH((float)screenWidth, (float)screenHeight, screenNear, screenDepth);
 }
 
+DX_VBO* DXRenderer::CreateVBO()
+{
+	return NULL;
+}
 void DXRenderer::BeginScene(float r, float g, float b, float a)
 {
 	float color[4];

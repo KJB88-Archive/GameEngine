@@ -4,10 +4,7 @@
 RenderComponent::RenderComponent() 
 	: IComponent(COMPONENT_RENDER)
 {
-	// Temp single
-	gm = gm->instance;
-
-	mesh = new DXMesh(gm->GetRenderer()->GetDevice());
+	mesh = new DXMesh(Graphics::instance->GetRenderer()->GetDevice());
 }
 
 RenderComponent::~RenderComponent()

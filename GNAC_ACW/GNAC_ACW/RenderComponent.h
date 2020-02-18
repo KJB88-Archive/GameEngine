@@ -3,7 +3,8 @@
 #include "DXMesh.h"
 #include "Graphics.h"
 
-class RenderComponent : public IComponent
+class RenderComponent 
+	: public IComponent
 {
 public:
 	RenderComponent();
@@ -14,13 +15,6 @@ public:
 
 	DXMesh* mesh;
 
-	//void Draw();
-
 private:
 
-	// TEMP SINGLE
-	Graphics* gm;
-
-	// TODO - Replace with generic wrappers
-	//DXShader* shader;
 };

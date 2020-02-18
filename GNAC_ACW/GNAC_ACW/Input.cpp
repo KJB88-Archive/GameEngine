@@ -1,4 +1,5 @@
 #include "Input.h"
+#include <string>
 
 Input::Input()
 	: Manager("Input")
@@ -8,6 +9,7 @@ Input::Input()
 	{
 		m_keys[i] = false;
 	}
+
 }
 
 Input::~Input()
@@ -17,7 +19,14 @@ Input::~Input()
 
 void Input::KeyDown(unsigned int input)
 {
-	m_keys[input] = true;
+	if (m_keys)
+	{
+		m_keys[input] = true;
+	}
+	else
+	{
+		printf("...");
+	}
 }
 
 void Input::KeyUp(unsigned int input)

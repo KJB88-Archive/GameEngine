@@ -1,12 +1,12 @@
 #pragma once
-#include "Resource.h"
+#include "Asset.h"
 #include <vector>
 
 class VBO;
 class Vertex;
 
 class Mesh
-	: public Resource
+	: public Asset
 {
 public:
 	Mesh(int id, std::string name);

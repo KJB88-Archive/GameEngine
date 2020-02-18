@@ -1,29 +1,20 @@
-#include "DXMesh.h"
+#include "DX_VBO.h"
+
+#include "Graphics.h"
 
 using namespace DirectX;
 
-DXMesh::DXMesh(ID3D11Device* device)
-	: m_vBuffer(nullptr), m_iBuffer(nullptr), m_vCount(0), m_iCount(0)
+DX_VBO::DX_VBO()
 {
-	InitializeBuffers(device);
+
 }
 
-DXMesh::~DXMesh()
+DX_VBO::~DX_VBO()
 {
-	if (m_iBuffer)
-	{
-		m_iBuffer->Release();
-		m_iBuffer = nullptr;
-	}
 
-	if (m_vBuffer)
-	{
-		m_vBuffer->Release();
-		m_vBuffer = nullptr;
-	}
 }
 
-void DXMesh::InitializeBuffers(ID3D11Device* device)
+void DX_VBO::Create(Graphics * graphics, Vertex vertices[], int noOfVerts)
 {
 	Vertex* vertices;
 	unsigned long* indices;
@@ -88,7 +79,7 @@ void DXMesh::InitializeBuffers(ID3D11Device* device)
 	result = device->CreateBuffer(&iBufferDesc, &iData, &m_iBuffer);
 	if (FAILED(result))
 	{
-		
+
 	}
 
 	delete[] vertices;
@@ -97,20 +88,7 @@ void DXMesh::InitializeBuffers(ID3D11Device* device)
 	indices = 0;
 }
 
-void DXMesh::Render(ID3D11DeviceContext* context)
+void DX_VBO::Draw(Graphics * graphics)
 {
-	RenderBuffers(context);
-}
 
-void DXMesh::RenderBuffers(ID3D11DeviceContext* context)
-{
-	unsigned int stride;
-	unsigned int offset;
-
-	stride = sizeof(Vertex);
-	offset = 0;
-
-	context->IASetVertexBuffers(0, 1, &m_vBuffer, &stride, &offset);
-	context->IASetIndexBuffer(m_iBuffer, DXGI_FORMAT_R32_UINT, 0);
-	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 }

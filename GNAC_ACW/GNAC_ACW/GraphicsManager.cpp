@@ -1,13 +1,13 @@
-#include "Graphics.h"
+#include "GraphicsManager.h"
+#include "TimeManager.h"
 
-#include "RenderSystem.h"
+GraphicsManager* GraphicsManager::instance = nullptr;
 
-Graphics* Graphics::instance = NULL;
-
-Graphics::Graphics(int screenWidth, int screenHeight, HWND hWnd)
-	: Manager("Graphics"), m_renderer(nullptr), m_mesh(nullptr), m_shader(nullptr), m_camera(nullptr)
+GraphicsManager::GraphicsManager(int screenWidth, int screenHeight, HWND hWnd)
+	: Manager("Graphics Manager"), m_renderer(nullptr), m_mesh(nullptr), m_shader(nullptr), m_camera(nullptr)
 {
 	instance = this;
+
 #ifdef DX_BUILD 
 	m_renderer = new DXRenderer(screenWidth, screenHeight, hWnd, SCREEN_DEPTH, SCREEN_NEAR);
 	m_camera = new DXCamera();
@@ -18,11 +18,9 @@ Graphics::Graphics(int screenWidth, int screenHeight, HWND hWnd)
 #else
 	m_renderer = new GLRenderer(screenWidth, screenHeight, hWnd, SCREEN_DEPTH, SCREEN_NEAR);
 #endif
-
-	
 }
 
-Graphics::~Graphics()
+GraphicsManager::~GraphicsManager()
 {
 	if (m_shader)
 	{
@@ -50,7 +48,7 @@ Graphics::~Graphics()
 }
 
 #ifdef DX_BUILD
-DXRenderer* Graphics::GetRenderer()
+DXRenderer* GraphicsManager::GetRenderer()
 {
 	return m_renderer;
 }
@@ -61,18 +59,18 @@ GLRenderer* GraphicsManager::GetRenderer()
 }
 #endif
 
+//bool GraphicsManager::OnFrame()
+//{
+//	bool result = Render();
+//	if (!result)
+//	{
+//		return false;
+//	}
+//
+//	return true;
+//}
 
-RenderSystem* Graphics::GetSystem()
-{
-	if (renderSystem == NULL)
-	{
-		renderSystem = new RenderSystem(this);
-	}
-
-	return renderSystem;
-}
-
-void Graphics::BeginScene()
+void GraphicsManager::BeginScene()
 {
 	m_renderer->BeginScene(0.5f, 0.5f, 0.5f, 1.0f);
 
@@ -83,13 +81,32 @@ void Graphics::BeginScene()
 	m_renderer->GetProjectionMatrix(proj);
 }
 
-void Graphics::Draw(DXMesh* mesh)
+void GraphicsManager::Draw(DXMesh* mesh)
 {
 	mesh->Render(m_renderer->GetContext());
 }
 
-void Graphics::EndScene()
+void GraphicsManager::EndScene()
 {
 	m_shader->Render(m_renderer->GetContext(), m_mesh->GetIndexCount(), world, view, proj);
 	m_renderer->EndScene();
 }
+
+//bool GraphicsManager::Render()
+//{
+//	DirectX::XMMATRIX world, view, proj;
+//	m_renderer->BeginScene(0.5f, 0.5f, 0.5f, 1.0f);
+//
+//	m_camera->Render();
+//
+//	m_renderer->GetWorldMatrix(world);
+//	m_camera->GetViewMatrix(view);
+//	m_renderer->GetProjectionMatrix(proj);
+//
+//	m_mesh->Render(m_renderer->GetContext());
+//
+//	m_shader->Render(m_renderer->GetContext(), m_mesh->GetIndexCount(), world, view, proj);
+//	m_renderer->EndScene();
+//
+//	return true;
+//}

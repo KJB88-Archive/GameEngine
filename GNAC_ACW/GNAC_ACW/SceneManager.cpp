@@ -4,7 +4,10 @@
 SceneManager::SceneManager()
 	: Manager("Scene Manager")
 {
-	PushScene(new GameScene());
+	GameScene* newScene = new GameScene();
+	newScene->Initialize();
+
+	PushScene(newScene);
 }
 
 SceneManager::~SceneManager()

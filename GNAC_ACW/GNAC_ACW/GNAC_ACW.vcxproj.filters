@@ -43,9 +43,6 @@
     <Filter Include="Source Files\Components">
       <UniqueIdentifier>{6cc03717-e6f5-4e73-9b24-38b0258bed95}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\GameObjects">
-      <UniqueIdentifier>{7b1bd2b6-ff81-44b5-a46d-b7a145c3c62f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game Files">
       <UniqueIdentifier>{ef672763-4612-4b6c-9416-87343e241f75}</UniqueIdentifier>
     </Filter>
@@ -121,9 +118,6 @@
     <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="VBO_DX.cpp">
-      <Filter>Source Files\DirectX</Filter>
-    </ClCompile>
     <ClCompile Include="RenderSystem.cpp">
       <Filter>Source Files\Systems</Filter>
     </ClCompile>
@@ -138,6 +132,12 @@
     </ClCompile>
     <ClCompile Include="Window.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Resources.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="DX_VBO.cpp">
+      <Filter>Source Files\DirectX</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -156,9 +156,6 @@
     <ClInclude Include="Manager.h">
       <Filter>Header Files\Base</Filter>
     </ClInclude>
-    <ClInclude Include="Resource.h">
-      <Filter>Header Files\Base</Filter>
-    </ClInclude>
     <ClInclude Include="Mesh.h">
       <Filter>Header Files\Platform Independent Graphics</Filter>
     </ClInclude>
@@ -167,9 +164,6 @@
     </ClInclude>
     <ClInclude Include="Vertex.h">
       <Filter>Header Files\Platform Independent Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="VBO_DX.h">
-      <Filter>Header Files\DirectX</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>Header Files\Managers</Filter>
@@ -215,6 +209,15 @@
     </ClInclude>
     <ClInclude Include="Window.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resources.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Asset.h">
+      <Filter>Header Files\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="DX_VBO.h">
+      <Filter>Header Files\DirectX</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

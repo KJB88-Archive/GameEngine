@@ -2,7 +2,7 @@
 #include "Vertex.h"
 
 Mesh::Mesh(int id, std::string name)
-	: Resource(id, name, MESH)
+	: Asset(id, name, MESH)
 {
 
 }

@@ -2,6 +2,7 @@
 #define DX_BUILD = 1;
 
 #include "windows.h"
+#include "Manager.h"
 
 #ifdef DX_BUILD
 #include "DXRenderer.h"
@@ -12,20 +13,16 @@
 #include "GLRenderer.h"
 #endif
 
-#include "Manager.h"
-#include "RenderSystem.h"
-#include "VBO.h"
-
 const float SCREEN_DEPTH = 1000.0f;
 const float SCREEN_NEAR = 0.1f;
 
-class Graphics
+class GraphicsManager
 	: public Manager
 {
 
 public:
-	Graphics(int width, int height, HWND);
-	virtual ~Graphics();
+	GraphicsManager(int width, int height, HWND);
+	virtual ~GraphicsManager();
 
 #ifdef DX_BUILD
 	DXRenderer* GetRenderer();
@@ -36,11 +33,8 @@ public:
 	// Platform independent resource setup
 	//void CreateShader();
 	//void CreateCamera();
-	static Graphics* instance;
+	static GraphicsManager* instance;
 
-	static VBO* CreateVBO();
-
-	RenderSystem* GetSystem();
 	//bool OnFrame();
 
 	// Pre-render setup
@@ -55,8 +49,7 @@ public:
 private:
 
 	//bool Render();
-	RenderSystem* renderSystem;
-	//std::vector<RenderSystem*> renderSystems;
+
 
 #ifdef DX_BUILD
 	DirectX::XMMATRIX world, view, proj;
@@ -68,6 +61,6 @@ private:
 	GLRenderer* m_renderer;
 #endif
 
-	Graphics(const Graphics&) = delete;
-	Graphics* operator=(const Graphics&) = delete;
+	GraphicsManager(const GraphicsManager&) = delete;
+	GraphicsManager* operator=(const GraphicsManager&) = delete;
 };

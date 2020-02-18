@@ -1,11 +1,11 @@
 #pragma once
 #include "Manager.h"
-class Input
+class InputManager
 	: public Manager
 {
 public:
-	Input();
-	virtual ~Input();
+	InputManager();
+	virtual ~InputManager();
 
 	void KeyDown(unsigned int);
 	void KeyUp(unsigned int);
@@ -17,11 +17,9 @@ public:
 
 private:
 
-	// TODO - array is not existing for lifetime of Input,
-	// probably due to scope / non-ptr
 	bool m_keys[256];
 	bool m_LMB;
 
-	Input(const Input&) = delete;
-	Input* operator=(const Input&) = delete;
+	InputManager(const InputManager&) = delete;
+	InputManager* operator=(const InputManager&) = delete;
 };

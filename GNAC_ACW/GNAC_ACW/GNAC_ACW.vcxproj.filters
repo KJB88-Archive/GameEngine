@@ -139,6 +139,9 @@
     <ClCompile Include="DX_VBO.cpp">
       <Filter>Source Files\DirectX</Filter>
     </ClCompile>
+    <ClCompile Include="Vector4.cpp">
+      <Filter>Source Files\Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DXShader.h">
@@ -218,6 +221,9 @@
     </ClInclude>
     <ClInclude Include="DX_VBO.h">
       <Filter>Header Files\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector4.h">
+      <Filter>Header Files\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,6 @@
 #include "Mesh.h"
 #include "Vertex.h"
+#include "VBO.h"
 
 Mesh::Mesh(int id, std::string name)
 	: Asset(id, name, MESH)
@@ -17,7 +18,7 @@ const int Mesh::NoOfVerts()
 	return (int)m_vertices.size();
 }
 
-void Mesh::AddVertex(Vertex v)
+void Mesh::AddVertex(VertexStruct v)
 {
 	if (!m_locked)
 	{

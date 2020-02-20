@@ -15,7 +15,7 @@ public:
 	const int NoOfVerts();
 	VBO* GetVBO() const;
 
-	void AddVertex(VertexStruct v);
+	void AddVertex(Vertex v);
 	void Clear();
 	void DeleteVertex(int i);
 
@@ -23,6 +23,6 @@ private:
 
 	bool m_locked;
 	VBO* m_vbo;
-	std::vector<VertexStruct> m_vertices;
+	std::vector<Vertex> m_vertices;
 	int indices[];
 };

@@ -18,7 +18,7 @@ const int Mesh::NoOfVerts()
 	return (int)m_vertices.size();
 }
 
-void Mesh::AddVertex(VertexStruct v)
+void Mesh::AddVertex(Vertex v)
 {
 	if (!m_locked)
 	{

@@ -12,17 +12,28 @@ public:
 	Mesh(int id, std::string name);
 	virtual ~Mesh();
 
-	const int NoOfVerts();
+	// Getsets
+	const int NumVerts();
 	VBO* GetVBO() const;
+	Vertex GetVertex(int i);
+	Vertex& GetVertexRef(int i);
 
-	void AddVertex(Vertex v);
-	void Clear();
-	void DeleteVertex(int i);
+	// Vertex / VBO manip
+	VBO* CreateVBO(Graphics* graphics);
+
+	bool AddVertex(Vertex v);
+	bool Clear();
+	bool DeleteVertex(int i);
+
+	bool Reset();
 
 private:
 
-	bool m_locked;
-	VBO* m_vbo;
-	std::vector<Vertex> m_vertices;
+	// VBO
+	bool isLocked;
+	VBO* vbo;
+
+	// Mesh
+	std::vector<Vertex> vertices;
 	int indices[];
 };

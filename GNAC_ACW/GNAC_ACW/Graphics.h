@@ -38,7 +38,7 @@ public:
 	//void CreateCamera();
 	static Graphics* instance;
 
-	static VBO* CreateVBO();
+	VBO* CreateVBO();
 
 	RenderSystem* GetSystem();
 	//bool OnFrame();
@@ -47,7 +47,7 @@ public:
 	void BeginScene();
 
 	// Draw given mesh
-	void Draw(DXMesh* mesh);
+	//void Draw(Mesh* mesh);
 
 	// Flip swapchain
 	void EndScene();

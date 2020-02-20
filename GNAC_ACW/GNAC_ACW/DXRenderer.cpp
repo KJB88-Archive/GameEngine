@@ -1,6 +1,8 @@
 #include "DXRenderer.h"
 #include "stdio.h"
 
+#include "DX_VBO.h"
+
 using namespace DirectX;
 
 DXRenderer::DXRenderer(int screenWidth, int screenHeight, HWND hwnd, float screenDepth, float screenNear)
@@ -251,10 +253,12 @@ void DXRenderer::InitializeMatricesD3D(int screenWidth, int screenHeight, float 
 	m_ortho = XMMatrixOrthographicLH((float)screenWidth, (float)screenHeight, screenNear, screenDepth);
 }
 
-DX_VBO* DXRenderer::CreateVBO()
+VBO* DXRenderer::CreateVBO(Vertex vertices[], int numVerts)
 {
-	return NULL;
+	DX_VBO* vbo = new DX_VBO();
+	vbo->Create() // TODO - Create pure abstraction of renderer to access this func
 }
+
 void DXRenderer::BeginScene(float r, float g, float b, float a)
 {
 	float color[4];

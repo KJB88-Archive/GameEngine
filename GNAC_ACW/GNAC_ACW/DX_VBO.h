@@ -4,8 +4,7 @@
 #include <d3d11.h>
 #include <d3dx11.h>
 #include <d3dx10.h>
-
-class DXRenderer;
+#include <DirectXMath.h>
 
 class DX_VBO
 	: public VBO
@@ -20,7 +19,6 @@ public:
 	virtual void Draw(Graphics* graphics) override;
 
 private:
-
 	struct DXVertex
 	{
 		DirectX::XMFLOAT3 position;

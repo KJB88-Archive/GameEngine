@@ -5,7 +5,7 @@
 Graphics* Graphics::instance = NULL;
 
 Graphics::Graphics(int screenWidth, int screenHeight, HWND hWnd)
-	: Manager("Graphics"), m_renderer(nullptr), m_mesh(nullptr), m_shader(nullptr), m_camera(nullptr)
+	: Manager("Graphics"), m_renderer(nullptr), m_shader(nullptr), m_camera(nullptr)
 {
 	instance = this;
 #ifdef DX_BUILD 
@@ -13,13 +13,12 @@ Graphics::Graphics(int screenWidth, int screenHeight, HWND hWnd)
 	m_camera = new DXCamera();
 	m_camera->SetPosition(0.0f, 0.0f, -5.0f);
 	m_shader = new DXShader(m_renderer->GetDevice());
-	m_mesh = new DXMesh(m_renderer->GetDevice());
 
 #else
 	m_renderer = new GLRenderer(screenWidth, screenHeight, hWnd, SCREEN_DEPTH, SCREEN_NEAR);
 #endif
 
-	
+
 }
 
 Graphics::~Graphics()
@@ -28,12 +27,6 @@ Graphics::~Graphics()
 	{
 		delete m_shader;
 		m_shader = nullptr;
-	}
-
-	if (m_mesh)
-	{
-		delete m_mesh;
-		m_mesh = nullptr;
 	}
 
 	if (m_camera)
@@ -49,17 +42,10 @@ Graphics::~Graphics()
 	}
 }
 
-#ifdef DX_BUILD
-DXRenderer* Graphics::GetRenderer()
+IRenderer* Graphics::GetRenderer()
 {
 	return m_renderer;
 }
-#else
-GLRenderer* GraphicsManager::GetRenderer()
-{
-	return m_renderer;
-}
-#endif
 
 
 RenderSystem* Graphics::GetSystem()
@@ -72,6 +58,13 @@ RenderSystem* Graphics::GetSystem()
 	return renderSystem;
 }
 
+VBO* Graphics::CreateVBO(Vertex vertices[], int numVerts)
+{
+	VBO* vbo;
+	vbo = m_renderer->CreateVBO(vertices, numVerts);
+	return vbo;
+}
+
 void Graphics::BeginScene()
 {
 	m_renderer->BeginScene(0.5f, 0.5f, 0.5f, 1.0f);
@@ -82,11 +75,11 @@ void Graphics::BeginScene()
 	m_camera->GetViewMatrix(view);
 	m_renderer->GetProjectionMatrix(proj);
 }
-
-void Graphics::Draw(DXMesh* mesh)
-{
-	mesh->Render(m_renderer->GetContext());
-}
+//
+//void Graphics::Draw(Mesh* mesh)
+//{
+//	mesh->Render(m_renderer->GetContext());
+//}
 
 void Graphics::EndScene()
 {

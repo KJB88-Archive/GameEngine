@@ -14,8 +14,9 @@ DX_VBO::~DX_VBO()
 
 }
 
-void DX_VBO::Create(Graphics* graphics, Vertex vertices[], int noOfVerts)
+void DX_VBO::Create(IRenderDevice* device, Vertex vertices[], int noOfVerts)
 {
+	ID3D11Device* dxDevice = (ID3D11Device*)device;
 	DXVertex* dxVerts;
 	unsigned long* indices;
 	D3D11_BUFFER_DESC vBufferDesc, iBufferDesc;
@@ -65,8 +66,7 @@ void DX_VBO::Create(Graphics* graphics, Vertex vertices[], int noOfVerts)
 	vData.SysMemPitch = 0;
 	vData.SysMemSlicePitch = 0;
 
-	graphics->GetRenderer()->GetDevice()
-		->CreateBuffer(&vBufferDesc, &vData, &m_vBuffer);
+	dxDevice->CreateBuffer(&vBufferDesc, &vData, &m_vBuffer);
 
 	iBufferDesc.Usage = D3D11_USAGE_DEFAULT;
 	iBufferDesc.ByteWidth = sizeof(unsigned long) * m_iCount;
@@ -79,7 +79,7 @@ void DX_VBO::Create(Graphics* graphics, Vertex vertices[], int noOfVerts)
 	iData.SysMemPitch = 0;
 	iData.SysMemSlicePitch = 0;
 
-	result = graphics->GetRenderer()->GetDevice()->CreateBuffer(&iBufferDesc, &iData, &m_iBuffer);
+	result = dxDevice->CreateBuffer(&iBufferDesc, &iData, &m_iBuffer);
 	if (FAILED(result))
 	{
 		// check result
@@ -91,7 +91,7 @@ void DX_VBO::Create(Graphics* graphics, Vertex vertices[], int noOfVerts)
 	indices = 0;
 }
 
-void DX_VBO::Draw(Graphics * graphics)
-{
-
-}
+//void DX_VBO::Draw(Graphics * graphics)
+//{
+//
+//}

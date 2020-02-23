@@ -7,7 +7,7 @@
 #include "DXRenderer.h"
 #include "DXShader.h"
 #include "DXCamera.h"
-#include "DXMesh.h"
+#include "DX_VBO.h"
 #else
 #include "GLRenderer.h"
 #endif
@@ -27,27 +27,17 @@ public:
 	Graphics(int width, int height, HWND);
 	virtual ~Graphics();
 
-#ifdef DX_BUILD
-	DXRenderer* GetRenderer();
-#else
-	GLRenderer* GetRenderer();
-#endif
+	IRenderer* GetRenderer();
 
-	// Platform independent resource setup
-	//void CreateShader();
-	//void CreateCamera();
+	// TODO - TEMP
 	static Graphics* instance;
 
-	VBO* CreateVBO();
+	VBO* CreateVBO(Vertex vertices[], int numVerts);
 
 	RenderSystem* GetSystem();
-	//bool OnFrame();
 
 	// Pre-render setup
 	void BeginScene();
-
-	// Draw given mesh
-	//void Draw(Mesh* mesh);
 
 	// Flip swapchain
 	void EndScene();
@@ -58,10 +48,11 @@ private:
 	RenderSystem* renderSystem;
 	//std::vector<RenderSystem*> renderSystems;
 
+	IRenderer* m_renderer;
 #ifdef DX_BUILD
 	DirectX::XMMATRIX world, view, proj;
-	DXRenderer* m_renderer;
-	DXMesh* m_mesh;
+	//DXRenderer* m_renderer;
+	//Mesh* mesh;
 	DXCamera* m_camera;
 	DXShader* m_shader;
 #else

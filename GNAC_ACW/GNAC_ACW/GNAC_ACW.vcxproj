@@ -83,7 +83,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;DX_BUILD;GL_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
     </ClCompile>
@@ -166,6 +166,9 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="IComponent.h" />
+    <ClInclude Include="IRenderContext.h" />
+    <ClInclude Include="IRenderDevice.h" />
+    <ClInclude Include="IRenderer.h" />
     <ClInclude Include="ISystem.h" />
     <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="RenderSystem.h" />

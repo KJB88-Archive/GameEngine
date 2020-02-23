@@ -6,25 +6,27 @@
 #include <d3d11.h>
 #include <DirectXMath.h>
 
-#include "VBO.h"
+#include "DX_VBO.h"
+#include "IRenderer.h"
 
 class DXRenderer
+	: public IRenderer
 {
 public:
 
-	DXRenderer(int, int, HWND, float, float);
+	DXRenderer(int screenWidth, int screenHeight, HWND hwnd, float screenDepth, float screenNear);
 	~DXRenderer();
 
 	// Scene rendering
-	void BeginScene(float, float, float, float);
-	void EndScene();
+	virtual void BeginScene(float r, float g, float b, float a) override;
+	virtual void EndScene() override;
 
 	// Core D3D Gets
-	ID3D11Device* GetDevice() { return m_device; }
-	ID3D11DeviceContext* GetContext() { return m_context; }
+	virtual IRenderDevice* GetDevice() override;
+	virtual IGraphicsContext* GetContext() override;
 
 	// VBO Creation
-	VBO* CreateVBO(Vertex vertices[], int numVerts);
+	virtual VBO* CreateVBO(Vertex vertices[], int numVerts) override;
 
 	// Matrices
 	void GetProjectionMatrix(DirectX::XMMATRIX&);
@@ -34,9 +36,9 @@ public:
 private:
 
 	// Initialize DX Resources
-	void InitializeCoreD3D(int, int, HWND);
-	void InitializeSecondaryD3D(int, int);
-	void InitializeMatricesD3D(int, int, float, float);
+	void InitializeCoreD3D(int screenWidth, int screenHeight, HWND hwnd);
+	void InitializeSecondaryD3D(int screenWidth, int screenHeight);
+	void InitializeMatricesD3D(int screenWidth, int screenHeight, float screenDepth, float screenNear);
 
 	// Core DX Resources
 	IDXGISwapChain* m_swapChain;

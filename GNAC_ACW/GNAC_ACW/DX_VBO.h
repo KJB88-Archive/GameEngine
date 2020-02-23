@@ -15,8 +15,8 @@ public:
 	virtual ~DX_VBO();
 
 	// Inherited via VBO
-	virtual void Create(Graphics* graphics, Vertex vertices[], int noOfVerts) override;
-	virtual void Draw(Graphics* graphics) override;
+	virtual void Create(IRenderDevice* device, Vertex vertices[], int noOfVerts) override;
+	virtual void Draw(IRenderDevice* device) override;
 
 private:
 	struct DXVertex

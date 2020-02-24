@@ -2,12 +2,13 @@
 #include "stdio.h"
 
 #include "DX_VBO.h"
-
+#include "Window.h"
 using namespace DirectX;
 
-DXRenderer::DXRenderer(int screenWidth, int screenHeight, HWND hwnd, float screenDepth, float screenNear)
+DXRenderer::DXRenderer(int screenWidth, int screenHeight, Window* window, float screenDepth, float screenNear)
+	: Renderer(screenWidth, screenHeight, window, screenDepth, screenNear)
 {
-	InitializeCoreD3D(screenWidth, screenHeight, hwnd);
+	InitializeCoreD3D(screenWidth, screenHeight, window->GetHWND());
 	InitializeSecondaryD3D(screenWidth, screenHeight);
 	InitializeMatricesD3D(screenWidth, screenHeight, screenDepth, screenNear);
 }
@@ -244,19 +245,19 @@ void DXRenderer::InitializeMatricesD3D(int screenWidth, int screenHeight, float 
 	FoV = XM_PIDIV4;
 	aspectRatio = (float)screenWidth / (float)screenHeight;
 
-	m_proj = XMMatrixPerspectiveFovLH(FoV, aspectRatio, screenNear, screenDepth);
+	projection = XMMatrixPerspectiveFovLH(FoV, aspectRatio, screenNear, screenDepth);
 
 	// World
-	m_world = XMMatrixIdentity();
+	world = XMMatrixIdentity();
 
 	// Ortho
-	m_ortho = XMMatrixOrthographicLH((float)screenWidth, (float)screenHeight, screenNear, screenDepth);
+	orthographic = XMMatrixOrthographicLH((float)screenWidth, (float)screenHeight, screenNear, screenDepth);
 }
 
-VBO* DXRenderer::CreateVBO(Vertex vertices[], int numVerts)
+VBO* DXRenderer::CreateVBO(std::vector<Vertex> vertices, int numVerts)
 {
 	DX_VBO* vbo = new DX_VBO();
-	vbo->Create() // TODO - Create pure abstraction of renderer to access this func
+	vbo->Create(GetDevice(), vertices, numVerts); // TODO - Create pure abstraction of renderer to access this func
 }
 
 void DXRenderer::BeginScene(float r, float g, float b, float a)
@@ -275,19 +276,4 @@ void DXRenderer::BeginScene(float r, float g, float b, float a)
 void DXRenderer::EndScene()
 {
 	m_swapChain->Present(0, 0);
-}
-
-void DXRenderer::GetWorldMatrix(XMMATRIX& world)
-{
-	world = m_world;
-}
-
-void DXRenderer::GetProjectionMatrix(XMMATRIX& proj)
-{
-	proj = m_proj;
-}
-
-void DXRenderer::GetOrthographicMatrix(XMMATRIX& ortho)
-{
-	ortho = m_ortho;
 }

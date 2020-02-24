@@ -35,15 +35,6 @@ Vertex& Mesh::GetVertexRef(int i)
 	return vertices[i];
 }
 
-VBO* Mesh::CreateVBO(Graphics* graphics)
-{
-	isLocked = true;
-
-	graphics->GetRenderer()->CreateVBO(vertices, numVerts);
-
-	//vbo->Create(graphics, vertices, numVerts);
-}
-
 bool Mesh::AddVertex(Vertex v)
 {
 	if (!isLocked)

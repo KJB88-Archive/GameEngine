@@ -7,15 +7,17 @@
 #include <DirectXMath.h>
 
 #include "DX_VBO.h"
-#include "IRenderer.h"
+#include "Renderer.h"
+
+class Window;
 
 class DXRenderer
-	: public IRenderer
+	: public Renderer
 {
 public:
 
-	DXRenderer(int screenWidth, int screenHeight, HWND hwnd, float screenDepth, float screenNear);
-	~DXRenderer();
+	DXRenderer(int screenWidth, int screenHeight, Window* window, float screenDepth, float screenNear);
+	virtual ~DXRenderer();
 
 	// Scene rendering
 	virtual void BeginScene(float r, float g, float b, float a) override;
@@ -23,15 +25,18 @@ public:
 
 	// Core D3D Gets
 	virtual IRenderDevice* GetDevice() override;
-	virtual IGraphicsContext* GetContext() override;
+	virtual IRenderContext* GetContext() override;
 
 	// VBO Creation
-	virtual VBO* CreateVBO(Vertex vertices[], int numVerts) override;
+	virtual VBO* CreateVBO(std::vector<Vertex> vertices, int numVerts) override;
+
+	virtual void Draw(VBO* vbo, int iCount) override;
 
 	// Matrices
-	void GetProjectionMatrix(DirectX::XMMATRIX&);
-	void GetWorldMatrix(DirectX::XMMATRIX&);
-	void GetOrthographicMatrix(DirectX::XMMATRIX&);
+	//virtual void GetOrtho(glm::mat4& ortho) override;
+	//virtual void GetProj(glm::mat4& proj)override;
+	//virtual void GetWorld(glm::mat4& world) override;
+	//virtual void GetView(glm::mat4& view) override;
 
 private:
 
@@ -51,9 +56,13 @@ private:
 	ID3D11RasterizerState* m_rasterState;
 
 	// Matrices
-	DirectX::XMMATRIX m_proj;
-	DirectX::XMMATRIX m_world;
-	DirectX::XMMATRIX m_ortho;
+	DirectX::XMMATRIX projection;
+	DirectX::XMMATRIX world;
+	DirectX::XMMATRIX orthographic;
+
+	//void GetProjectionMatrix(DirectX::XMMATRIX&);
+	//void GetWorldMatrix(DirectX::XMMATRIX&);
+	//void GetOrthographicMatrix(DirectX::XMMATRIX&);
 
 	// Prevent copy and assignment
 	DXRenderer(const DXRenderer&) = delete;

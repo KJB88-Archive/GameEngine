@@ -1,13 +1,12 @@
 #pragma once
 #include "ISystem.h"
-class Graphics;
+class Renderer;
 
-
-class RenderSystem 
+class RenderSystem
 	: public ISystem
 {
 public:
-		RenderSystem(Graphics* graphics);
+	RenderSystem(Renderer* renderer);
 	virtual ~RenderSystem();
 
 	// Inherited via ISystem
@@ -18,8 +17,8 @@ private:
 	const IComponent::ComponentTypes MASK =
 		(IComponent::COMPONENT_RENDER);
 
-		// Ref to renderer
-		Graphics* graphics;
+	// Ref to renderer
+	Renderer* renderer;
 
 	RenderSystem(const RenderSystem& other);
 };

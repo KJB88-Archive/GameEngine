@@ -225,13 +225,13 @@
     <ClInclude Include="Vector4.h">
       <Filter>Header Files\Math</Filter>
     </ClInclude>
-    <ClInclude Include="IRenderer.h">
-      <Filter>Header Files\Platform Independent Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="IRenderDevice.h">
       <Filter>Header Files\Platform Independent Graphics</Filter>
     </ClInclude>
     <ClInclude Include="IRenderContext.h">
+      <Filter>Header Files\Platform Independent Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
       <Filter>Header Files\Platform Independent Graphics</Filter>
     </ClInclude>
   </ItemGroup>

@@ -14,7 +14,7 @@ DX_VBO::~DX_VBO()
 
 }
 
-void DX_VBO::Create(IRenderDevice* device, Vertex vertices[], int noOfVerts)
+void DX_VBO::Create(IRenderDevice* device, std::vector<Vertex> vertices, int noOfVerts)
 {
 	ID3D11Device* dxDevice = (ID3D11Device*)device;
 	DXVertex* dxVerts;
@@ -62,7 +62,7 @@ void DX_VBO::Create(IRenderDevice* device, Vertex vertices[], int noOfVerts)
 	vBufferDesc.StructureByteStride = 0;
 
 	// Give subresource data
-	vData.pSysMem = vertices;
+	vData.pSysMem = dxVerts;
 	vData.SysMemPitch = 0;
 	vData.SysMemSlicePitch = 0;
 
@@ -90,8 +90,3 @@ void DX_VBO::Create(IRenderDevice* device, Vertex vertices[], int noOfVerts)
 	delete[] indices;
 	indices = 0;
 }
-
-//void DX_VBO::Draw(Graphics * graphics)
-//{
-//
-//}

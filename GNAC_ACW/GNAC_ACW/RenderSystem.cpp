@@ -1,10 +1,10 @@
 #include "RenderSystem.h"
-
+#include "Renderer.h"
 #include "RenderComponent.h"
 #include "Entity.h"
 
-RenderSystem::RenderSystem(Graphics* graphics)
-	: ISystem(RENDER), graphics(graphics)
+RenderSystem::RenderSystem(Renderer* renderer)
+	: ISystem(RENDER), renderer(renderer)
 {
 }
 
@@ -42,7 +42,7 @@ void RenderSystem::ProcessEntities(std::vector<Entity*> entities)
 			// TODO - Check for isVisible
 			if (render->mesh)
 			{
-				graphics->Draw(render->mesh);
+				renderer->Draw(render->mesh->GetVBO());
 			}
 
 		}

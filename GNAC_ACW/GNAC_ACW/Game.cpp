@@ -1,7 +1,10 @@
 #include "Game.h"
 
+const float SCREEN_DEPTH = 1000.0f;
+const float SCREEN_NEAR = 0.1f;
+
 Game::Game()
-	: input(nullptr), graphics(nullptr), time(nullptr), sceneManager(nullptr)
+	: input(nullptr), renderer(nullptr), time(nullptr), sceneManager(nullptr)
 {
 	int screenWidth = 0, screenHeight = 0;
 	bool result;
@@ -23,10 +26,10 @@ Game::~Game()
 		time = nullptr;
 	}
 
-	if (graphics)
+	if (renderer)
 	{
-		delete graphics;
-		graphics = nullptr;
+		delete renderer;
+		renderer = nullptr;
 	}
 
 	if (input)
@@ -60,8 +63,13 @@ void Game::CreateCoreManagers(int& screenWidth, int& screenHeight)
 	}
 
 	// Create Graphics Manager
-	graphics = new Graphics(screenWidth, screenHeight, window->GetHWND());
-	if (!graphics)
+#ifdef DX_BUILD
+	renderer = new Renderer(screenWidth, screenHeight, window->GetHWND());
+#else
+	renderer = new GLRenderer(screenWidth, screenHeight, window->GetHWND())
+#endif
+
+	if (!renderer)
 	{
 		printf("GAME: Unable to create GraphicsManager object.\n");
 	}
@@ -77,7 +85,7 @@ void Game::CreateCoreManagers(int& screenWidth, int& screenHeight)
 void Game::CreateSystems()
 {
 // Create Render System
-	renderSystem = new RenderSystem(graphics);
+	renderSystem = new RenderSystem(renderer);
 	if (!renderSystem)
 	{
 		printf("GAME: Unable to create RenderSystem object.\n");

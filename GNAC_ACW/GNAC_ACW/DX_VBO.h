@@ -15,8 +15,7 @@ public:
 	virtual ~DX_VBO();
 
 	// Inherited via VBO
-	virtual void Create(IRenderDevice* device, Vertex vertices[], int noOfVerts) override;
-	virtual void Draw(IRenderDevice* device) override;
+	virtual void Create(IRenderDevice* device, std::vector<Vertex> vertices, int noOfVerts) override;
 
 private:
 	struct DXVertex
@@ -25,6 +24,9 @@ private:
 		DirectX::XMFLOAT4 color;
 	};
 
-	ID3D11Buffer *m_vBuffer, *m_iBuffer;
-	int m_vCount, m_iCount;
+	ID3D11Buffer* m_vBuffer;
+	int m_vCount;
+
+	ID3D11Buffer* m_iBuffer;
+	int m_iCount;
 };

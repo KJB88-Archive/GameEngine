@@ -9,7 +9,7 @@
 
 // Management
 #include "Input.h"
-#include "Graphics.h"
+#include "Renderer.h"
 #include "Time.h"
 #include "SceneManager.h"
 
@@ -36,7 +36,7 @@ private:
 
 	// Core Managers
 	Input* input;
-	Graphics* graphics;
+	Renderer* renderer;
 	Time* time;
 	SceneManager* sceneManager;
 

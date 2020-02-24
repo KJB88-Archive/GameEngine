@@ -1,6 +1,6 @@
 #pragma once
 #include "IComponent.h"
-#include "DXMesh.h"
+#include "Mesh.h"
 #include "Graphics.h"
 
 class RenderComponent 
@@ -13,7 +13,7 @@ public:
 	// Inherited via IComponent
 	virtual ComponentTypes ComponentType() override;
 
-	DXMesh* mesh;
+	Mesh* mesh;
 
 private:
 

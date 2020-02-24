@@ -10,20 +10,26 @@ class IRenderContext
 {
 public:
 
-	IRenderContext();
-	virtual ~IRenderContext();
+	IRenderContext() {};
+	virtual ~IRenderContext() {};
 
 #ifdef DX_BUILD
-	ID3D11Device* GetContext();
+	ID3D11DeviceContext* GetContext()
+	{
+		return context;
+	}
 #else
-	GL_RenderingDevice* GetContext();
+	GL_RenderingDeviceContext* GetContext()
+	{
+		return context;
+	}
 #endif
 
 private:
 
 #ifdef DX_BUILD
-	ID3D11DeviceContext* device;
+	ID3D11DeviceContext* context;
 #else
-	GLDeviceContext device;
+	GLDeviceContext context;
 #endif
 };

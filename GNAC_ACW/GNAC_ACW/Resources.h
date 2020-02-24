@@ -3,8 +3,8 @@
 #include <string>
 
 #include "Mesh.h"
-#include "Graphics.h"
 #include "Asset.h"
+#include "Manager.h"
 
 // TODO - Replace Mesh with Asset
 class Resources

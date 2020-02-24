@@ -168,7 +168,7 @@
     <ClInclude Include="IComponent.h" />
     <ClInclude Include="IRenderContext.h" />
     <ClInclude Include="IRenderDevice.h" />
-    <ClInclude Include="IRenderer.h" />
+    <ClInclude Include="Renderer.h" />
     <ClInclude Include="ISystem.h" />
     <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="RenderSystem.h" />

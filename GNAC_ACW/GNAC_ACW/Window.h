@@ -12,7 +12,7 @@ public:
 	Window(int& screenWidth, int& screenHeight, Input* input);
 	~Window();
 
-	HWND GetHWND();
+	HWND GetWindowHandle();
 	LPCSTR GetAppName();
 	HINSTANCE GetHINSTANCE();
 

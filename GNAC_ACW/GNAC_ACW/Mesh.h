@@ -4,6 +4,8 @@
 #include <vector>
 #include "VBO.h"
 
+class Renderer;
+
 class Mesh
 	: public Asset
 {
@@ -19,13 +21,13 @@ public:
 	Vertex& GetVertexRef(int i);
 
 	// Vertex / VBO manip
-	VBO* CreateVBO(Graphics* graphics);
+	void CreateVBO();
 
 	bool AddVertex(Vertex v);
 	bool Clear();
 	bool DeleteVertex(int i);
 
-	bool Reset();
+	void Reset();
 
 private:
 

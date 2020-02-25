@@ -16,12 +16,13 @@ class Renderer
 {
 public:
 
-	Renderer(int screenWidth, int screenHeight, Window* window, float screenDepth, float screenNear) {};
+	static Renderer* instance;
+	Renderer(int screenWidth, int screenHeight, Window* window, float screenDepth, float screenNear) { instance = this; };
 	virtual ~Renderer() {};
 
 	virtual VBO* CreateVBO(std::vector<Vertex> vertices, int numVerts) = 0;
 	virtual void BeginScene(float r, float g, float b, float a) = 0;
-	virtual void Draw(VBO* vbo, int iCount) = 0;
+	virtual void Draw(VBO* vbo, int vCount) = 0;
 	virtual void EndScene() = 0;
 
 	virtual IRenderDevice* GetDevice() = 0;

@@ -4,7 +4,9 @@
 RenderComponent::RenderComponent() 
 	: IComponent(COMPONENT_RENDER)
 {
-	mesh = new DXMesh(Graphics::instance->GetRenderer()->GetDevice());
+	mesh = new Mesh(0, "Mesh");
+
+	// TODO
 }
 
 RenderComponent::~RenderComponent()

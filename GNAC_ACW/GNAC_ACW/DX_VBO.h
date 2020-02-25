@@ -18,7 +18,7 @@ public:
 	virtual void Create
 	(IRenderDevice* device, std::vector<Vertex> vertices, int noOfVerts) override;
 
-	ID3D11Buffer* GetVBuffer();
+	ID3D11Buffer* const* GetVBuffer() const { return &m_vBuffer; }
 
 private:
 	struct DXVertex

@@ -70,7 +70,7 @@ void Game::CreateCoreManagers(int& screenWidth, int& screenHeight)
 
 	// Create Graphics Manager
 #ifdef DX_BUILD
-	renderer = new DXRenderer(screenWidth, screenHeight, window->GetHWND());
+	renderer = new DXRenderer(screenWidth, screenHeight, window, SCREEN_DEPTH, SCREEN_NEAR);
 #else
 	renderer = new GLRenderer(screenWidth, screenHeight, window->GetHWND())
 #endif
@@ -147,9 +147,9 @@ bool Game::OnFrame()
 	sceneManager->UpdateScene(time->GetDeltaTime()); // Main update call
 
 	// Render
-	graphics->BeginScene();
+	renderer->BeginScene(0.0f, 0.0f, 0.0f, 1.0f);
 	sceneManager->RenderScene(renderSystem); // Main render call
-	graphics->EndScene();
+	renderer->EndScene();
 
 	return true;
 }

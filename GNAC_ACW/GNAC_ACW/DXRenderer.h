@@ -19,6 +19,9 @@ public:
 	DXRenderer(int screenWidth, int screenHeight, Window* window, float screenDepth, float screenNear);
 	virtual ~DXRenderer();
 
+	// TEMP
+	static DXRenderer* instance;
+
 	// Core D3D Gets
 	virtual IRenderDevice* GetDevice() override { return iDevice; }
 	virtual IRenderContext* GetContext() override { return iContext; }
@@ -30,7 +33,7 @@ public:
 
 	// Scene rendering
 	virtual void BeginScene(float r, float g, float b, float a) override;
-	virtual void Draw(VBO* vbo, int numVerts) override;
+	virtual void Draw(VBO* vbo, int vCount) override;
 	virtual void EndScene() override;
 
 

@@ -72,7 +72,7 @@ bool Mesh::Clear()
 	return false;
 }
 
-bool Mesh::Reset()
+void Mesh::Reset()
 {
 	delete vbo;
 	vbo = NULL;

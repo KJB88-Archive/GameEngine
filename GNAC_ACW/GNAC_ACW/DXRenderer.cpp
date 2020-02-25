@@ -7,10 +7,14 @@
 
 using namespace DirectX;
 
+DXRenderer* DXRenderer::instance = nullptr;
+
 DXRenderer::DXRenderer(int screenWidth, int screenHeight, Window* window, float screenDepth, float screenNear)
 	: Renderer(screenWidth, screenHeight, window, screenDepth, screenNear)
 {
-	InitializeCoreD3D(screenWidth, screenHeight, window->GetHWND());
+	instance = this;
+
+	InitializeCoreD3D(screenWidth, screenHeight, window->GetWindowHandle());
 	InitializeSecondaryD3D(screenWidth, screenHeight);
 	InitializeMatricesD3D(screenWidth, screenHeight, screenDepth, screenNear);
 }
@@ -280,6 +284,8 @@ VBO* DXRenderer::CreateVBO(std::vector<Vertex> vertices, int numVerts)
 {
 	DX_VBO* vbo = new DX_VBO();
 	vbo->Create(GetDevice(), vertices, numVerts); // TODO - Create pure abstraction of renderer to access this func
+
+	return vbo;
 }
 
 void DXRenderer::BeginScene(float r, float g, float b, float a)
@@ -302,6 +308,7 @@ void DXRenderer::Draw(VBO* vbo, int numVerts)
 	// select which vertex buffer to display
 	UINT stride = sizeof(Vertex);
 	UINT offset = 0;
+
 	m_context->IASetVertexBuffers(0, 1, dxVBO->GetVBuffer(), &stride, &offset);
 
 	// select which primtive type we are using

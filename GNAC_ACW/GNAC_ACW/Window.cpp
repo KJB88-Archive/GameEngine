@@ -60,7 +60,7 @@ Window::~Window()
 	appHandle = nullptr;
 }
 
-HWND Window::GetHWND()
+HWND Window::GetWindowHandle()
 {
 	return hWnd;
 }

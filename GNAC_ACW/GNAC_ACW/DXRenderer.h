@@ -19,18 +19,20 @@ public:
 	DXRenderer(int screenWidth, int screenHeight, Window* window, float screenDepth, float screenNear);
 	virtual ~DXRenderer();
 
-	// Scene rendering
-	virtual void BeginScene(float r, float g, float b, float a) override;
-	virtual void EndScene() override;
-
 	// Core D3D Gets
-	virtual IRenderDevice* GetDevice() override;
-	virtual IRenderContext* GetContext() override;
+	virtual IRenderDevice* GetDevice() override { return iDevice; }
+	virtual IRenderContext* GetContext() override { return iContext; }
+
+	virtual RenderSystem * GetSystem() override;
 
 	// VBO Creation
 	virtual VBO* CreateVBO(std::vector<Vertex> vertices, int numVerts) override;
 
-	virtual void Draw(VBO* vbo, int iCount) override;
+	// Scene rendering
+	virtual void BeginScene(float r, float g, float b, float a) override;
+	virtual void Draw(VBO* vbo, int numVerts) override;
+	virtual void EndScene() override;
+
 
 	// Matrices
 	//virtual void GetOrtho(glm::mat4& ortho) override;
@@ -44,6 +46,11 @@ private:
 	void InitializeCoreD3D(int screenWidth, int screenHeight, HWND hwnd);
 	void InitializeSecondaryD3D(int screenWidth, int screenHeight);
 	void InitializeMatricesD3D(int screenWidth, int screenHeight, float screenDepth, float screenNear);
+
+	// Rendering Abstractions
+	void InitializeRenderSystem();
+	void CreateAbstractDevice();
+	void CreateAbstractContext();
 
 	// Core DX Resources
 	IDXGISwapChain* m_swapChain;
@@ -59,6 +66,13 @@ private:
 	DirectX::XMMATRIX projection;
 	DirectX::XMMATRIX world;
 	DirectX::XMMATRIX orthographic;
+
+	// Abstract
+	IRenderDevice* iDevice;
+	IRenderContext* iContext;
+
+	// Systems
+	RenderSystem* renderSystem;
 
 	//void GetProjectionMatrix(DirectX::XMMATRIX&);
 	//void GetWorldMatrix(DirectX::XMMATRIX&);

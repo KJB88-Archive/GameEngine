@@ -10,26 +10,33 @@ class IRenderDevice
 {
 public:
 
-	IRenderDevice() {};
-	virtual ~IRenderDevice() {};
+#ifdef DX_BUILD
+	IRenderDevice(ID3D11Device* device)
+		: m_device(device) {};
+#else
+	IRenderDevice(GLDevice* device)
+		: m_device(device) {};
+#endif
+
+	~IRenderDevice() {};
 
 #ifdef DX_BUILD
 	ID3D11Device* GetDevice()
 	{
-		return device;
+		return m_device;
 	}
 #else
 	GL_RenderingDevice* GetContext()
 	{
-		return device;
+		return m_device;
 	}
 #endif
 
 private:
 
 #ifdef DX_BUILD
-	ID3D11Device* device;
+	ID3D11Device* m_device;
 #else
-	GLDeviceContext context;
+	GLDevice* m_device;
 #endif
 };

@@ -15,7 +15,10 @@ public:
 	virtual ~DX_VBO();
 
 	// Inherited via VBO
-	virtual void Create(IRenderDevice* device, std::vector<Vertex> vertices, int noOfVerts) override;
+	virtual void Create
+	(IRenderDevice* device, std::vector<Vertex> vertices, int noOfVerts) override;
+
+	ID3D11Buffer* GetVBuffer();
 
 private:
 	struct DXVertex
@@ -27,6 +30,6 @@ private:
 	ID3D11Buffer* m_vBuffer;
 	int m_vCount;
 
-	ID3D11Buffer* m_iBuffer;
-	int m_iCount;
+	//ID3D11Buffer* m_iBuffer;
+	//int m_iCount;
 };

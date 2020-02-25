@@ -1,5 +1,4 @@
 #include "DX_VBO.h"
-
 #include "Graphics.h"
 
 using namespace DirectX;
@@ -26,10 +25,10 @@ void DX_VBO::Create(IRenderDevice* device, std::vector<Vertex> vertices, int noO
 	// Convert from generic struct to DX specific struct
 	// TODO 
 	m_vCount = 4;
-	m_iCount = 6;
+	//m_iCount = 6;
 
 	dxVerts = new DXVertex[m_vCount];
-	indices = new unsigned long[m_iCount];
+	//indices = new unsigned long[m_iCount];
 
 	dxVerts[0].position = XMFLOAT3(1.0f, 1.0f, 0.0f);
 	dxVerts[1].position = XMFLOAT3(-1.0f, 1.0f, 0.0f);
@@ -46,12 +45,12 @@ void DX_VBO::Create(IRenderDevice* device, std::vector<Vertex> vertices, int noO
 		dxVerts[i].color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	}
 
-	indices[0] = 0;
-	indices[1] = 3;
-	indices[2] = 2;
-	indices[3] = 2;
-	indices[4] = 1;
-	indices[5] = 0;
+	//indices[0] = 0;
+	//indices[1] = 3;
+	//indices[2] = 2;
+	//indices[3] = 2;
+	//indices[4] = 1;
+	//indices[5] = 0;
 
 
 	vBufferDesc.Usage = D3D11_USAGE_DEFAULT;
@@ -68,25 +67,25 @@ void DX_VBO::Create(IRenderDevice* device, std::vector<Vertex> vertices, int noO
 
 	dxDevice->CreateBuffer(&vBufferDesc, &vData, &m_vBuffer);
 
-	iBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-	iBufferDesc.ByteWidth = sizeof(unsigned long) * m_iCount;
-	iBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
-	iBufferDesc.CPUAccessFlags = 0;
-	iBufferDesc.MiscFlags = 0;
-	iBufferDesc.StructureByteStride = 0;
+	//iBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+	//iBufferDesc.ByteWidth = sizeof(unsigned long) * m_iCount;
+	//iBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
+	//iBufferDesc.CPUAccessFlags = 0;
+	//iBufferDesc.MiscFlags = 0;
+	//iBufferDesc.StructureByteStride = 0;
 
-	iData.pSysMem = indices;
-	iData.SysMemPitch = 0;
-	iData.SysMemSlicePitch = 0;
+	//iData.pSysMem = indices;
+	//iData.SysMemPitch = 0;
+	//iData.SysMemSlicePitch = 0;
 
-	result = dxDevice->CreateBuffer(&iBufferDesc, &iData, &m_iBuffer);
-	if (FAILED(result))
-	{
-		// check result
-	}
+	//result = dxDevice->CreateBuffer(&iBufferDesc, &iData, &m_iBuffer);
+	//if (FAILED(result))
+	//{
+	//	// check result
+	//}
 
-	delete[] dxVerts;
+	delete dxVerts;
 	dxVerts = 0;
-	delete[] indices;
-	indices = 0;
+	//delete[] indices;
+	//indices = 0;
 }

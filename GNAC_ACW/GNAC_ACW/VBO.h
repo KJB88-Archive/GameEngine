@@ -10,7 +10,8 @@ public:
 	VBO() {};
 	virtual ~VBO() {};
 
-	virtual void Create(IRenderDevice* device, std::vector<Vertex> vertices, int noOfVerts) = 0;
+	virtual void Create
+	(IRenderDevice* device, std::vector<Vertex> vertices, int noOfVerts) = 0;
 
 protected:
 

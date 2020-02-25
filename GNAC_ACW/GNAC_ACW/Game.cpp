@@ -1,5 +1,11 @@
 #include "Game.h"
 
+#ifdef DX_BUILD
+#include "DXRenderer.h"
+#else
+#include "GLRenderer.h"
+#endif
+
 const float SCREEN_DEPTH = 1000.0f;
 const float SCREEN_NEAR = 0.1f;
 
@@ -64,7 +70,7 @@ void Game::CreateCoreManagers(int& screenWidth, int& screenHeight)
 
 	// Create Graphics Manager
 #ifdef DX_BUILD
-	renderer = new Renderer(screenWidth, screenHeight, window->GetHWND());
+	renderer = new DXRenderer(screenWidth, screenHeight, window->GetHWND());
 #else
 	renderer = new GLRenderer(screenWidth, screenHeight, window->GetHWND())
 #endif

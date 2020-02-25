@@ -37,7 +37,10 @@ protected:
 
 	int m_screenWidth;
 	int m_screenHeight;
-	Window* m_window; // Ref to Window allows for cross-platform (as Window could be cross-platform in future)
 	float m_screenNear;
 	float m_screenFar;
+
+	// Ref to Window allows for cross-platform (as Window could be cross-platform in future)
+	Window* m_window; 
+
 };

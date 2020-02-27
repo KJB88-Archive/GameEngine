@@ -55,7 +55,7 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDX|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
@@ -269,10 +269,8 @@
     <ClCompile Include="DXWindow.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Input.cpp" />
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="Manager.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="RenderComponent.cpp" />
@@ -280,7 +278,6 @@
     <ClCompile Include="Resources.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
-    <ClCompile Include="TestGame.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
     <ClCompile Include="DX_VBO.cpp" />
@@ -292,7 +289,6 @@
     <ClInclude Include="DXRenderer.h" />
     <ClInclude Include="DXWindow.h" />
     <ClInclude Include="Entity.h" />
-    <ClInclude Include="GameScene.h" />
     <ClInclude Include="IComponent.h" />
     <ClInclude Include="MathsHelper.h" />
     <ClInclude Include="Renderer.h" />
@@ -302,7 +298,6 @@
     <ClInclude Include="Resources.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="TestGame.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="DX_VBO.h" />

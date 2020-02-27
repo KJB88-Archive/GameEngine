@@ -15,9 +15,7 @@ public:
 	virtual ~DX_VBO();
 
 	// Inherited via VBO
-	virtual void Create
-	(Renderer* renderer, std::vector<Vertex> vertices, int noOfVerts) override;
-
+	virtual void Create(Renderer* renderer, std::vector<Vertex> vertices, int noOfVerts) override;
 	virtual void Draw(Renderer* renderer) override;
 
 private:

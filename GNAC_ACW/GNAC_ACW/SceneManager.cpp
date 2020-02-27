@@ -1,13 +1,8 @@
 #include "SceneManager.h"
-#include "GameScene.h"
 
 SceneManager::SceneManager()
-	: Manager("Scene Manager")
+	: Manager("Scene")
 {
-	GameScene* newScene = new GameScene();
-	newScene->Initialize();
-
-	PushScene(newScene);
 }
 
 SceneManager::~SceneManager()

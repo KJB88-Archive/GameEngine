@@ -1,8 +1,6 @@
 #include "Game.h"
-//#include "Transform.h"
-//#include "Vector3.h"
-//#include "GameObject.h"
 
+#if DX_BUILD
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {
 	Game* game;
@@ -31,3 +29,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	// Run the game
 	game->Run();
 }
+#endif
+
+#if GL_BUILD
+#endif

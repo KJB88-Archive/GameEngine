@@ -27,10 +27,7 @@ public:
 private:
 
 	bool OnFrame();
-
-	void CreateCoreManagers(int&, int&);
 	void CreateSystems();
-	void InitializeWindow(int&, int&);
 
 	Window* window;
 
@@ -47,6 +44,3 @@ private:
 	Game(const Game&) = delete;
 	Game* operator=(const Game&) = delete;
 };
-//
-//static LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
-//static Game* ApplicationHandle = 0;

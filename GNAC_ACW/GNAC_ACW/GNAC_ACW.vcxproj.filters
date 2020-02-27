@@ -142,6 +142,9 @@
     <ClCompile Include="Vector4.cpp">
       <Filter>Source Files\Math</Filter>
     </ClCompile>
+    <ClCompile Include="DXWindow.cpp">
+      <Filter>Source Files\DirectX</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DXShader.h">
@@ -233,6 +236,9 @@
     </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>Header Files\Platform Independent Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="DXWindow.h">
+      <Filter>Header Files\DirectX</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

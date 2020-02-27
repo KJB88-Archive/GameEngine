@@ -8,20 +8,48 @@
 
 const float SCREEN_DEPTH = 1000.0f;
 const float SCREEN_NEAR = 0.1f;
+const float SCREEN_WIDTH = 0;
+const float SCREEN_HEIGHT = 0;
 
 Game::Game()
 	: input(nullptr), renderer(nullptr), time(nullptr), sceneManager(nullptr)
 {
-	int screenWidth = 0, screenHeight = 0;
-	bool result;
+	// Create Time Manager
+	time = new Time();
+	if (!time)
+	{
+		printf("GAME: Unable to create TimeManager object.\n");
+	}
 
-	// Initialize the Window
-	//InitializeWindows(screenWidth, screenHeight);
+	// Create Input Manager
+	input = new Input();
+	if (!input)
+	{
+		printf("GAME: Unable to create InputManager object.\n");
+	}
 
-	InitializeWindow(screenWidth, screenHeight);
-	CreateCoreManagers(screenWidth, screenHeight);
+	window = new Window(screenWidth, screenHeight, input);
+
+	// Create Graphics Manager
+#ifdef DX_BUILD
+	renderer = new DXRenderer(screenWidth, screenHeight, window, SCREEN_DEPTH, SCREEN_NEAR);
+#else
+	renderer = new GLRenderer(screenWidth, screenHeight, window->GetHWND())
+#endif
+
+		if (!renderer)
+		{
+			printf("GAME: Unable to create GraphicsManager object.\n");
+		}
+
+	// Create Scene Manager
+	sceneManager = new SceneManager();
+	if (!sceneManager)
+	{
+		printf("GAME: Unable to create SceneManager object.\n");
+	}
+
 	CreateSystems();
-
 }
 
 Game::~Game()
@@ -52,42 +80,6 @@ Game::~Game()
 
 }
 
-void Game::CreateCoreManagers(int& screenWidth, int& screenHeight)
-{
-	// Create Time Manager
-	time = new Time();
-	if (!time)
-	{
-		printf("GAME: Unable to create TimeManager object.\n");
-	}
-
-	// Create Input Manager
-	input = new Input();
-	if (!input)
-	{
-		printf("GAME: Unable to create InputManager object.\n");
-	}
-
-	// Create Graphics Manager
-#ifdef DX_BUILD
-	renderer = new DXRenderer(screenWidth, screenHeight, window, SCREEN_DEPTH, SCREEN_NEAR);
-#else
-	renderer = new GLRenderer(screenWidth, screenHeight, window->GetHWND())
-#endif
-
-	if (!renderer)
-	{
-		printf("GAME: Unable to create GraphicsManager object.\n");
-	}
-
-	// Create Scene Manager
-	sceneManager = new SceneManager();
-	if (!sceneManager)
-	{
-		printf("GAME: Unable to create SceneManager object.\n");
-	}
-}
-
 void Game::CreateSystems()
 {
 // Create Render System
@@ -96,11 +88,6 @@ void Game::CreateSystems()
 	{
 		printf("GAME: Unable to create RenderSystem object.\n");
 	}
-}
-
-void Game::InitializeWindow(int& screenWidth, int& screenHeight)
-{
-	window = new Window(screenWidth, screenHeight, input);
 }
 
 void Game::Run()

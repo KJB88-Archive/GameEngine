@@ -1,5 +1,6 @@
 #include "DX_VBO.h"
 #include "Graphics.h"
+#include "IRenderDevice.h"
 
 using namespace DirectX;
 
@@ -15,11 +16,11 @@ DX_VBO::~DX_VBO()
 
 void DX_VBO::Create(IRenderDevice* device, std::vector<Vertex> vertices, int noOfVerts)
 {
-	ID3D11Device* dxDevice = (ID3D11Device*)device;
+	ID3D11Device* dxDevice = device->GetDevice();
 	DXVertex* dxVerts;
-	unsigned long* indices;
-	D3D11_BUFFER_DESC vBufferDesc, iBufferDesc;
-	D3D11_SUBRESOURCE_DATA vData, iData;
+	//unsigned long* indices;
+	D3D11_BUFFER_DESC vBufferDesc/*, iBufferDesc*/;
+	D3D11_SUBRESOURCE_DATA vData/*, iData*/;
 	HRESULT result;
 
 	// Convert from generic struct to DX specific struct

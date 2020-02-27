@@ -16,8 +16,7 @@ class Renderer
 {
 public:
 
-	static Renderer* instance;
-	Renderer(int screenWidth, int screenHeight, Window* window, float screenDepth, float screenNear) { instance = this; };
+	Renderer(int screenWidth, int screenHeight, Window* window, float screenDepth, float screenNear);
 	virtual ~Renderer() {};
 
 	virtual VBO* CreateVBO(std::vector<Vertex> vertices, int numVerts) = 0;

@@ -7,13 +7,9 @@
 
 using namespace DirectX;
 
-DXRenderer* DXRenderer::instance = nullptr;
-
 DXRenderer::DXRenderer(int screenWidth, int screenHeight, Window* window, float screenDepth, float screenNear)
 	: Renderer(screenWidth, screenHeight, window, screenDepth, screenNear)
 {
-	instance = this;
-
 	InitializeCoreD3D(screenWidth, screenHeight, window->GetWindowHandle());
 	InitializeSecondaryD3D(screenWidth, screenHeight);
 	InitializeMatricesD3D(screenWidth, screenHeight, screenDepth, screenNear);

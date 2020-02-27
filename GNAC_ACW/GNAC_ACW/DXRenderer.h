@@ -19,9 +19,6 @@ public:
 	DXRenderer(int screenWidth, int screenHeight, Window* window, float screenDepth, float screenNear);
 	virtual ~DXRenderer();
 
-	// TEMP
-	static DXRenderer* instance;
-
 	// Core D3D Gets
 	virtual IRenderDevice* GetDevice() override { return iDevice; }
 	virtual IRenderContext* GetContext() override { return iContext; }

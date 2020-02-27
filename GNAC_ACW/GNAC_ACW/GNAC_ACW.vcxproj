@@ -23,6 +23,7 @@
     <ProjectGuid>{D67B1D1D-5880-4D4B-9E4F-C4C3042CDBED}</ProjectGuid>
     <RootNamespace>GNACACW</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <ProjectName>GAnC_ACW_Engine</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

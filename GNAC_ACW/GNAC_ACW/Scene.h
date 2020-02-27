@@ -12,8 +12,10 @@ public:
 	Scene(const int id, const std::string& name);
 	virtual ~Scene();
 
-	virtual void Update(float deltaTime) = 0;
-	virtual void Render(RenderSystem* renderer) = 0;
+	//virtual void Update(float deltaTime) = 0;
+	//virtual void Render(RenderSystem* renderer) = 0;
+
+	virtual void RunScene();
 
 	const int GetID();
 	const std::string& GetName();

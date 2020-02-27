@@ -1,9 +1,16 @@
 #include "Game.h"
 
 #if DX_BUILD
+#include "DXWindow.h"
+
+const float SCREEN_DEPTH = 1000.0f;
+const float SCREEN_NEAR = 0.1f;
+const float SCREEN_WIDTH = 800;
+const float SCREEN_HEIGHT = 600;
+
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {
-	Game* game;
+	Game game;
 	bool result;
 
 	// Move to Logging
@@ -19,17 +26,13 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	//printf("GameObject: %s, with Tag: %s, at Position: %f, %f, %f\n", obj->name.c_str(), obj->tag.c_str(), obj->transform->position.x, obj->transform->position.y, obj->transform->position.z);
 	////printf("Transform contains a Vector3 of: %f, %f, %f\n", transf->position.x, transf->position.y, transf->position.z);
 
-	game = new Game();
-
-	if (!game)
-	{
-		return 0;
-	}
+	DXWindow* window = new DXWindow(&game, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_DEPTH, SCREEN_NEAR, hInstance, nShowCmd);
 
 	// Run the game
-	game->Run();
+	game.Run();
 }
 #endif
 
 #if GL_BUILD
+// Do GL stuff
 #endif

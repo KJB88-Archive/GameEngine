@@ -16,9 +16,9 @@ public:
 
 	// Inherited via VBO
 	virtual void Create
-	(IRenderDevice* device, std::vector<Vertex> vertices, int noOfVerts) override;
+	(Renderer* renderer, std::vector<Vertex> vertices, int noOfVerts) override;
 
-	ID3D11Buffer* const* GetVBuffer() const { return &m_vBuffer; }
+	virtual void Draw(Renderer* renderer) override;
 
 private:
 	struct DXVertex

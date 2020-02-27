@@ -42,7 +42,8 @@ void RenderSystem::ProcessEntities(std::vector<Entity*> entities)
 			// TODO - Check for isVisible
 			if (render->mesh)
 			{
-				renderer->Draw(render->mesh->GetVBO(), render->mesh->NumVerts());
+				// TODO - Draw
+				//renderer->Draw(render->mesh->GetVBO(), render->mesh->NumVerts());
 			}
 
 		}

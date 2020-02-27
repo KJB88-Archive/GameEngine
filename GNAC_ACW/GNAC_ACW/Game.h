@@ -6,7 +6,6 @@
 // Window
 #include "Window.h"
 
-
 // Management
 #include "Input.h"
 #include "Renderer.h"
@@ -22,24 +21,34 @@ public:
 	Game();
 	~Game();
 
-	void Run();
+	// Setup external resources
+	virtual void Initialise(Window* wnd, Renderer* window);
+
+	// Main game loop
+	virtual void Run();
+
+	// Input
+	virtual void OnKeyboard(int key, bool down);
+	virtual void OnMouse(int mouseButton, bool down, int xPos, int yPos);
+
+protected:
+
+	// Reset game
+	virtual void Reset() = 0;
+
+	// Core Managers
+	Window* m_window;
+	Input* m_input;
+	Renderer* m_renderer;
+	Time* m_time;
+	SceneManager* m_sceneManager;
+
+	// Systems
+	RenderSystem* m_renderSystem;
 
 private:
 
-	bool OnFrame();
 	void CreateSystems();
-
-	Window* window;
-
-	// Core Managers
-	Input* input;
-	Renderer* renderer;
-	Time* time;
-	SceneManager* sceneManager;
-
-	// Systems
-	RenderSystem* renderSystem;
-
 
 	Game(const Game&) = delete;
 	Game* operator=(const Game&) = delete;

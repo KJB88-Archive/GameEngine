@@ -1,7 +1,7 @@
 #pragma once
 #include "Vertex.h"
 #include <vector>
-class IRenderDevice;
+class Renderer;
 
 class VBO
 {
@@ -11,7 +11,9 @@ public:
 	virtual ~VBO() {};
 
 	virtual void Create
-	(IRenderDevice* device, std::vector<Vertex> vertices, int noOfVerts) = 0;
+	(Renderer* renderer, std::vector<Vertex> vertices, int noOfVerts) = 0;
+
+	virtual void Draw(Renderer* renderer) = 0;
 
 protected:
 

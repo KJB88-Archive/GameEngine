@@ -35,12 +35,7 @@ void SceneManager::PushScene(Scene* newScene)
 	scenes.push(newScene);
 }
 
-void SceneManager::UpdateScene(float deltaTime)
+void SceneManager::RunScene()
 {
-	scenes.front()->Update(deltaTime);
-}
-
-void SceneManager::RenderScene(RenderSystem* renderSystem)
-{
-	GetCurrentScene()->Render(renderSystem);
+	scenes.front()->RunScene();
 }

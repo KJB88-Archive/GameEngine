@@ -16,29 +16,23 @@ class DXRenderer
 {
 public:
 
-	DXRenderer(int screenWidth, int screenHeight, Window* window, float screenDepth, float screenNear);
+	DXRenderer(int screenWidth, int screenHeight, HWND hwnd, float screenDepth, float screenNear);
 	virtual ~DXRenderer();
 
-	// Core D3D Gets
-	virtual IRenderDevice* GetDevice() override { return iDevice; }
-	virtual IRenderContext* GetContext() override { return iContext; }
+	ID3D11Device* GetDevice();
+	ID3D11DeviceContext* GetContext();
 
 	virtual RenderSystem * GetSystem() override;
 
-	// VBO Creation
-	virtual VBO* CreateVBO(std::vector<Vertex> vertices, int numVerts) override;
-
 	// Scene rendering
 	virtual void BeginScene(float r, float g, float b, float a) override;
-	virtual void Draw(VBO* vbo, int vCount) override;
+	virtual void Draw(const Mesh* mesh, const Colour& colour) override;
 	virtual void EndScene() override;
 
-
 	// Matrices
-	//virtual void GetOrtho(glm::mat4& ortho) override;
-	//virtual void GetProj(glm::mat4& proj)override;
-	//virtual void GetWorld(glm::mat4& world) override;
-	//virtual void GetView(glm::mat4& view) override;
+	//void GetProjectionMatrix(DirectX::XMMATRIX&);
+	//void GetWorldMatrix(DirectX::XMMATRIX&);
+	//void GetOrthographicMatrix(DirectX::XMMATRIX&);
 
 private:
 
@@ -49,8 +43,6 @@ private:
 
 	// Rendering Abstractions
 	void InitializeRenderSystem();
-	void CreateAbstractDevice();
-	void CreateAbstractContext();
 
 	// Core DX Resources
 	IDXGISwapChain* m_swapChain;
@@ -67,16 +59,8 @@ private:
 	DirectX::XMMATRIX world;
 	DirectX::XMMATRIX orthographic;
 
-	// Abstract
-	IRenderDevice* iDevice;
-	IRenderContext* iContext;
-
 	// Systems
 	RenderSystem* renderSystem;
-
-	//void GetProjectionMatrix(DirectX::XMMATRIX&);
-	//void GetWorldMatrix(DirectX::XMMATRIX&);
-	//void GetOrthographicMatrix(DirectX::XMMATRIX&);
 
 	// Prevent copy and assignment
 	DXRenderer(const DXRenderer&) = delete;

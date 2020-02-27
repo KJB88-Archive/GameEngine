@@ -11,26 +11,23 @@ class DXWindow
 {
 public:
 
-	DXWindow(int screenWidth, int screenHeight, Input* input);
+	DXWindow(Game* game, int screenWidth, int screenHeight, float screenDepth, float screenNear, HINSTANCE hInstance, int nCmdShow);
 	~DXWindow();
 
-	bool Messaging();
+	//bool Messaging();
 	LRESULT CALLBACK MessageHandler(HWND, UINT, WPARAM, LPARAM);
+
+	virtual void Initialise() override;
 
 private:
 
-	int screenWidth;
-	int screenHeight;
+	bool Messaging();
 
-	LPCSTR appName;
-	HINSTANCE hInstance;
-	HWND hWnd;
-	MSG msg;
-
-	Input* input;
-
+	HWND m_hWnd;
+	LPCSTR m_appName;
+	HINSTANCE m_hInstance;
 };
 
 static LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
-static DXWindow* appHandle = 0;
+static DXWindow* APPHANDLE = 0;
 

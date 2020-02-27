@@ -1,18 +1,94 @@
 #include "DXWindow.h"
+#include "DXRenderer.h"
+#include "Game.h"
 
-DXWindow::DXWindow(int screenWidth, int screenHeight, Input* input)
-	: Window(screenWidth, screenHeight, input)
+DXWindow::DXWindow(Game* game, int screenWidth, int screenHeight, float screenDepth, float screenNear, HINSTANCE hInstance, int nCmdShow)
+	: Window(screenWidth, screenHeight, game, screenDepth, screenNear)
 {
+	WNDCLASSEX wc;
+	DEVMODE dmScreenSettings;
+	int posX, posY;
 
+	// Implement windows application data
+	APPHANDLE = this;
+	m_hInstance = hInstance;
+	m_appName = "GAnC ACW";
+
+	// Setup Window
+	wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
+	wc.lpfnWndProc = WndProc;
+	wc.cbClsExtra = 0;
+	wc.cbWndExtra = 0;
+	wc.hInstance = hInstance;
+	wc.hIcon = LoadIcon(NULL, IDI_WINLOGO);
+	wc.hIconSm = wc.hIcon;
+	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
+	wc.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
+	wc.lpszMenuName = NULL;
+	wc.lpszClassName = m_appName;
+	wc.cbSize = sizeof(WNDCLASSEX);
+
+	// Register window class
+	RegisterClassEx(&wc);
+
+	posX = (GetSystemMetrics(SM_CXSCREEN) - screenWidth) / 2;
+	posY = (GetSystemMetrics(SM_CYSCREEN) - screenHeight) / 2;
+
+	// Create window and get handle
+	m_hWnd = CreateWindowEx(WS_EX_APPWINDOW, m_appName, m_appName,
+		WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_POPUP | WS_OVERLAPPEDWINDOW, posX, posY, screenWidth, screenHeight, NULL, NULL, m_hInstance, NULL);
+
+	ShowWindow(m_hWnd, nCmdShow);
+	SetForegroundWindow(m_hWnd);
+	SetFocus(m_hWnd);
+
+	printf("WINDOW: Created and initialized.\n");
 }
 
 DXWindow::~DXWindow()
 {
+	DestroyWindow(m_hWnd);
+	m_hWnd = nullptr;
 
+	UnregisterClass(m_appName, m_hInstance);
+	m_hInstance = nullptr;
+
+	APPHANDLE = nullptr;
+}
+
+void DXWindow::Initialise()
+{
+
+	// Initialise Game & Renderer
+	m_game->Initialise(this, new DXRenderer(m_screenWidth, m_screenHeight, m_hWnd, m_screenDepth, m_screenNear));
+
+	MSG msg;
+	bool done, result;
+
+	// Loop until quit
+	done = false;
+	while (!done)
+	{
+		// Window messaging
+		if (Messaging())
+		{
+			done = true;
+		}
+		{
+			m_game->Run();
+		}
+	}
+
+	return;
 }
 
 bool DXWindow::Messaging()
 {
+	MSG msg;
+
+	// Set up messaging
+	ZeroMemory(&msg, sizeof(MSG));
+
 	// Handle Windows Messaging
 	if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
 	{
@@ -35,19 +111,19 @@ LRESULT CALLBACK DXWindow::MessageHandler(HWND hWnd, UINT uMessage, WPARAM wPara
 	{
 		// Keyboard checks
 	case WM_KEYDOWN:
-		input->KeyDown((unsigned int)wParam);
+		m_game->OnKeyboard((unsigned int)wParam, true);
 		break;
 
 	case WM_KEYUP:
-		input->KeyUp((unsigned int)wParam);
+		m_game->OnKeyboard((unsigned int)wParam, false);
 		break;
 
 	case WM_LBUTTONDOWN:
-		input->MouseDown((unsigned int)wParam, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
+		m_game->OnMouse((unsigned int)wParam, true, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
 		break;
 
 	case WM_LBUTTONUP:
-		input->MouseUp((unsigned int)wParam, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
+		m_game->OnMouse((unsigned int)wParam, false, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
 		break;
 
 	default:
@@ -68,6 +144,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMessage, WPARAM wParam, LPARAM lParam)
 		return 0;
 
 	default:
-		return appHandle->MessageHandler(hWnd, uMessage, wParam, lParam);
+		return APPHANDLE->MessageHandler(hWnd, uMessage, wParam, lParam);
 	}
 }

@@ -2,15 +2,14 @@
 #include "stdio.h"
 
 #include "DX_VBO.h"
-#include "Window.h"
 #include "RenderSystem.h"
 
 using namespace DirectX;
 
-DXRenderer::DXRenderer(int screenWidth, int screenHeight, Window* window, float screenDepth, float screenNear)
-	: Renderer(screenWidth, screenHeight, window, screenDepth, screenNear)
+DXRenderer::DXRenderer(int screenWidth, int screenHeight, HWND hWnd, float screenDepth, float screenNear)
+	: Renderer(screenWidth, screenHeight, screenDepth, screenNear)
 {
-	InitializeCoreD3D(screenWidth, screenHeight, window->GetWindowHandle());
+	InitializeCoreD3D(screenWidth, screenHeight, hWnd);
 	InitializeSecondaryD3D(screenWidth, screenHeight);
 	InitializeMatricesD3D(screenWidth, screenHeight, screenDepth, screenNear);
 }
@@ -261,28 +260,12 @@ void DXRenderer::InitializeRenderSystem()
 	renderSystem = new RenderSystem(this);
 }
 
-void DXRenderer::CreateAbstractDevice()
-{
-	iDevice = new IRenderDevice(m_device);
-}
-
-void DXRenderer::CreateAbstractContext()
-{
-	iContext = new IRenderContext(m_context);
-}
 
 RenderSystem * DXRenderer::GetSystem()
 {
 	return nullptr;
 }
 
-VBO* DXRenderer::CreateVBO(std::vector<Vertex> vertices, int numVerts)
-{
-	DX_VBO* vbo = new DX_VBO();
-	vbo->Create(GetDevice(), vertices, numVerts); // TODO - Create pure abstraction of renderer to access this func
-
-	return vbo;
-}
 
 void DXRenderer::BeginScene(float r, float g, float b, float a)
 {
@@ -295,23 +278,6 @@ void DXRenderer::BeginScene(float r, float g, float b, float a)
 
 	m_context->ClearRenderTargetView(m_renderTargetView, color);
 	m_context->ClearDepthStencilView(m_depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
-}
-
-void DXRenderer::Draw(VBO* vbo, int numVerts)
-{
-	DX_VBO* dxVBO = (DX_VBO*)vbo;
-
-	// select which vertex buffer to display
-	UINT stride = sizeof(Vertex);
-	UINT offset = 0;
-
-	m_context->IASetVertexBuffers(0, 1, dxVBO->GetVBuffer(), &stride, &offset);
-
-	// select which primtive type we are using
-	m_context->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_LINESTRIP);
-
-	// draw the vertex buffer to the back buffer
-	m_context->Draw(numVerts, 0);
 }
 
 void DXRenderer::EndScene()

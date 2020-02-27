@@ -19,8 +19,7 @@ public:
 	void PushScene(Scene* newScene);
 	Scene* GetCurrentScene();
 
-	void UpdateScene(float deltaTime);
-	void RenderScene(RenderSystem* renderSystem);
+	void RunScene();
 
 private:
 

@@ -1,19 +1,24 @@
 #pragma once
-#include "Input.h"
+
+class Game;
 
 class Window
 {
 public:
 
-	Window(int screenWidth, int screenHeight, Input* input);
-	~Window();
+	Window(int screenWidth, int screenHeight, Game* game, float screenDepth, float screenNear)
+		: m_screenWidth(screenWidth), m_screenHeight(screenHeight), m_game(game), m_screenDepth(screenDepth), m_screenNear(screenNear) {};
+	virtual ~Window() {};
 
-private:
+	virtual void Initialise() = 0;
 
-	int screenWidth;
-	int screenHeight;
+protected:
 
-	Input* input;
+	Game* m_game;
 
+	int m_screenWidth;
+	int m_screenHeight;
+	float m_screenDepth;
+	float m_screenNear;
 };
 

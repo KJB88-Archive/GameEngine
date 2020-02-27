@@ -1,6 +1,5 @@
 #include "DX_VBO.h"
-#include "Graphics.h"
-#include "IRenderDevice.h"
+#include "DXRenderer.h"
 
 using namespace DirectX;
 
@@ -14,9 +13,10 @@ DX_VBO::~DX_VBO()
 
 }
 
-void DX_VBO::Create(IRenderDevice* device, std::vector<Vertex> vertices, int noOfVerts)
+void DX_VBO::Create(Renderer* renderer, std::vector<Vertex> vertices, int noOfVerts)
 {
-	ID3D11Device* dxDevice = device->GetDevice();
+	DXRenderer* dxRenderer = (DXRenderer*)renderer;
+
 	DXVertex* dxVerts;
 	//unsigned long* indices;
 	D3D11_BUFFER_DESC vBufferDesc/*, iBufferDesc*/;
@@ -66,7 +66,7 @@ void DX_VBO::Create(IRenderDevice* device, std::vector<Vertex> vertices, int noO
 	vData.SysMemPitch = 0;
 	vData.SysMemSlicePitch = 0;
 
-	dxDevice->CreateBuffer(&vBufferDesc, &vData, &m_vBuffer);
+	dxRenderer->GetDevice()->CreateBuffer(&vBufferDesc, &vData, &m_vBuffer);
 
 	//iBufferDesc.Usage = D3D11_USAGE_DEFAULT;
 	//iBufferDesc.ByteWidth = sizeof(unsigned long) * m_iCount;
@@ -89,4 +89,21 @@ void DX_VBO::Create(IRenderDevice* device, std::vector<Vertex> vertices, int noO
 	dxVerts = 0;
 	//delete[] indices;
 	//indices = 0;
+}
+
+void DX_VBO::Draw(Renderer* renderer)
+{
+	DXRenderer* dxRenderer = (DXRenderer*)renderer;
+
+	// select which vertex buffer to display
+	UINT stride = sizeof(Vertex);
+	UINT offset = 0;
+
+	dxRenderer->GetContext()->IASetVertexBuffers(0, 1, &m_vBuffer, &stride, &offset);
+
+	// select which primtive type we are using
+	dxRenderer->GetContext()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_LINESTRIP);
+
+	// draw the vertex buffer to the back buffer
+	dxRenderer->GetContext()->Draw(m_noOfVerts, 0);
 }

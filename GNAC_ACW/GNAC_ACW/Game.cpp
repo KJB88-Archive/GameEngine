@@ -1,90 +1,78 @@
 #include "Game.h"
 
-#ifdef DX_BUILD
-#include "DXRenderer.h"
-#else
-#include "GLRenderer.h"
-#endif
-
-const float SCREEN_DEPTH = 1000.0f;
-const float SCREEN_NEAR = 0.1f;
-const float SCREEN_WIDTH = 0;
-const float SCREEN_HEIGHT = 0;
-
 Game::Game()
-	: input(nullptr), renderer(nullptr), time(nullptr), sceneManager(nullptr)
+	: m_input(nullptr), m_renderer(nullptr), m_time(nullptr), m_sceneManager(nullptr)
 {
 	// Create Time Manager
-	time = new Time();
-	if (!time)
+	m_time = new Time();
+	if (!m_time)
 	{
 		printf("GAME: Unable to create TimeManager object.\n");
 	}
 
 	// Create Input Manager
-	input = new Input();
-	if (!input)
+	m_input = new Input();
+	if (!m_input)
 	{
 		printf("GAME: Unable to create InputManager object.\n");
 	}
 
-	window = new Window(screenWidth, screenHeight, input);
-
-	// Create Graphics Manager
-#ifdef DX_BUILD
-	renderer = new DXRenderer(screenWidth, screenHeight, window, SCREEN_DEPTH, SCREEN_NEAR);
-#else
-	renderer = new GLRenderer(screenWidth, screenHeight, window->GetHWND())
-#endif
-
-		if (!renderer)
-		{
-			printf("GAME: Unable to create GraphicsManager object.\n");
-		}
-
 	// Create Scene Manager
-	sceneManager = new SceneManager();
-	if (!sceneManager)
+	m_sceneManager = new SceneManager();
+	if (!m_sceneManager)
 	{
 		printf("GAME: Unable to create SceneManager object.\n");
 	}
 
+	// Create systems
 	CreateSystems();
 }
 
 Game::~Game()
 {
-	if (time)
+	if (m_time)
 	{
-		delete time;
-		time = nullptr;
+		delete m_time;
+		m_time = nullptr;
 	}
 
-	if (renderer)
+	if (m_renderer)
 	{
-		delete renderer;
-		renderer = nullptr;
+		delete m_renderer;
+		m_renderer = nullptr;
 	}
 
-	if (input)
+	if (m_input)
 	{
-		delete input;
-		input = nullptr;
+		delete m_input;
+		m_input = nullptr;
 	}
 
-	if (sceneManager)
+	if (m_sceneManager)
 	{
-		delete sceneManager;
-		sceneManager = nullptr;
+		delete m_sceneManager;
+		m_sceneManager = nullptr;
 	}
 
+	if (m_window)
+	{
+		delete m_window;
+		m_window = nullptr;
+	}
+
+}
+
+void Game::Initialise(Window* window, Renderer* renderer)
+{
+	m_renderer = renderer;
+	m_window = window;
 }
 
 void Game::CreateSystems()
 {
 // Create Render System
-	renderSystem = new RenderSystem(renderer);
-	if (!renderSystem)
+	m_renderSystem = new RenderSystem(m_renderer);
+	if (!m_renderSystem)
 	{
 		printf("GAME: Unable to create RenderSystem object.\n");
 	}
@@ -92,51 +80,17 @@ void Game::CreateSystems()
 
 void Game::Run()
 {
-	MSG msg;
-	bool done, result;
+	m_time->Update();
 
-	// Loop until quit
-	done = false;
-	while (!done)
-	{
-		// Window messaging
-		if (window->Messaging())
-		{
-			done = true;
-		}
-		else
-		{
-			// Loop game logic
-			result = OnFrame();
-
-			// Game is over, exit 
-			if (!result)
-			{
-				done = true;
-			}
-		}
-	}
-
-	return;
+	m_sceneManager->RunScene(); // Main update call
 }
 
-bool Game::OnFrame()
+void Game::OnKeyboard(int key, bool down)
 {
-	bool result;
+	// TODO - Update Input
+}
 
-	// If Escape is pressed, close the application
-	if (input->IsKeyDown(VK_ESCAPE))
-	{
-		return false;
-	}
-
-	// Update
-	sceneManager->UpdateScene(time->GetDeltaTime()); // Main update call
-
-	// Render
-	renderer->BeginScene(0.0f, 0.0f, 0.0f, 1.0f);
-	sceneManager->RenderScene(renderSystem); // Main render call
-	renderer->EndScene();
-
-	return true;
+void Game::OnMouse(int mouseButton, bool down, int xPos, int yPos)
+{
+	// TODO - Update Input
 }

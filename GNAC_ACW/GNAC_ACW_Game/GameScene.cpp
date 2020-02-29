@@ -31,6 +31,6 @@ GameScene::~GameScene()
 bool GameScene::RunScene()
 {
 	return Scene::RunScene(); 
-
+	
 	// Return false to continue game loop
 }

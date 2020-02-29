@@ -2,6 +2,7 @@
 #include "Renderer.h"
 #include "RenderComponent.h"
 #include "Entity.h"
+#include "DXRenderer.h"
 
 RenderSystem::RenderSystem(Renderer* renderer)
 	: ISystem(RENDER), renderer(renderer)
@@ -33,6 +34,9 @@ void RenderSystem::ProcessEntities(std::vector<Entity*> entities)
 				render = (RenderComponent*)components[j];
 			}
 		}
+
+		DXRenderer* dxRenderer = (DXRenderer*)renderer;
+		dxRenderer->TestDraw();
 
 		// Render the entity using it's component
 		if (render)

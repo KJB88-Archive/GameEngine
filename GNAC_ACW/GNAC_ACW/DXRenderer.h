@@ -34,6 +34,8 @@ public:
 	//void GetWorldMatrix(DirectX::XMMATRIX&);
 	//void GetOrthographicMatrix(DirectX::XMMATRIX&);
 
+	void TestDraw();
+	int m_id;
 private:
 
 	// Initialize DX Resources

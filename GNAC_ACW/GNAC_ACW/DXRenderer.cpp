@@ -12,6 +12,7 @@ DXRenderer::DXRenderer(int screenWidth, int screenHeight, HWND hWnd, float scree
 	InitializeCoreD3D(screenWidth, screenHeight, hWnd);
 	InitializeSecondaryD3D(screenWidth, screenHeight);
 	InitializeMatricesD3D(screenWidth, screenHeight, screenDepth, screenNear);
+	InitializeRenderSystem();
 }
 
 DXRenderer::~DXRenderer()
@@ -68,6 +69,16 @@ DXRenderer::~DXRenderer()
 		m_swapChain->Release();
 		m_swapChain = nullptr;
 	}
+}
+
+ID3D11Device* DXRenderer::GetDevice() const
+{
+	return m_device;
+}
+
+ID3D11DeviceContext* DXRenderer::GetContext() const
+{
+	return m_context;
 }
 
 void DXRenderer::InitializeCoreD3D(int screenWidth, int screenHeight, HWND hwnd)
@@ -261,11 +272,17 @@ void DXRenderer::InitializeRenderSystem()
 }
 
 
-RenderSystem * DXRenderer::GetSystem()
+RenderSystem* DXRenderer::GetSystem()
 {
-	return nullptr;
+	return renderSystem;
 }
 
+void DXRenderer::Draw(const Mesh* mesh)
+{
+	DX_VBO* vbo = (DX_VBO*)mesh->GetVBO();
+
+	vbo->Draw(this);
+}
 
 void DXRenderer::BeginScene(float r, float g, float b, float a)
 {

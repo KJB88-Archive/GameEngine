@@ -17,7 +17,7 @@ public:
 	//bool Messaging();
 	LRESULT CALLBACK MessageHandler(HWND, UINT, WPARAM, LPARAM);
 
-	virtual void Initialise() override;
+	virtual void Run() override;
 
 private:
 

@@ -28,18 +28,9 @@ GameScene::~GameScene()
 
 }
 
-void GameScene::Initialize()
+bool GameScene::RunScene()
 {
-	// Initialize Resources (for scene & entities)
-}
+	return Scene::RunScene(); 
 
-void GameScene::Update(float deltaTime)
-{
-
-}
-
-void GameScene::Render(RenderSystem* render)
-{
-	render->ProcessEntities(entities);
-	//entities[0]->Draw();
+	// Return false to continue game loop
 }

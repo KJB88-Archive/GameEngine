@@ -105,5 +105,5 @@ void DX_VBO::Draw(Renderer* renderer)
 	dxRenderer->GetContext()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_LINESTRIP);
 
 	// draw the vertex buffer to the back buffer
-	dxRenderer->GetContext()->Draw(m_noOfVerts, 0);
+	dxRenderer->GetContext()->Draw(m_vCount, 0);
 }

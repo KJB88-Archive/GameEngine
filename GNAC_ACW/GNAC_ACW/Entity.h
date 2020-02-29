@@ -2,7 +2,6 @@
 #include <vector>
 
 #include "IComponent.h"
-#include "Graphics.h"
 class Entity
 {
 

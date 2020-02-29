@@ -43,6 +43,10 @@ DXWindow::DXWindow(Game* game, int screenWidth, int screenHeight, float screenDe
 	SetFocus(m_hWnd);
 
 	printf("WINDOW: Created and initialized.\n");
+
+	// Initialise Game & Renderer
+	m_game->Initialise(this, new DXRenderer(m_screenWidth, m_screenHeight, m_hWnd, m_screenDepth, m_screenNear));
+
 }
 
 DXWindow::~DXWindow()
@@ -56,12 +60,8 @@ DXWindow::~DXWindow()
 	APPHANDLE = nullptr;
 }
 
-void DXWindow::Initialise()
+void DXWindow::Run()
 {
-
-	// Initialise Game & Renderer
-	m_game->Initialise(this, new DXRenderer(m_screenWidth, m_screenHeight, m_hWnd, m_screenDepth, m_screenNear));
-
 	MSG msg;
 	bool done, result;
 
@@ -74,6 +74,7 @@ void DXWindow::Initialise()
 		{
 			done = true;
 		}
+		else
 		{
 			m_game->Run();
 		}

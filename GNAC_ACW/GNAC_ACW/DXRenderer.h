@@ -19,14 +19,14 @@ public:
 	DXRenderer(int screenWidth, int screenHeight, HWND hwnd, float screenDepth, float screenNear);
 	virtual ~DXRenderer();
 
-	ID3D11Device* GetDevice();
-	ID3D11DeviceContext* GetContext();
+	ID3D11Device* GetDevice() const;
+	ID3D11DeviceContext* GetContext() const;
 
 	virtual RenderSystem * GetSystem() override;
 
 	// Scene rendering
 	virtual void BeginScene(float r, float g, float b, float a) override;
-	virtual void Draw(const Mesh* mesh, const Colour& colour) override;
+	virtual void Draw(const Mesh* mesh) override;
 	virtual void EndScene() override;
 
 	// Matrices

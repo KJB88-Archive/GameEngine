@@ -11,6 +11,17 @@ Scene::Scene(const int id, const std::string& name)
 Scene::~Scene()
 {
 	entities.clear();
+	systems.clear();
+}
+
+bool Scene::RunScene()
+{
+	for (int i = 0; i < systems.size(); ++i)
+	{
+		systems[i]->ProcessEntities(entities);
+	}
+
+	return false; // Return false to continue game loop
 }
 
 void Scene::InitializeCoreResources()

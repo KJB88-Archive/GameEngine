@@ -1,7 +1,13 @@
 #include "Mesh.h"
 #include "Vertex.h"
-#include "VBO.h"
-#include "Graphics.h"
+#include "Renderer.h"
+
+#if DX_BUILD
+#include "DX_VBO.h"
+#endif
+#if GL_BUILD
+#include "GL_VBO.h"
+#endif
 
 Mesh::Mesh(int id, std::string name)
 	: Asset(id, name, MESH)
@@ -18,6 +24,18 @@ Mesh::~Mesh()
 VBO* Mesh::GetVBO() const
 {
 	return vbo;
+}
+
+void Mesh::CreateVBO(Renderer* renderer)
+{
+#if DX_BUILD
+	vbo = new DX_VBO();
+#endif
+#if GL_BUILD
+	vbo = new GL_VBO();
+#endif
+
+	vbo->Create(renderer, vertices, NumVerts());
 }
 
 const int Mesh::NumVerts()

@@ -11,11 +11,8 @@ public:
 	GameScene();
 	virtual ~GameScene();
 
-	virtual void Initialize();
-	virtual void Update(float deltaTime);
-	virtual void Render(RenderSystem* renderer);
+	virtual bool RunScene() override;
 
 private:
 
-	RenderSystem* renderSystem;
 };

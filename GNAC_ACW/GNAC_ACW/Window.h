@@ -10,7 +10,7 @@ public:
 		: m_screenWidth(screenWidth), m_screenHeight(screenHeight), m_game(game), m_screenDepth(screenDepth), m_screenNear(screenNear) {};
 	virtual ~Window() {};
 
-	virtual void Initialise() = 0;
+	virtual void Run() = 0;
 
 protected:
 

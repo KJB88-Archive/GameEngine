@@ -23,9 +23,6 @@ Game::Game()
 	{
 		printf("GAME: Unable to create SceneManager object.\n");
 	}
-
-	// Create systems
-	CreateSystems();
 }
 
 Game::~Game()
@@ -66,23 +63,30 @@ void Game::Initialise(Window* window, Renderer* renderer)
 {
 	m_renderer = renderer;
 	m_window = window;
+	
+	CreateSystems();
 }
 
 void Game::CreateSystems()
 {
 // Create Render System
-	m_renderSystem = new RenderSystem(m_renderer);
+	m_renderSystem = m_renderer->GetSystem();
 	if (!m_renderSystem)
 	{
 		printf("GAME: Unable to create RenderSystem object.\n");
 	}
 }
 
-void Game::Run()
+bool Game::Run()
 {
+	bool result;
+
+	// Update managers and systems here
 	m_time->Update();
 
-	m_sceneManager->RunScene(); // Main update call
+	return m_sceneManager->RunScene(); // Main update call
+
+	// Return false to continue game loop
 }
 
 void Game::OnKeyboard(int key, bool down)

@@ -34,12 +34,26 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="TestGame.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GameScene.h" />
+    <ClInclude Include="TestGame.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GNAC_ACW\GNAC_ACW.vcxproj">
+      <Project>{d67b1d1d-5880-4d4b-9e4f-c4c3042cdbed}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{D67B1D1D-5880-4D4B-9E4F-C4C3042CDBED}</ProjectGuid>
+    <ProjectGuid>{8E3E389D-48D1-4F95-A643-1513DF6DF472}</ProjectGuid>
     <RootNamespace>GNACACW</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
-    <ProjectName>GAnC_ACW_Engine</ProjectName>
+    <ProjectName>GAnC_ACW_Game</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -55,7 +69,7 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDX|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
@@ -131,7 +145,7 @@
     <LibraryPath>C:\GAnC\DirectX SDK\Lib\x86;C:\GAnC\CSLib\lib;C:\GAnC\DirectX SDK\DirectX SDK\Lib\x86;C:\GAnC\CSLib\CSLib\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDX|Win32'">
-    <IncludePath>C:\GAnC\DirectX SDK\Include;C:\GAnC\DirectX SDK\DirectX SDK\Include;C:\GAnC\CSLib\CSLib\inc;C:\GAnC\CSLib\inc;$(IncludePath)</IncludePath>
+    <IncludePath>C:\GAnC\GameEngine\GNAC_ACW\GNAC_ACW;C:\GAnC\DirectX SDK\Include;C:\GAnC\DirectX SDK\DirectX SDK\Include;C:\GAnC\CSLib\CSLib\inc;C:\GAnC\CSLib\inc;$(IncludePath)</IncludePath>
     <LibraryPath>C:\GAnC\DirectX SDK\Lib\x86;C:\GAnC\CSLib\lib;C:\GAnC\DirectX SDK\DirectX SDK\Lib\x86;C:\GAnC\CSLib\CSLib\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -264,107 +278,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Colour.cpp" />
-    <ClCompile Include="DXCamera.cpp" />
-    <ClCompile Include="DXRenderer.cpp" />
-    <ClCompile Include="DXShader.cpp" />
-    <ClCompile Include="DXWindow.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="Input.cpp" />
-    <ClCompile Include="Manager.cpp" />
-    <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="RenderComponent.cpp" />
-    <ClCompile Include="RenderSystem.cpp" />
-    <ClCompile Include="Resources.cpp" />
-    <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="SceneManager.cpp" />
-    <ClCompile Include="Time.cpp" />
-    <ClCompile Include="TransformComponent.cpp" />
-    <ClCompile Include="DX_VBO.cpp" />
-    <ClCompile Include="Vector3.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Colour.h" />
-    <ClInclude Include="DXCamera.h" />
-    <ClInclude Include="DXRenderer.h" />
-    <ClInclude Include="DXWindow.h" />
-    <ClInclude Include="Entity.h" />
-    <ClInclude Include="IComponent.h" />
-    <ClInclude Include="MathsHelper.h" />
-    <ClInclude Include="Renderer.h" />
-    <ClInclude Include="ISystem.h" />
-    <ClInclude Include="RenderComponent.h" />
-    <ClInclude Include="RenderSystem.h" />
-    <ClInclude Include="Resources.h" />
-    <ClInclude Include="Scene.h" />
-    <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="Time.h" />
-    <ClInclude Include="TransformComponent.h" />
-    <ClInclude Include="DX_VBO.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="Input.h" />
-    <ClInclude Include="Manager.h" />
-    <ClInclude Include="DXShader.h" />
-    <ClInclude Include="Mesh.h" />
-    <ClInclude Include="Asset.h" />
-    <ClInclude Include="VBO.h" />
-    <ClInclude Include="Vector3.h" />
-    <ClInclude Include="Vector4.h" />
-    <ClInclude Include="Vertex.h" />
-    <ClInclude Include="Window.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="ColorPixel.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='DebugGL|Win32'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='DebugDX|Win32'">Pixel</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4.0_level_9_3</ShaderModel>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='DebugGL|Win32'">4.0_level_9_3</ShaderModel>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='DebugDX|Win32'">4.0_level_9_3</ShaderModel>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='DebugGL|x64'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='DebugDX|x64'">Pixel</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0_level_9_3</ShaderModel>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='DebugGL|x64'">4.0_level_9_3</ShaderModel>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='DebugDX|x64'">4.0_level_9_3</ShaderModel>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Geometry</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">4.0</ShaderModel>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Geometry</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
-      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">PShader</EntryPointName>
-      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='DebugGL|Win32'">PShader</EntryPointName>
-      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='DebugDX|Win32'">PShader</EntryPointName>
-      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">PShader</EntryPointName>
-      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='DebugGL|x64'">PShader</EntryPointName>
-      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='DebugDX|x64'">PShader</EntryPointName>
-    </FxCompile>
-    <FxCompile Include="PassthroughVertex.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='DebugGL|Win32'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='DebugDX|Win32'">Vertex</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4.0_level_9_3</ShaderModel>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='DebugGL|Win32'">4.0_level_9_3</ShaderModel>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='DebugDX|Win32'">4.0_level_9_3</ShaderModel>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='DebugGL|x64'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='DebugDX|x64'">Vertex</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='DebugGL|x64'">4.0</ShaderModel>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='DebugDX|x64'">4.0</ShaderModel>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Geometry</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">4.0</ShaderModel>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Geometry</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
-      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">VShader</EntryPointName>
-      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='DebugGL|Win32'">VShader</EntryPointName>
-      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='DebugDX|Win32'">VShader</EntryPointName>
-      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VShader</EntryPointName>
-      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='DebugGL|x64'">VShader</EntryPointName>
-      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='DebugDX|x64'">VShader</EntryPointName>
-    </FxCompile>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

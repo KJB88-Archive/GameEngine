@@ -21,7 +21,7 @@ public:
 	Vertex& GetVertexRef(int i);
 
 	// Vertex / VBO manip
-	void CreateVBO();
+	void CreateVBO(Renderer* renderer);
 
 	bool AddVertex(Vertex v);
 	bool Clear();

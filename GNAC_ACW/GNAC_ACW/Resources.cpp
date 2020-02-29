@@ -1,5 +1,4 @@
 #include "Resources.h"
-#include "Graphics.h"
 
 Resources::Resources()
 	: Manager("Resources")

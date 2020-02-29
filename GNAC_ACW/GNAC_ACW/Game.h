@@ -1,8 +1,4 @@
 #pragma once
-#include "windows.h"
-#include "windowsx.h"
-#define WIN32_LEAN_AND_MEAN
-
 // Window
 #include "Window.h"
 
@@ -25,7 +21,7 @@ public:
 	virtual void Initialise(Window* wnd, Renderer* window);
 
 	// Main game loop
-	virtual void Run();
+	virtual bool Run();
 
 	// Input
 	virtual void OnKeyboard(int key, bool down);

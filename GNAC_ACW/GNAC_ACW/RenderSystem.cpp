@@ -15,8 +15,7 @@ RenderSystem::~RenderSystem()
 
 void RenderSystem::ProcessEntities(std::vector<Entity*> entities)
 {
-
-	//// Loop through entities
+	// Loop through entities
 	for (int i = 0; i < entities.size(); ++i)
 	{
 		RenderComponent* render = NULL;
@@ -40,10 +39,14 @@ void RenderSystem::ProcessEntities(std::vector<Entity*> entities)
 		{
 
 			// TODO - Check for isVisible
-			if (render->mesh)
+			if (render->mesh) // Does this component have a mesh?
 			{
-				// TODO - Draw
-				//renderer->Draw(render->mesh->GetVBO(), render->mesh->NumVerts());
+				if (!render->mesh->GetVBO()) // Does the mesh have a valid VBO?
+				{
+					render->mesh->CreateVBO(renderer); // Create VBO
+				}
+
+				render->mesh->GetVBO()->Draw(renderer); // Draw
 			}
 
 		}

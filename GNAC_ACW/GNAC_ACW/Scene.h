@@ -15,7 +15,7 @@ public:
 	//virtual void Update(float deltaTime) = 0;
 	//virtual void Render(RenderSystem* renderer) = 0;
 
-	virtual void RunScene();
+	virtual bool RunScene();
 
 	const int GetID();
 	const std::string& GetName();

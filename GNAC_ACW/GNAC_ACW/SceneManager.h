@@ -2,10 +2,7 @@
 #include "Manager.h"
 #include "Scene.h"
 
-#include <queue>
-
-// TEMP
-#include "Graphics.h"
+#include <stack>
 
 class SceneManager
 	: Manager
@@ -19,11 +16,11 @@ public:
 	void PushScene(Scene* newScene);
 	Scene* GetCurrentScene();
 
-	void RunScene();
+	bool RunScene();
 
 private:
 
-	std::queue<Scene*> scenes;
+	std::stack<Scene*> scenes;
 
 	void InitializeCoreResources();
 

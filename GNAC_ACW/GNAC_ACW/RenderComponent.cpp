@@ -1,12 +1,10 @@
 #include "RenderComponent.h"
-#include "Graphics.h"
 
 RenderComponent::RenderComponent() 
 	: IComponent(COMPONENT_RENDER)
 {
-	mesh = new Mesh(0, "Mesh");
-
 	// TODO
+	mesh = new Mesh(0, "Mesh");
 }
 
 RenderComponent::~RenderComponent()

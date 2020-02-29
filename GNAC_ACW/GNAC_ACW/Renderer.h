@@ -19,7 +19,7 @@ public:
 	virtual ~Renderer() {};
 
 	virtual void BeginScene(float r, float g, float b, float a) = 0;
-	virtual void Draw(const Mesh* mesh, const Colour& colour) = 0;
+	virtual void Draw(const Mesh* mesh) = 0;
 	virtual void EndScene() = 0;
 
 	virtual RenderSystem* GetSystem() = 0;

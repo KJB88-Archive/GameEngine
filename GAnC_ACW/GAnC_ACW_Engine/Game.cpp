@@ -53,10 +53,8 @@ Game::~Game()
 
 	if (m_window)
 	{
-		delete m_window;
 		m_window = nullptr;
 	}
-
 }
 
 void Game::Initialise(Window* window, Renderer* renderer)
@@ -79,8 +77,6 @@ void Game::CreateSystems()
 
 bool Game::Run()
 {
-	bool result;
-
 	// Update managers and systems here
 	m_time->Update();
 

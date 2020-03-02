@@ -62,12 +62,10 @@ DXWindow::~DXWindow()
 
 void DXWindow::Run()
 {
-	MSG msg;
-	bool done, result;
+	bool done = false;
 
 	// Loop until quit
-	done = false;
-	while (!done)
+	while (!done) // TODO - This loop is causing hard lock?
 	{
 		// Window messaging
 		if (Messaging())
@@ -76,10 +74,9 @@ void DXWindow::Run()
 		}
 		else
 		{
-			m_game->Run();
+			done = m_game->Run();
 		}
 	}
-
 	return;
 }
 
@@ -93,14 +90,14 @@ bool DXWindow::Messaging()
 	// Handle Windows Messaging
 	if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
 	{
+		// If exit signal
+		if (msg.message == WM_QUIT)
+		{
+			return true;
+		}
+
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
-	}
-
-	// If exit signal
-	if (msg.message == WM_QUIT)
-	{
-		return true;
 	}
 
 	return false;

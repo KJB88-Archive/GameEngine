@@ -10,12 +10,20 @@ DXShader::DXShader(DXRenderer* renderer)
 	: m_vShader(nullptr), m_pShader(nullptr), m_layout(nullptr), m_matrixBuffer(nullptr)
 {
 	HRESULT result;
-	ID3D10Blob *VS, *PS;
+	ID3DBlob *VS, *PS;
 	unsigned int numElements;
 	D3D11_BUFFER_DESC matrixBufferDesc;
 
-	D3DX11CompileFromFile("PassthroughVertex.hlsl", 0, 0, "VShader", "vs_4_0_level_9_3", 0, 0, 0, &VS, 0, 0);
-	D3DX11CompileFromFile("ColorPixel.hlsl", 0, 0, "PShader", "ps_4_0_level_9_3", 0, 0, 0, &PS, 0, 0);
+	result = D3DX11CompileFromFile("PassthroughVertex.hlsl", 0, 0, "VShader", "vs_4_0_level_9_3", 0, 0, 0, &VS, 0, 0);
+	if (FAILED(result))
+	{
+		printf("DXSHADER: Unable to compile VS from file. ");
+	}
+	result = D3DX11CompileFromFile("ColorPixel.hlsl", 0, 0, "PShader", "ps_4_0_level_9_3", 0, 0, 0, &PS, 0, 0);
+	if (FAILED(result))
+	{
+		printf("DXSHADER: Unable to compile PS from file.");
+	}
 
 	result = renderer->GetDevice()->CreateVertexShader(VS->GetBufferPointer(), VS->GetBufferSize(), NULL, &m_vShader);
 	if (FAILED(result))

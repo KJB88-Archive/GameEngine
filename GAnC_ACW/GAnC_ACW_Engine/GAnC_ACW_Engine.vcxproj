@@ -404,6 +404,7 @@
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='DebugGL|x64'">PShader</EntryPointName>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='DebugDX|x64'">PShader</EntryPointName>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='ReleaseDX|Win32'">PShader</EntryPointName>
+      <DeploymentContent>true</DeploymentContent>
     </FxCompile>
     <FxCompile Include="PassthroughVertex.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
@@ -433,6 +434,7 @@
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='DebugGL|x64'">VShader</EntryPointName>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='DebugDX|x64'">VShader</EntryPointName>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='ReleaseDX|Win32'">VShader</EntryPointName>
+      <DeploymentContent>true</DeploymentContent>
     </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

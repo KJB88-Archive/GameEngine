@@ -34,14 +34,9 @@ void RenderSystem::ProcessEntities(std::vector<Entity*> entities)
 				render = (RenderComponent*)components[j];
 			}
 		}
-
-		DXRenderer* dxRenderer = (DXRenderer*)renderer;
-		dxRenderer->TestDraw();
-
 		// Render the entity using it's component
 		if (render)
 		{
-
 			// TODO - Check for isVisible
 			if (render->mesh) // Does this component have a mesh?
 			{

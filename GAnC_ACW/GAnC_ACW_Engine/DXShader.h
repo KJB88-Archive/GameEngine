@@ -12,18 +12,20 @@
 #include <DirectXMath.h>
 #include <fstream>
 
+class DXRenderer;
+
 class DXShader
 {
 public:
 
-	DXShader(ID3D11Device*);
+	DXShader(DXRenderer* renderer);
 	~DXShader();
 
-	void Render(ID3D11DeviceContext*, int, DirectX::XMMATRIX, DirectX::XMMATRIX, DirectX::XMMATRIX);
+	//void Render(ID3D11DeviceContext*, int, DirectX::XMMATRIX, DirectX::XMMATRIX, DirectX::XMMATRIX);
 
 private:
 	void SetShaderParameters(ID3D11DeviceContext*, DirectX::XMMATRIX, DirectX::XMMATRIX, DirectX::XMMATRIX);
-	void RenderShader(ID3D11DeviceContext*, int);
+	//void RenderShader(ID3D11DeviceContext*, int);
 
 	struct MatrixBuffer
 	{

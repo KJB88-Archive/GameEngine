@@ -6,82 +6,6 @@
 
 using namespace DirectX;
 
-struct DXVertex
-{
-	DirectX::XMFLOAT3 position;
-	DirectX::XMFLOAT4 color;
-};
-
-void DXRenderer::TestDraw()
-{
-	printf("RENDERER: " + m_id);
-	//DXVertex* dxVerts;
-	////unsigned long* indices;
-	//D3D11_BUFFER_DESC vBufferDesc/*, iBufferDesc*/;
-	//D3D11_SUBRESOURCE_DATA vData/*, iData*/;
-	//HRESULT result;
-
-	//// Convert from generic struct to DX specific struct
-	//// TODO 
-
-	//int m_vCount = 4;
-	////m_iCount = 6;
-
-	//dxVerts = new DXVertex[m_vCount];
-	////indices = new unsigned long[m_iCount];
-
-	//dxVerts[0].position = XMFLOAT3(1.0f, 1.0f, 0.0f);
-	//dxVerts[1].position = XMFLOAT3(-1.0f, 1.0f, 0.0f);
-	//dxVerts[2].position = XMFLOAT3(-1.0f, -1.0f, 0.0f);
-	//dxVerts[3].position = XMFLOAT3(1.0f, -1.0f, 0.0f);
-
-	////vertices[4].position = XMFLOAT3(0.0f, 0.0f, 1.0f);
-	////vertices[5].position = XMFLOAT3(1.0f, 0.0f, 1.0f);
-	////vertices[6].position = XMFLOAT3(1.0f, 1.0f, 1.0f);
-	////vertices[7].position = XMFLOAT3(0.0f, 1.0f, 1.0f);
-
-	//for (int i = 0; i < m_vCount; ++i)
-	//{
-	//	dxVerts[i].color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
-	//}
-
-	////indices[0] = 0;
-	////indices[1] = 3;
-	////indices[2] = 2;
-	////indices[3] = 2;
-	////indices[4] = 1;
-	////indices[5] = 0;
-
-
-	//vBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-	//vBufferDesc.ByteWidth = sizeof(DXVertex) * m_vCount;
-	//vBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-	//vBufferDesc.CPUAccessFlags = 0;
-	//vBufferDesc.MiscFlags = 0;
-	//vBufferDesc.StructureByteStride = 0;
-
-	//// Give subresource data
-	//vData.pSysMem = dxVerts;
-	//vData.SysMemPitch = 0;
-	//vData.SysMemSlicePitch = 0;
-
-	//ID3D11Buffer* m_vBuffer;
-	//GetDevice()->CreateBuffer(&vBufferDesc, &vData, &m_vBuffer);
-
-	//// select which vertex buffer to display
-	//UINT stride = sizeof(DXVertex);
-	//UINT offset = 0;
-
-	//GetContext()->IASetVertexBuffers(0, 1, &m_vBuffer, &stride, &offset);
-
-	//// select which primtive type we are using
-	//GetContext()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_LINESTRIP);
-
-	//// draw the vertex buffer to the back buffer
-	//GetContext()->Draw(m_vCount, 0);
-
-}
-
 DXRenderer::DXRenderer(int screenWidth, int screenHeight, HWND hWnd, float screenDepth, float screenNear)
 	: Renderer(screenWidth, screenHeight, screenDepth, screenNear)
 {
@@ -90,7 +14,10 @@ DXRenderer::DXRenderer(int screenWidth, int screenHeight, HWND hWnd, float scree
 	InitializeMatricesD3D(screenWidth, screenHeight, screenDepth, screenNear);
 	InitializeRenderSystem();
 
-	m_id = 9999;
+	m_camera = new DXCamera();
+	m_camera->Render();
+
+	m_shader = new DXShader(this);
 }
 
 DXRenderer::~DXRenderer()
@@ -335,13 +262,13 @@ void DXRenderer::InitializeMatricesD3D(int screenWidth, int screenHeight, float 
 	FoV = XM_PIDIV4;
 	aspectRatio = (float)screenWidth / (float)screenHeight;
 
-	projection = XMMatrixPerspectiveFovLH(FoV, aspectRatio, screenNear, screenDepth);
+	m_projection = XMMatrixPerspectiveFovLH(FoV, aspectRatio, screenNear, screenDepth);
 
 	// World
-	world = XMMatrixIdentity();
+	m_world = XMMatrixIdentity();
 
 	// Ortho
-	orthographic = XMMatrixOrthographicLH((float)screenWidth, (float)screenHeight, screenNear, screenDepth);
+	m_ortho = XMMatrixOrthographicLH((float)screenWidth, (float)screenHeight, screenNear, screenDepth);
 }
 
 void DXRenderer::InitializeRenderSystem()
@@ -378,4 +305,24 @@ void DXRenderer::BeginScene(float r, float g, float b, float a)
 void DXRenderer::EndScene()
 {
 	m_swapChain->Present(0, 0);
+}
+
+void DXRenderer::GetProjectionMatrix(DirectX::XMMATRIX & proj)
+{
+	proj = m_projection;
+}
+
+void DXRenderer::GetWorldMatrix(DirectX::XMMATRIX & world)
+{
+	world = m_world;
+}
+
+void DXRenderer::GetOrthographicMatrix(DirectX::XMMATRIX & ortho)
+{
+	m_ortho = ortho;
+}
+
+void DXRenderer::GetViewMatrix(DirectX::XMMATRIX & view)
+{
+	m_camera->GetViewMatrix(view);
 }

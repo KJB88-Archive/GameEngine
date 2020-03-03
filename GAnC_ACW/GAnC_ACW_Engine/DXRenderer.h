@@ -8,6 +8,8 @@
 
 #include "DX_VBO.h"
 #include "Renderer.h"
+#include "DXShader.h"
+#include "DXCamera.h"
 
 class Window;
 
@@ -30,12 +32,11 @@ public:
 	virtual void EndScene() override;
 
 	// Matrices
-	//void GetProjectionMatrix(DirectX::XMMATRIX&);
-	//void GetWorldMatrix(DirectX::XMMATRIX&);
-	//void GetOrthographicMatrix(DirectX::XMMATRIX&);
+	void GetProjectionMatrix(DirectX::XMMATRIX& proj);
+	void GetWorldMatrix(DirectX::XMMATRIX& world);
+	void GetOrthographicMatrix(DirectX::XMMATRIX& ortho);
+	void GetViewMatrix(DirectX::XMMATRIX& view);
 
-	void TestDraw();
-	int m_id;
 private:
 
 	// Initialize DX Resources
@@ -56,10 +57,13 @@ private:
 	ID3D11DepthStencilView* m_depthStencilView;
 	ID3D11RasterizerState* m_rasterState;
 
+	DXShader* m_shader;
+	DXCamera* m_camera;
+
 	// Matrices
-	DirectX::XMMATRIX projection;
-	DirectX::XMMATRIX world;
-	DirectX::XMMATRIX orthographic;
+	DirectX::XMMATRIX m_projection;
+	DirectX::XMMATRIX m_world;
+	DirectX::XMMATRIX m_ortho;
 
 	// Systems
 	RenderSystem* renderSystem;

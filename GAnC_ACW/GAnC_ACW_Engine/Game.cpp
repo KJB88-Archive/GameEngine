@@ -62,17 +62,13 @@ void Game::Initialise(Window* window, Renderer* renderer)
 	m_renderer = renderer;
 	m_window = window;
 	
-	CreateSystems();
-}
-
-void Game::CreateSystems()
-{
-// Create Render System
+	// Create Render System
 	m_renderSystem = m_renderer->GetSystem();
 	if (!m_renderSystem)
 	{
-		printf("GAME: Unable to create RenderSystem object.\n");
+		printf("GAME: Unable to get RenderSystem object.\n");
 	}
+
 }
 
 bool Game::Run()

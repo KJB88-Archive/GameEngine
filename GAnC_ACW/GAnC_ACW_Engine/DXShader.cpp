@@ -1,10 +1,12 @@
 #include "DXShader.h"
+#include "DXRenderer.h"
+
 #include <string>
 
 using namespace std;
 using namespace DirectX;
 
-DXShader::DXShader(ID3D11Device* device)
+DXShader::DXShader(DXRenderer* renderer)
 	: m_vShader(nullptr), m_pShader(nullptr), m_layout(nullptr), m_matrixBuffer(nullptr)
 {
 	HRESULT result;
@@ -15,16 +17,19 @@ DXShader::DXShader(ID3D11Device* device)
 	D3DX11CompileFromFile("PassthroughVertex.hlsl", 0, 0, "VShader", "vs_4_0_level_9_3", 0, 0, 0, &VS, 0, 0);
 	D3DX11CompileFromFile("ColorPixel.hlsl", 0, 0, "PShader", "ps_4_0_level_9_3", 0, 0, 0, &PS, 0, 0);
 
-	result = device->CreateVertexShader(VS->GetBufferPointer(), VS->GetBufferSize(), NULL, &m_vShader);
+	result = renderer->GetDevice()->CreateVertexShader(VS->GetBufferPointer(), VS->GetBufferSize(), NULL, &m_vShader);
 	if (FAILED(result))
 	{
 		// DEBUG
 	}
-	result = device->CreatePixelShader(PS->GetBufferPointer(), PS->GetBufferSize(), NULL, &m_pShader);
+	result = renderer->GetDevice()->CreatePixelShader(PS->GetBufferPointer(), PS->GetBufferSize(), NULL, &m_pShader);
 	if (FAILED(result))
 	{
 		// DEBUG
 	}
+
+	renderer->GetContext()->VSSetShader(m_vShader, NULL, 0);
+	renderer->GetContext()->PSSetShader(m_pShader, NULL, 0);
 
 	// Vertex Input Layout
 	D3D11_INPUT_ELEMENT_DESC polygonLayout[] =
@@ -34,11 +39,13 @@ DXShader::DXShader(ID3D11Device* device)
 	};
 	numElements = sizeof(polygonLayout) / sizeof(polygonLayout[0]);
 
-	result = device->CreateInputLayout(polygonLayout, numElements, VS->GetBufferPointer(), VS->GetBufferSize(), &m_layout);
+	result = renderer->GetDevice()->CreateInputLayout(polygonLayout, numElements, VS->GetBufferPointer(), VS->GetBufferSize(), &m_layout);
 	if (FAILED(result))
 	{
 		// DEBUG
 	}
+
+	renderer->GetContext()->IASetInputLayout(m_layout);
 
 	VS->Release();
 	VS = nullptr;
@@ -53,11 +60,21 @@ DXShader::DXShader(ID3D11Device* device)
 	matrixBufferDesc.MiscFlags = 0;
 	matrixBufferDesc.StructureByteStride = 0;
 
-	result = device->CreateBuffer(&matrixBufferDesc, NULL, &m_matrixBuffer);
+	result = renderer->GetDevice()->CreateBuffer(&matrixBufferDesc, NULL, &m_matrixBuffer);
 	if (FAILED(result))
 	{
 		// Debug
 	}
+	XMMATRIX world;
+	renderer->GetWorldMatrix(world);
+	XMMATRIX proj;
+	renderer->GetProjectionMatrix(proj);
+	XMMATRIX ortho;
+	renderer->GetOrthographicMatrix(ortho);
+	XMMATRIX view;
+	renderer->GetViewMatrix(view);
+
+	SetShaderParameters(renderer->GetContext(), world, view, ortho);
 }
 
 DXShader::~DXShader()
@@ -108,18 +125,18 @@ void DXShader::SetShaderParameters(ID3D11DeviceContext* context, XMMATRIX world,
 	context->VSSetConstantBuffers(bufferNo, 1, &m_matrixBuffer);
 }
 
-void DXShader::Render(ID3D11DeviceContext* context, int iCount, XMMATRIX world, XMMATRIX view, XMMATRIX proj)
-{
-	SetShaderParameters(context, world, view, proj);
-	RenderShader(context, iCount);
-}
-
-void DXShader::RenderShader(ID3D11DeviceContext* context, int iCount)
-{
-	context->IASetInputLayout(m_layout);
-
-	context->VSSetShader(m_vShader, NULL, 0);
-	context->PSSetShader(m_pShader, NULL, 0);
-
-	context->DrawIndexed(iCount, 0, 0);
-}
+//void DXShader::Render(ID3D11DeviceContext* context, int iCount, XMMATRIX world, XMMATRIX view, XMMATRIX proj)
+//{
+//	SetShaderParameters(context, world, view, proj);
+//	RenderShader(context, iCount);
+//}
+//
+//void DXShader::RenderShader(ID3D11DeviceContext* context, int iCount)
+//{
+//	context->IASetInputLayout(m_layout);
+//
+//	context->VSSetShader(m_vShader, NULL, 0);
+//	context->PSSetShader(m_pShader, NULL, 0);
+//
+//	context->DrawIndexed(iCount, 0, 0);
+//}

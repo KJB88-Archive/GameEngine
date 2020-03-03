@@ -6,7 +6,7 @@ class DXCamera
 public:
 
 	DXCamera();
-	DXCamera(const DXCamera&);
+	//DXCamera(const DXCamera&);
 	~DXCamera();
 
 	void SetPosition(float, float, float);

@@ -72,10 +72,10 @@ void DXWindow::Run()
 		{
 			done = true;
 		}
-		else
-		{
+		//else
+		//{
 			done = m_game->Run();
-		}
+		//}
 	}
 	return;
 }

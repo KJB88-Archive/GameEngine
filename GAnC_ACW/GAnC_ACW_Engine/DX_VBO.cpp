@@ -15,7 +15,7 @@ DX_VBO::~DX_VBO()
 
 void DX_VBO::Create(Renderer* renderer, std::vector<Vertex> vertices, int noOfVerts)
 {
-	DXRenderer* dxRenderer = (DXRenderer*)renderer;
+	DXRenderer* dxRenderer = dynamic_cast<DXRenderer*>(renderer);
 
 	DXVertex* dxVerts;
 	//unsigned long* indices;
@@ -52,7 +52,6 @@ void DX_VBO::Create(Renderer* renderer, std::vector<Vertex> vertices, int noOfVe
 	//indices[3] = 2;
 	//indices[4] = 1;
 	//indices[5] = 0;
-
 
 	vBufferDesc.Usage = D3D11_USAGE_DEFAULT;
 	vBufferDesc.ByteWidth = sizeof(DXVertex) * m_vCount;
@@ -93,10 +92,10 @@ void DX_VBO::Create(Renderer* renderer, std::vector<Vertex> vertices, int noOfVe
 
 void DX_VBO::Draw(Renderer* renderer)
 {
-	DXRenderer* dxRenderer = (DXRenderer*)renderer;
+	DXRenderer* dxRenderer = dynamic_cast<DXRenderer*>(renderer);
 
 	// select which vertex buffer to display
-	UINT stride = sizeof(Vertex);
+	UINT stride = sizeof(DXVertex);
 	UINT offset = 0;
 
 	dxRenderer->GetContext()->IASetVertexBuffers(0, 1, &m_vBuffer, &stride, &offset);

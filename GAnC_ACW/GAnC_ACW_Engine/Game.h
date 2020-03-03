@@ -44,8 +44,6 @@ protected:
 
 private:
 
-	void CreateSystems();
-
 	Game(const Game&) = delete;
 	Game* operator=(const Game&) = delete;
 };

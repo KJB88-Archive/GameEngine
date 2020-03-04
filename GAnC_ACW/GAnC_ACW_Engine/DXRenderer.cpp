@@ -15,7 +15,7 @@ DXRenderer::DXRenderer(int screenWidth, int screenHeight, HWND hWnd, float scree
 	InitializeRenderSystem();
 
 	m_camera = new DXCamera();
-	m_camera->Render();
+	m_camera->SetPosition(0.0f, 0.0f, -5.0f);
 
 	m_shader = new DXShader(this);
 }
@@ -284,9 +284,11 @@ RenderSystem* DXRenderer::GetSystem()
 
 void DXRenderer::Draw(const Mesh* mesh)
 {
-	DX_VBO* vbo = (DX_VBO*)mesh->GetVBO();
+	DX_VBO* vbo = dynamic_cast<DX_VBO*>(mesh->GetVBO());
 
 	vbo->Draw(this);
+
+	m_shader->Render(GetContext(), vbo->GetIndexCount(), m_world, m_view, m_projection);
 }
 
 void DXRenderer::BeginScene(float r, float g, float b, float a)
@@ -298,8 +300,14 @@ void DXRenderer::BeginScene(float r, float g, float b, float a)
 	color[2] = b;
 	color[3] = a;
 
+	GetWorldMatrix(m_world);
+	GetProjectionMatrix(m_projection);
+	m_camera->GetViewMatrix(m_view);
+
 	m_context->ClearRenderTargetView(m_renderTargetView, color);
 	m_context->ClearDepthStencilView(m_depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+
+	m_camera->Render();
 }
 
 void DXRenderer::EndScene()

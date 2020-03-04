@@ -16,6 +16,9 @@ RenderSystem::~RenderSystem()
 
 void RenderSystem::ProcessEntities(std::vector<Entity*> entities)
 {
+
+	renderer->BeginScene(0.5f, 0.5f, 0.5f, 1.0f);
+
 	// Loop through entities
 	for (int i = 0; i < entities.size(); ++i)
 	{
@@ -45,9 +48,12 @@ void RenderSystem::ProcessEntities(std::vector<Entity*> entities)
 					render->mesh->CreateVBO(renderer); // Create VBO
 				}
 
-				render->mesh->GetVBO()->Draw(renderer); // Draw
+				// Draw
+				renderer->Draw(render->mesh);
 			}
 
 		}
 	}
+
+	renderer->EndScene();
 }

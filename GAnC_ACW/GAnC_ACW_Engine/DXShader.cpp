@@ -36,8 +36,8 @@ DXShader::DXShader(DXRenderer* renderer)
 		// DEBUG
 	}
 
-	renderer->GetContext()->VSSetShader(m_vShader, NULL, 0);
-	renderer->GetContext()->PSSetShader(m_pShader, NULL, 0);
+	//renderer->GetContext()->VSSetShader(m_vShader, NULL, 0);
+	//renderer->GetContext()->PSSetShader(m_pShader, NULL, 0);
 
 	// Vertex Input Layout
 	D3D11_INPUT_ELEMENT_DESC polygonLayout[] =
@@ -53,7 +53,7 @@ DXShader::DXShader(DXRenderer* renderer)
 		// DEBUG
 	}
 
-	renderer->GetContext()->IASetInputLayout(m_layout);
+	//renderer->GetContext()->IASetInputLayout(m_layout);
 
 	VS->Release();
 	VS = nullptr;
@@ -73,16 +73,6 @@ DXShader::DXShader(DXRenderer* renderer)
 	{
 		// Debug
 	}
-	XMMATRIX world;
-	renderer->GetWorldMatrix(world);
-	XMMATRIX proj;
-	renderer->GetProjectionMatrix(proj);
-	XMMATRIX ortho;
-	renderer->GetOrthographicMatrix(ortho);
-	XMMATRIX view;
-	renderer->GetViewMatrix(view);
-
-	SetShaderParameters(renderer->GetContext(), world, view, ortho);
 }
 
 DXShader::~DXShader()
@@ -133,18 +123,18 @@ void DXShader::SetShaderParameters(ID3D11DeviceContext* context, XMMATRIX world,
 	context->VSSetConstantBuffers(bufferNo, 1, &m_matrixBuffer);
 }
 
-//void DXShader::Render(ID3D11DeviceContext* context, int iCount, XMMATRIX world, XMMATRIX view, XMMATRIX proj)
-//{
-//	SetShaderParameters(context, world, view, proj);
-//	RenderShader(context, iCount);
-//}
-//
-//void DXShader::RenderShader(ID3D11DeviceContext* context, int iCount)
-//{
-//	context->IASetInputLayout(m_layout);
-//
-//	context->VSSetShader(m_vShader, NULL, 0);
-//	context->PSSetShader(m_pShader, NULL, 0);
-//
-//	context->DrawIndexed(iCount, 0, 0);
-//}
+void DXShader::Render(ID3D11DeviceContext* context, int iCount, XMMATRIX world, XMMATRIX view, XMMATRIX proj)
+{
+	SetShaderParameters(context, world, view, proj);
+	RenderShader(context, iCount);
+}
+
+void DXShader::RenderShader(ID3D11DeviceContext* context, int iCount)
+{
+	context->IASetInputLayout(m_layout);
+
+	context->VSSetShader(m_vShader, NULL, 0);
+	context->PSSetShader(m_pShader, NULL, 0);
+
+	context->DrawIndexed(iCount, 0, 0);
+}

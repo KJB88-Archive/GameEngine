@@ -18,6 +18,8 @@ public:
 	virtual void Create(Renderer* renderer, std::vector<Vertex> vertices, int noOfVerts) override;
 	virtual void Draw(Renderer* renderer) override;
 
+	const int GetIndexCount() const { return m_iCount; }
+
 private:
 	struct DXVertex
 	{
@@ -28,6 +30,6 @@ private:
 	ID3D11Buffer* m_vBuffer;
 	int m_vCount;
 
-	//ID3D11Buffer* m_iBuffer;
-	//int m_iCount;
+	ID3D11Buffer* m_iBuffer;
+	int m_iCount;
 };

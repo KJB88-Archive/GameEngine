@@ -64,6 +64,7 @@ private:
 	DirectX::XMMATRIX m_projection;
 	DirectX::XMMATRIX m_world;
 	DirectX::XMMATRIX m_ortho;
+	DirectX::XMMATRIX m_view;
 
 	// Systems
 	RenderSystem* renderSystem;

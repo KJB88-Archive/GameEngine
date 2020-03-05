@@ -4,7 +4,7 @@
 Entity::Entity(int id, const std::string& name)
 	: id(id), name(name)
 {
-	components = std::vector<IComponent*>();
+	components = std::vector<Component*>();
 
 	printf("GAMEOBJECT: %i:%s created.\n", id, name.c_str());
 }
@@ -14,7 +14,7 @@ Entity::~Entity()
 	components.clear();
 }
 
-IComponent* const Entity::GetComponent(const IComponent::ComponentTypes componentType)
+Component* const Entity::GetComponent(const Component::ComponentTypes componentType)
 {
 	for (int i = 0; i < (int)components.size(); i++)
 	{
@@ -26,12 +26,12 @@ IComponent* const Entity::GetComponent(const IComponent::ComponentTypes componen
 	}
 }
 
-std::vector<IComponent*> Entity::GetComponents()
+std::vector<Component*> Entity::GetComponents()
 {
 	return components;
 }
 
-void Entity::AddComponent(IComponent* component)
+void Entity::AddComponent(Component* component)
 {
 	components.push_back(component);
 }

@@ -14,8 +14,8 @@ public:
 
 private:
 
-	const IComponent::ComponentTypes MASK =
-		(IComponent::COMPONENT_RENDER);
+	const Component::ComponentTypes MASK =
+		(Component::COMPONENT_RENDER);
 
 	// Ref to renderer
 	Renderer* renderer;

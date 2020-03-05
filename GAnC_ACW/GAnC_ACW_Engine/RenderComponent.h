@@ -1,16 +1,13 @@
 #pragma once
-#include "IComponent.h"
+#include "Component.h"
 #include "Mesh.h"
 
 class RenderComponent 
-	: public IComponent
+	: public Component
 {
 public:
-	RenderComponent();
+	RenderComponent(Entity* owner);
 	virtual ~RenderComponent();
-
-	// Inherited via IComponent
-	virtual ComponentTypes ComponentType() override;
 
 	Mesh* mesh;
 

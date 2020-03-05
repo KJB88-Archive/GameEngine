@@ -17,27 +17,30 @@ DXShader::DXShader(DXRenderer* renderer)
 	result = D3DX11CompileFromFile("PassthroughVertex.hlsl", 0, 0, "VShader", "vs_4_0_level_9_3", 0, 0, 0, &VS, 0, 0);
 	if (FAILED(result))
 	{
-		printf("DXSHADER: Unable to compile VS from file. ");
+		printf("DXSHADER: Unable to compile VS from file.\n");
 	}
 	result = D3DX11CompileFromFile("ColorPixel.hlsl", 0, 0, "PShader", "ps_4_0_level_9_3", 0, 0, 0, &PS, 0, 0);
 	if (FAILED(result))
 	{
-		printf("DXSHADER: Unable to compile PS from file.");
+		printf("DXSHADER: Unable to compile PS from file.\n");
 	}
 
 	result = renderer->GetDevice()->CreateVertexShader(VS->GetBufferPointer(), VS->GetBufferSize(), NULL, &m_vShader);
 	if (FAILED(result))
 	{
 		// DEBUG
+		printf("DXSHADER: Unable to create Vertex Shader.\n");
 	}
 	result = renderer->GetDevice()->CreatePixelShader(PS->GetBufferPointer(), PS->GetBufferSize(), NULL, &m_pShader);
 	if (FAILED(result))
 	{
 		// DEBUG
+		printf("DXSHADER: Unable to create Pixel Shader.\n");
 	}
 
-	//renderer->GetContext()->VSSetShader(m_vShader, NULL, 0);
-	//renderer->GetContext()->PSSetShader(m_pShader, NULL, 0);
+	// Set shaders (do not change for now) TODO
+	renderer->GetContext()->VSSetShader(m_vShader, NULL, 0);
+	renderer->GetContext()->PSSetShader(m_pShader, NULL, 0);
 
 	// Vertex Input Layout
 	D3D11_INPUT_ELEMENT_DESC polygonLayout[] =
@@ -53,7 +56,8 @@ DXShader::DXShader(DXRenderer* renderer)
 		// DEBUG
 	}
 
-	//renderer->GetContext()->IASetInputLayout(m_layout);
+	// Assign IL (does not change for now) TODO
+	renderer->GetContext()->IASetInputLayout(m_layout);
 
 	VS->Release();
 	VS = nullptr;
@@ -131,10 +135,10 @@ void DXShader::Render(ID3D11DeviceContext* context, int iCount, XMMATRIX world, 
 
 void DXShader::RenderShader(ID3D11DeviceContext* context, int iCount)
 {
-	context->IASetInputLayout(m_layout);
+	//context->IASetInputLayout(m_layout);
 
-	context->VSSetShader(m_vShader, NULL, 0);
-	context->PSSetShader(m_pShader, NULL, 0);
+	//context->VSSetShader(m_vShader, NULL, 0);
+	//context->PSSetShader(m_pShader, NULL, 0);
 
 	context->DrawIndexed(iCount, 0, 0);
 }

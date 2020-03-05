@@ -13,8 +13,8 @@ GameScene::GameScene()
 	//	objects[0]->GetComponent("Test")->GetName().c_str())
 
 	Entity* newEntity = new Entity(0, "New Entity");
-	newEntity->AddComponent(new TransformComponent(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(0.0f, 0.0f, 0.0f)));
-	newEntity->AddComponent(new RenderComponent()); // TODO
+	newEntity->AddComponent(new TransformComponent(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(0.0f, 0.0f, 0.0f), newEntity));
+	newEntity->AddComponent(new RenderComponent(newEntity)); // TODO
 
 	AddEntity(newEntity);
 

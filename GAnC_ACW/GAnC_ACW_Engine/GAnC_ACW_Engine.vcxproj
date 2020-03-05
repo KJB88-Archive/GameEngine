@@ -351,7 +351,7 @@
     <ClInclude Include="DXRenderer.h" />
     <ClInclude Include="DXWindow.h" />
     <ClInclude Include="Entity.h" />
-    <ClInclude Include="IComponent.h" />
+    <ClInclude Include="Component.h" />
     <ClInclude Include="MathsHelper.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="ISystem.h" />

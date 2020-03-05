@@ -173,7 +173,7 @@
     <LibraryPath>C:\GAnC\DirectX SDK\Lib\x86;C:\GAnC\CSLib\lib;C:\GAnC\DirectX SDK\DirectX SDK\Lib\x86;C:\GAnC\CSLib\CSLib\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDX|Win32'">
-    <IncludePath>C:\Users\kevin\Desktop\GAnC\GAnC_ACW\Game Engine\GameEngine\GNAC_ACW\GNAC_ACW;D:\Kevin Barr Files\GAnC\Custom\Game Engine\GameEngine\GAnC_ACW\GAnC_ACW_Engine;C:\GAnC\GameEngine\GNAC_ACW\GNAC_ACW;C:\GAnC\DirectX SDK\Include;C:\GAnC\DirectX SDK\DirectX SDK\Include;C:\GAnC\CSLib\CSLib\inc;C:\GAnC\CSLib\inc;$(IncludePath)</IncludePath>
+    <IncludePath>C:\GAnC\GameEngine\GAnC_ACW\GAnC_ACW_Engine;C:\Users\kevin\Desktop\GAnC\GAnC_ACW\Game Engine\GameEngine\GNAC_ACW\GNAC_ACW;D:\Kevin Barr Files\GAnC\Custom\Game Engine\GameEngine\GAnC_ACW\GAnC_ACW_Engine;C:\GAnC\GameEngine\GNAC_ACW\GNAC_ACW;C:\GAnC\DirectX SDK\Include;C:\GAnC\DirectX SDK\DirectX SDK\Include;C:\GAnC\CSLib\CSLib\inc;C:\GAnC\CSLib\inc;$(IncludePath)</IncludePath>
     <LibraryPath>C:\GAnC\DirectX SDK\Lib\x86;C:\GAnC\CSLib\lib;C:\GAnC\DirectX SDK\DirectX SDK\Lib\x86;C:\GAnC\CSLib\CSLib\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

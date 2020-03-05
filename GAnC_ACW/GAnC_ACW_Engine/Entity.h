@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 
-#include "IComponent.h"
+#include "Component.h"
 class Entity
 {
 
@@ -13,15 +13,14 @@ public:
 	const int id;
 	std::string name;
 
-	IComponent* const GetComponent(const IComponent::ComponentTypes componentType);
-	std::vector<IComponent*> GetComponents();
-	void AddComponent(IComponent* component);
+	Component* const GetComponent(const Component::ComponentTypes componentType);
+	std::vector<Component*> GetComponents();
+	void AddComponent(Component* component);
 
-	//void Draw();
 private:
 
 	// Component container
-	std::vector<IComponent*> components;
+	std::vector<Component*> components;
 
 	Entity(const Entity& other);
 

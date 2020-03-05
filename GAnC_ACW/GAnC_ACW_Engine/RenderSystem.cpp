@@ -25,7 +25,7 @@ void RenderSystem::ProcessEntities(std::vector<Entity*> entities)
 		RenderComponent* render = NULL;
 
 		// Get list of components attached to this entity
-		std::vector<IComponent*> components = entities[i]->GetComponents();
+		std::vector<Component*> components = entities[i]->GetComponents();
 
 		// Loop through components
 		for (int j = 0; j < components.size(); ++j)

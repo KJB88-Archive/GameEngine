@@ -1,7 +1,7 @@
 #include "RenderComponent.h"
 
-RenderComponent::RenderComponent() 
-	: IComponent(COMPONENT_RENDER)
+RenderComponent::RenderComponent(Entity* owner) 
+	: Component(COMPONENT_RENDER, owner)
 {
 	// TODO
 	mesh = new Mesh(0, "Mesh");
@@ -10,9 +10,4 @@ RenderComponent::RenderComponent()
 RenderComponent::~RenderComponent()
 {
 
-}
-
-IComponent::ComponentTypes RenderComponent::ComponentType()
-{
-	return componentType;
 }

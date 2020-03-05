@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "IComponent.h"
+#include "Component.h"
 class Entity;
 
 class ISystem
@@ -14,19 +14,13 @@ public:
 	};
 
 	ISystem(SystemType type)
-		: systemType(type)
-	{
+		: m_type(type) {};
 
-	}
-
-	SystemType GetType()
-	{
-		return systemType;
-	}
+	SystemType GetType(){ return m_type; }
 
 	virtual void ProcessEntities(std::vector<Entity*> entities) = 0;
 
 protected:
 
-	SystemType systemType;
+	SystemType m_type;
 };

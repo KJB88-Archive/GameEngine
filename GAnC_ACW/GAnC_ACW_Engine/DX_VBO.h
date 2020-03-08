@@ -21,6 +21,7 @@ public:
 	const int GetIndexCount() const { return m_iCount; }
 
 private:
+
 	struct DXVertex
 	{
 		DirectX::XMFLOAT3 position;

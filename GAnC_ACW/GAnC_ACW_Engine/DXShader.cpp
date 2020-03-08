@@ -11,15 +11,17 @@ DXShader::DXShader(DXRenderer* renderer)
 {
 	HRESULT result;
 	ID3DBlob *VS, *PS;
+	ID3DBlob* error;
 	unsigned int numElements;
 	D3D11_BUFFER_DESC matrixBufferDesc;
 
-	result = D3DX11CompileFromFile("PassthroughVertex.hlsl", 0, 0, "VShader", "vs_4_0_level_9_3", 0, 0, 0, &VS, 0, 0);
+	result = D3DX11CompileFromFile("PassthroughVertex.hlsl", 0, 0, "VShader", "vs_4_0_level_9_3", 0, 0, 0, &VS, &error, 0);
 	if (FAILED(result))
 	{
 		printf("DXSHADER: Unable to compile VS from file.\n");
 	}
-	result = D3DX11CompileFromFile("ColorPixel.hlsl", 0, 0, "PShader", "ps_4_0_level_9_3", 0, 0, 0, &PS, 0, 0);
+
+	result = D3DX11CompileFromFile("ColorPixel.hlsl", 0, 0, "PShader", "ps_4_0_level_9_3", 0, 0, 0, &PS, &error, 0);
 	if (FAILED(result))
 	{
 		printf("DXSHADER: Unable to compile PS from file.\n");
@@ -31,6 +33,7 @@ DXShader::DXShader(DXRenderer* renderer)
 		// DEBUG
 		printf("DXSHADER: Unable to create Vertex Shader.\n");
 	}
+
 	result = renderer->GetDevice()->CreatePixelShader(PS->GetBufferPointer(), PS->GetBufferSize(), NULL, &m_pShader);
 	if (FAILED(result))
 	{
@@ -46,7 +49,7 @@ DXShader::DXShader(DXRenderer* renderer)
 	D3D11_INPUT_ELEMENT_DESC polygonLayout[] =
 	{
 		{"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
-		{"COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0}
+		{"COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0}
 	};
 	numElements = sizeof(polygonLayout) / sizeof(polygonLayout[0]);
 
@@ -135,10 +138,5 @@ void DXShader::Render(ID3D11DeviceContext* context, int iCount, XMMATRIX world, 
 
 void DXShader::RenderShader(ID3D11DeviceContext* context, int iCount)
 {
-	//context->IASetInputLayout(m_layout);
-
-	//context->VSSetShader(m_vShader, NULL, 0);
-	//context->PSSetShader(m_pShader, NULL, 0);
-
 	context->DrawIndexed(iCount, 0, 0);
 }

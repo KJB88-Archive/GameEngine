@@ -17,18 +17,15 @@ void DX_VBO::Create(Renderer* renderer, std::vector<Vertex> vertices, int noOfVe
 {
 	DXRenderer* dxRenderer = dynamic_cast<DXRenderer*>(renderer);
 
-	DXVertex* dxVerts;
-	unsigned long* indices;
-	D3D11_BUFFER_DESC vBufferDesc, iBufferDesc;
-	D3D11_SUBRESOURCE_DATA vData, iData;
-	HRESULT result;
-
 	// Convert from generic struct to DX specific struct
 	// TODO 
 	m_vCount = 4;
 	m_iCount = 6;
 
+	DXVertex* dxVerts;
 	dxVerts = new DXVertex[m_vCount];
+
+	unsigned long* indices;
 	indices = new unsigned long[m_iCount];
 
 	dxVerts[0].position = XMFLOAT3(1.0f, 1.0f, 0.0f);
@@ -53,6 +50,7 @@ void DX_VBO::Create(Renderer* renderer, std::vector<Vertex> vertices, int noOfVe
 	indices[4] = 1;
 	indices[5] = 0;
 
+	D3D11_BUFFER_DESC vBufferDesc;
 	vBufferDesc.Usage = D3D11_USAGE_DEFAULT;
 	vBufferDesc.ByteWidth = sizeof(DXVertex) * m_vCount;
 	vBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
@@ -61,12 +59,18 @@ void DX_VBO::Create(Renderer* renderer, std::vector<Vertex> vertices, int noOfVe
 	vBufferDesc.StructureByteStride = 0;
 
 	// Give subresource data
+	D3D11_SUBRESOURCE_DATA vData;
 	vData.pSysMem = dxVerts;
 	vData.SysMemPitch = 0;
 	vData.SysMemSlicePitch = 0;
 
-	dxRenderer->GetDevice()->CreateBuffer(&vBufferDesc, &vData, &m_vBuffer);
+	HRESULT result =dxRenderer->GetDevice()->CreateBuffer(&vBufferDesc, &vData, &m_vBuffer);
+	if (FAILED(result))
+	{
+		printf("DXVBO: Unable to create vertex buffer. \n");
+	}
 
+	D3D11_BUFFER_DESC iBufferDesc;
 	iBufferDesc.Usage = D3D11_USAGE_DEFAULT;
 	iBufferDesc.ByteWidth = sizeof(unsigned long) * m_iCount;
 	iBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
@@ -74,6 +78,7 @@ void DX_VBO::Create(Renderer* renderer, std::vector<Vertex> vertices, int noOfVe
 	iBufferDesc.MiscFlags = 0;
 	iBufferDesc.StructureByteStride = 0;
 
+	D3D11_SUBRESOURCE_DATA iData;
 	iData.pSysMem = indices;
 	iData.SysMemPitch = 0;
 	iData.SysMemSlicePitch = 0;
@@ -82,6 +87,7 @@ void DX_VBO::Create(Renderer* renderer, std::vector<Vertex> vertices, int noOfVe
 	if (FAILED(result))
 	{
 		// check result
+		printf("DXVBO: Unable to create index buffer. \n");
 	}
 
 	delete dxVerts;

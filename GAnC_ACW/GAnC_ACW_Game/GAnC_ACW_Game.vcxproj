@@ -56,6 +56,16 @@
       <Project>{d67b1d1d-5880-4d4b-9e4f-c4c3042cdbed}</Project>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="ColorPixel.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='DebugDX|Win32'">PShader</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='DebugDX|Win32'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="PassthroughVertex.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='DebugDX|Win32'">VShader</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='DebugDX|Win32'">Vertex</ShaderType>
+    </FxCompile>
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{8E3E389D-48D1-4F95-A643-1513DF6DF472}</ProjectGuid>
@@ -173,7 +183,7 @@
     <LibraryPath>C:\GAnC\DirectX SDK\Lib\x86;C:\GAnC\CSLib\lib;C:\GAnC\DirectX SDK\DirectX SDK\Lib\x86;C:\GAnC\CSLib\CSLib\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDX|Win32'">
-    <IncludePath>C:\GAnC\GameEngine\GAnC_ACW\GAnC_ACW_Engine;C:\Users\kevin\Desktop\GAnC\GAnC_ACW\Game Engine\GameEngine\GNAC_ACW\GNAC_ACW;D:\Kevin Barr Files\GAnC\Custom\Game Engine\GameEngine\GAnC_ACW\GAnC_ACW_Engine;C:\GAnC\GameEngine\GNAC_ACW\GNAC_ACW;C:\GAnC\DirectX SDK\Include;C:\GAnC\DirectX SDK\DirectX SDK\Include;C:\GAnC\CSLib\CSLib\inc;C:\GAnC\CSLib\inc;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\kevin\Desktop\GAnC\GAnC_ACW\Game Engine\GameEngine\GAnC_ACW\GAnC_ACW_Engine;C:\Users\kevin\Desktop\GAnC\GAnC_ACW\Game Engine\GameEngine\GAnC_ACW;C:\GAnC\GameEngine\GAnC_ACW\GAnC_ACW_Engine;C:\Users\kevin\Desktop\GAnC\GAnC_ACW\Game Engine\GameEngine\GNAC_ACW\GNAC_ACW;D:\Kevin Barr Files\GAnC\Custom\Game Engine\GameEngine\GAnC_ACW\GAnC_ACW_Engine;C:\GAnC\GameEngine\GNAC_ACW\GNAC_ACW;C:\GAnC\DirectX SDK\Include;C:\GAnC\DirectX SDK\DirectX SDK\Include;C:\GAnC\CSLib\CSLib\inc;C:\GAnC\CSLib\inc;$(IncludePath)</IncludePath>
     <LibraryPath>C:\GAnC\DirectX SDK\Lib\x86;C:\GAnC\CSLib\lib;C:\GAnC\DirectX SDK\DirectX SDK\Lib\x86;C:\GAnC\CSLib\CSLib\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

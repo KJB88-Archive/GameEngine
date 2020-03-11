@@ -3,25 +3,32 @@
 Game::Game()
 	: m_input(nullptr), m_renderer(nullptr), m_time(nullptr), m_sceneManager(nullptr)
 {
+	// Create Logger Manager
+	m_logger = new Logger();
+	if (!m_logger)
+	{
+		Logger::LogToConsole("GAME: Unable to create Logging manager.");
+	}
+
 	// Create Time Manager
 	m_time = new Time();
 	if (!m_time)
 	{
-		printf("GAME: Unable to create TimeManager object.\n");
+		Logger::LogToConsole("GAME: Unable to create TimeManager object.\n");
 	}
 
 	// Create Input Manager
 	m_input = new Input();
 	if (!m_input)
 	{
-		printf("GAME: Unable to create InputManager object.\n");
+		Logger::LogToConsole("GAME: Unable to create InputManager object.\n");
 	}
 
 	// Create Scene Manager
 	m_sceneManager = new SceneManager();
 	if (!m_sceneManager)
 	{
-		printf("GAME: Unable to create SceneManager object.\n");
+		Logger::LogToConsole("GAME: Unable to create SceneManager object.\n");
 	}
 }
 
@@ -66,7 +73,7 @@ void Game::Initialise(Window* window, Renderer* renderer)
 	m_renderSystem = m_renderer->GetSystem();
 	if (!m_renderSystem)
 	{
-		printf("GAME: Unable to get RenderSystem object.\n");
+		Logger::LogToConsole("GAME: Unable to get RenderSystem object.\n");
 	}
 
 }
@@ -83,10 +90,22 @@ bool Game::Run()
 
 void Game::OnKeyboard(int key, bool down)
 {
-	// TODO - Update Input
+	m_input->OnKey(key, down);
+	m_input->IsKeyDown(key);
 }
 
 void Game::OnMouse(int mouseButton, bool down, int xPos, int yPos)
 {
+	std::string keyStr;
+	if (down)
+	{
+		keyStr = "Mouse down";
+	}
+	else
+	{
+		keyStr = "Mouse up";
+	}
+
+	Logger::LogToConsole(keyStr);
 	// TODO - Update Input
 }

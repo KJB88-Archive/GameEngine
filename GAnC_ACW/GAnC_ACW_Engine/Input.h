@@ -7,18 +7,14 @@ public:
 	Input();
 	virtual ~Input();
 
-	void KeyDown(unsigned int);
-	void KeyUp(unsigned int);
+	void OnKey(unsigned int key, bool downState);
 	bool IsKeyDown(unsigned int);
 
-	void MouseDown(unsigned int, int, int);
-	void MouseUp(unsigned int, int, int);
+	void OnMouse(unsigned int key, bool downState, int xPos , int yPos);
 	bool IsMouseButtonDown(unsigned int);
 
 private:
 
-	// TODO - array is not existing for lifetime of Input,
-	// probably due to scope / non-ptr
 	bool m_keys[256];
 	bool m_LMB;
 

@@ -21,11 +21,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	TestGame game;
 	bool result;
 
-	// Move to Logging
-	AllocConsole();
-	freopen("CONOUT$", "wb", stdout); // Less secure call - use freopen_s in future
-	printf("MAIN: Console allocation and initialization complete.\n");
-
 	////GameObject* obj = new GameObject("New Object", "TAG1", Vector3(1.1f, 2.2f, 3.3f));
 	//
 	////printf("GameObject: %s with tag %s has a position of %f, %f, %f.",

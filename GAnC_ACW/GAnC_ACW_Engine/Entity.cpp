@@ -1,12 +1,13 @@
 #include "Entity.h"
 #include "RenderComponent.h"
+#include "Logger.h"
 
 Entity::Entity(int id, const std::string& name)
 	: id(id), name(name)
 {
 	components = std::vector<Component*>();
 
-	printf("GAMEOBJECT: %i:%s created.\n", id, name.c_str());
+	Logger::LogToConsole("GAMEOBJECT: " + name + " created.");
 }
 
 Entity::~Entity()

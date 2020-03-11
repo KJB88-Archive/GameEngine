@@ -4,6 +4,7 @@
 #include "Entity.h"
 #include "ISystem.h"
 #include "RenderSystem.h"
+#include "Logger.h"
 
 class Scene
 {
@@ -11,9 +12,6 @@ public:
 
 	Scene(const int id, const std::string& name);
 	virtual ~Scene();
-
-	//virtual void Update(float deltaTime) = 0;
-	//virtual void Render(RenderSystem* renderer) = 0;
 
 	virtual bool RunScene();
 

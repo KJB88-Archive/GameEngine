@@ -5,7 +5,7 @@ Scene::Scene(const int id, const std::string& name)
 {
 	InitializeCoreResources();
 
-	printf("SCENE: %s created.\n", name.c_str());
+	Logger::LogToConsole("SCENE: " + name + " created.");
 }
 
 Scene::~Scene()

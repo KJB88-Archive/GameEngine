@@ -1,9 +1,13 @@
 #include "Manager.h"
+#include "Logger.h"
 
 Manager::Manager(const std::string& name)
 	: m_name(name)
 {
-	printf("MANAGER: %s created and initialized.\n", m_name.c_str());
+	if (name != "Logger")
+	{
+		Logger::LogToConsole("MANAGER: " + m_name + " created and initialized.");
+	}
 }
 
 Manager::~Manager()

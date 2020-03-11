@@ -1,6 +1,7 @@
 #include "DXWindow.h"
 #include "DXRenderer.h"
 #include "Game.h"
+#include "Logger.h"
 
 DXWindow::DXWindow(Game* game, int screenWidth, int screenHeight, float screenDepth, float screenNear, HINSTANCE hInstance, int nCmdShow)
 	: Window(screenWidth, screenHeight, game, screenDepth, screenNear)
@@ -42,7 +43,7 @@ DXWindow::DXWindow(Game* game, int screenWidth, int screenHeight, float screenDe
 	SetForegroundWindow(m_hWnd);
 	SetFocus(m_hWnd);
 
-	printf("WINDOW: Created and initialized.\n");
+	Logger::LogToConsole("WINDOW: Created and initialized.");
 
 	// Initialise Game & Renderer
 	m_game->Initialise(this, new DXRenderer(m_screenWidth, m_screenHeight, m_hWnd, m_screenDepth, m_screenNear));
@@ -72,10 +73,8 @@ void DXWindow::Run()
 		{
 			done = true;
 		}
-		//else
-		//{
-			done = m_game->Run();
-		//}
+
+		done = m_game->Run();
 	}
 	return;
 }
@@ -107,8 +106,12 @@ LRESULT CALLBACK DXWindow::MessageHandler(HWND hWnd, UINT uMessage, WPARAM wPara
 {
 	switch (uMessage)
 	{
-		// Keyboard checks
 	case WM_KEYDOWN:
+		// Exit application
+		if (wParam == VK_ESCAPE)
+		{
+			PostQuitMessage(0);
+		}
 		m_game->OnKeyboard((unsigned int)wParam, true);
 		break;
 

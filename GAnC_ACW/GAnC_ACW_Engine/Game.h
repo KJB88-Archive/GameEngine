@@ -7,6 +7,7 @@
 #include "Renderer.h"
 #include "Time.h"
 #include "SceneManager.h"
+#include "Logger.h"
 
 // Systems
 #include "RenderSystem.h"
@@ -38,6 +39,7 @@ protected:
 	Renderer* m_renderer;
 	Time* m_time;
 	SceneManager* m_sceneManager;
+	Logger* m_logger;
 
 	// Systems
 	RenderSystem* m_renderSystem;

@@ -1,5 +1,5 @@
 #include "DXRenderer.h"
-#include "stdio.h"
+#include "Logger.h"
 
 #include "DX_VBO.h"
 #include "RenderSystem.h"
@@ -124,21 +124,21 @@ void DXRenderer::InitializeCoreD3D(int screenWidth, int screenHeight, HWND hwnd)
 		&swapChainDesc, &m_swapChain, &m_device, NULL, &m_context);
 	if (FAILED(result))
 	{
-		printf("DIRECTX: Failed to create graphics device, swap chain or graphics context.\n");
+		Logger::LogToConsole("DIRECTX: Failed to create graphics device, swap chain or graphics context.");
 	}
 
 	// Setup back buffer
 	result = m_swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&backBufferPtr);
 	if (FAILED(result))
 	{
-		printf("DIRECTX: Failed to get back buffer.\n");
+		Logger::LogToConsole("DIRECTX: Failed to get back buffer.");
 	}
 
 	// Create Render Target View
 	result = m_device->CreateRenderTargetView(backBufferPtr, NULL, &m_renderTargetView);
 	if (FAILED(result))
 	{
-		printf("DIRECTX: Failed to create render target view.\n");
+		Logger::LogToConsole("DIRECTX: Failed to create render target view.");
 	}
 
 	backBufferPtr->Release();
@@ -172,7 +172,7 @@ void DXRenderer::InitializeSecondaryD3D(int screenWidth, int screenHeight)
 	result = m_device->CreateTexture2D(&depthBufferDesc, NULL, &m_depthStencilBuffer);
 	if (FAILED(result))
 	{
-		printf("DIRECTX: Failed to create depth stencil buffer.\n");
+		Logger::LogToConsole("DIRECTX: Failed to create depth stencil buffer.");
 	}
 
 	// Init. Stencil State
@@ -201,7 +201,7 @@ void DXRenderer::InitializeSecondaryD3D(int screenWidth, int screenHeight)
 	result = m_device->CreateDepthStencilState(&depthStencilDesc, &m_depthStencilState);
 	if (FAILED(result))
 	{
-		printf("DIRECTX: Failed to create depth stencil state.\n");
+		Logger::LogToConsole("DIRECTX: Failed to create depth stencil state.");
 	}
 
 	m_context->OMSetDepthStencilState(m_depthStencilState, 1);
@@ -216,7 +216,7 @@ void DXRenderer::InitializeSecondaryD3D(int screenWidth, int screenHeight)
 	result = m_device->CreateDepthStencilView(m_depthStencilBuffer, &depthStencilViewDesc, &m_depthStencilView);
 	if (FAILED(result))
 	{
-		printf("DIRECTX: Failed to create depth stencil view.\n");
+		Logger::LogToConsole("DIRECTX: Failed to create depth stencil view.");
 	}
 
 	// Bind RTV and DSB to render pipeline
@@ -237,7 +237,7 @@ void DXRenderer::InitializeSecondaryD3D(int screenWidth, int screenHeight)
 	result = m_device->CreateRasterizerState(&rasterDesc, &m_rasterState);
 	if (FAILED(result))
 	{
-		printf("DIRECTX: Failed to create rasterizer state.\n");
+		Logger::LogToConsole("DIRECTX: Failed to create rasterizer state.");
 	}
 
 	m_context->RSSetState(m_rasterState);

@@ -1,5 +1,6 @@
 #include "Input.h"
 #include <string>
+#include "Logger.h"
 
 Input::Input()
 	: Manager("Input")
@@ -17,36 +18,46 @@ Input::~Input()
 
 }
 
-void Input::KeyDown(unsigned int input)
+void Input::OnKey(unsigned int key, bool down)
 {
-	if (m_keys)
-	{
-		m_keys[input] = true;
-	}
-	else
-	{
-		printf("...");
-	}
+	m_keys[key] = down;
+
 }
 
-void Input::KeyUp(unsigned int input)
-{
-	m_keys[input] = false;
-}
+//void Input::KeyDown(unsigned int input)
+//{
+//	if (m_keys)
+//	{
+//		m_keys[input] = true;
+//	}
+//	else
+//	{
+//		printf("...");
+//	}
+//}
+//
+//void Input::KeyUp(unsigned int input)
+//{
+//	m_keys[input] = false;
+//}
 
 bool Input::IsKeyDown(unsigned int key)
 {
+	if (m_keys[key])
+	{
+		Logger::LogToConsole("KEY: State is true.");
+	}
+	else
+	{
+		Logger::LogToConsole("KEY: State is false.");
+	}
+
 	return m_keys[key];
 }
 
-void Input::MouseDown(unsigned int button, int xPos, int yPos)
+void Input::OnMouse(unsigned int button, bool down, int xPos, int yPos)
 {
-	m_LMB = true;
-}
-
-void Input::MouseUp(unsigned int button, int xPos, int yPos)
-{
-	m_LMB = false;
+	m_LMB = down;
 }
 
 bool Input::IsMouseButtonDown(unsigned int button)

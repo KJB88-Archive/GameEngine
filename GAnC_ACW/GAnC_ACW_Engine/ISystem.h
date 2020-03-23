@@ -10,11 +10,13 @@ public:
 	{
 		INPUT,
 		RENDER,
-		PHYSICS
+		PHYSICS,
+		CAMERA
 	};
 
 	ISystem(SystemType type)
 		: m_type(type) {};
+	virtual ~ISystem() {};
 
 	SystemType GetType(){ return m_type; }
 

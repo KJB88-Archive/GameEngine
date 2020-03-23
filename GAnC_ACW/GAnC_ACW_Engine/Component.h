@@ -8,12 +8,13 @@ class Component
 
 public:
 
-	enum ComponentTypes
+	static enum ComponentTypes
 	{
 		COMPONENT_NONE = 0,
 		COMPONENT_TRANSFORM = 1 << 0,
 		COMPONENT_RENDER = 1 << 1,
-
+		COMPONENT_CAMERA = 1 << 2,
+		COMPONENT_PHYSICS = 1 << 3
 	};
 
 	Component(ComponentTypes type, Entity* owner)

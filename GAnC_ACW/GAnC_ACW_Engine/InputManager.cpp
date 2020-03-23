@@ -1,13 +1,16 @@
 #include "InputManager.h"
+#include <string>
+#include "Logger.h"
 
 InputManager::InputManager()
-	: Manager("Input Manager")
+	: Manager("Input")
 {
 	// Default keys to false
 	for (int i = 0; i < 256; ++i)
 	{
 		m_keys[i] = false;
 	}
+
 }
 
 InputManager::~InputManager()
@@ -15,29 +18,46 @@ InputManager::~InputManager()
 
 }
 
-void InputManager::KeyDown(unsigned int input)
+void InputManager::OnKey(unsigned int key, bool down)
 {
-	m_keys[input] = true;
+	m_keys[key] = down;
+
 }
 
-void InputManager::KeyUp(unsigned int input)
-{
-	m_keys[input] = false;
-}
+//void Input::KeyDown(unsigned int input)
+//{
+//	if (m_keys)
+//	{
+//		m_keys[input] = true;
+//	}
+//	else
+//	{
+//		printf("...");
+//	}
+//}
+//
+//void Input::KeyUp(unsigned int input)
+//{
+//	m_keys[input] = false;
+//}
 
 bool InputManager::IsKeyDown(unsigned int key)
 {
+	if (m_keys[key])
+	{
+		Logger::LogToConsole("KEY: State is true.");
+	}
+	else
+	{
+		Logger::LogToConsole("KEY: State is false.");
+	}
+
 	return m_keys[key];
 }
 
-void InputManager::MouseDown(unsigned int button, int xPos, int yPos)
+void InputManager::OnMouse(unsigned int button, bool down, int xPos, int yPos)
 {
-	m_LMB = true;
-}
-
-void InputManager::MouseUp(unsigned int button, int xPos, int yPos)
-{
-	m_LMB = false;
+	m_LMB = down;
 }
 
 bool InputManager::IsMouseButtonDown(unsigned int button)

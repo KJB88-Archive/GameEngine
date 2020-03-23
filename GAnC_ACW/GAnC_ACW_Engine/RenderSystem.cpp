@@ -1,8 +1,15 @@
+#include "Logger.h"
+
+// Graphics
 #include "RenderSystem.h"
 #include "Renderer.h"
-#include "RenderComponent.h"
-#include "Entity.h"
 #include "DXRenderer.h"
+
+// Targets
+#include "RenderComponent.h"
+#include "TransformComponent.h"
+#include "Entity.h"
+
 
 RenderSystem::RenderSystem(Renderer* renderer)
 	: ISystem(RENDER), renderer(renderer)
@@ -16,13 +23,11 @@ RenderSystem::~RenderSystem()
 
 void RenderSystem::ProcessEntities(std::vector<Entity*> entities)
 {
-
-	renderer->BeginScene(0.5f, 0.5f, 0.5f, 1.0f);
-
 	// Loop through entities
 	for (int i = 0; i < entities.size(); ++i)
 	{
 		RenderComponent* render = NULL;
+		TransformComponent* transform = NULL;
 
 		// Get list of components attached to this entity
 		std::vector<Component*> components = entities[i]->GetComponents();
@@ -33,10 +38,32 @@ void RenderSystem::ProcessEntities(std::vector<Entity*> entities)
 			// Check to see if those components are the types we need
 			if (components[j]->ComponentType() == MASK)
 			{
-				// Store our render component
-				render = (RenderComponent*)components[j];
+				// Determine which component we're looking at
+				switch (components[j]->ComponentType())
+				{
+
+					// Store our render component
+				case Component::COMPONENT_RENDER:
+					render = (RenderComponent*)components[j];
+					break;
+
+					// Store our transform component
+				case Component::COMPONENT_TRANSFORM:
+					transform = (TransformComponent*)components[j];
+					break;
+				}
+
+				// Break out early if we have required components
+				if (render && transform)
+				{
+					break;
+				}
 			}
 		}
+
+		// Setup scene for rendering
+		renderer->BeginScene(0.5f, 0.5f, 0.5f, 1.0f);
+
 		// Render the entity using it's component
 		if (render)
 		{
@@ -45,6 +72,7 @@ void RenderSystem::ProcessEntities(std::vector<Entity*> entities)
 			{
 				if (!render->mesh->GetVBO()) // Does the mesh have a valid VBO?
 				{
+					Logger::LogToConsole("RENDER SYSTEM: Object does not have a VBO, creating VBO...");
 					render->mesh->CreateVBO(renderer); // Create VBO
 				}
 
@@ -55,5 +83,6 @@ void RenderSystem::ProcessEntities(std::vector<Entity*> entities)
 		}
 	}
 
+	// Finish scene setup for rendering
 	renderer->EndScene();
 }

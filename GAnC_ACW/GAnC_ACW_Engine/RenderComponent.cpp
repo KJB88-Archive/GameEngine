@@ -3,8 +3,7 @@
 RenderComponent::RenderComponent(Entity* owner) 
 	: Component(COMPONENT_RENDER, owner)
 {
-	// TODO
-	mesh = new Mesh(0, "Mesh");
+	mesh = new Mesh();
 }
 
 RenderComponent::~RenderComponent()

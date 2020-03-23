@@ -1,5 +1,6 @@
 #include "DXShader.h"
 #include "DXRenderer.h"
+#include "Logger.h"
 
 #include <string>
 
@@ -7,20 +8,19 @@ using namespace std;
 using namespace DirectX;
 
 DXShader::DXShader(DXRenderer* renderer)
-	: m_vShader(nullptr), m_pShader(nullptr), m_layout(nullptr), m_matrixBuffer(nullptr)
+	: m_vShader(nullptr), m_pShader(nullptr), m_layout(nullptr), m_cbWVP(nullptr)
 {
 	HRESULT result;
-	ID3DBlob *VS, *PS;
 	ID3DBlob* error;
-	unsigned int numElements;
-	D3D11_BUFFER_DESC matrixBufferDesc;
 
+	ID3DBlob *VS;
 	result = D3DX11CompileFromFile("PassthroughVertex.hlsl", 0, 0, "VShader", "vs_4_0_level_9_3", 0, 0, 0, &VS, &error, 0);
 	if (FAILED(result))
 	{
 		printf("DXSHADER: Unable to compile VS from file.\n");
 	}
 
+	ID3DBlob *PS;
 	result = D3DX11CompileFromFile("ColorPixel.hlsl", 0, 0, "PShader", "ps_4_0_level_9_3", 0, 0, 0, &PS, &error, 0);
 	if (FAILED(result))
 	{
@@ -51,12 +51,13 @@ DXShader::DXShader(DXRenderer* renderer)
 		{"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
 		{"COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0}
 	};
-	numElements = sizeof(polygonLayout) / sizeof(polygonLayout[0]);
+	unsigned int numElements = sizeof(polygonLayout) / sizeof(polygonLayout[0]);
 
 	result = renderer->GetDevice()->CreateInputLayout(polygonLayout, numElements, VS->GetBufferPointer(), VS->GetBufferSize(), &m_layout);
 	if (FAILED(result))
 	{
 		// DEBUG
+		Logger::LogToConsole("SHADER: Failed to create Input Layout.");
 	}
 
 	// Assign IL (does not change for now) TODO
@@ -68,6 +69,7 @@ DXShader::DXShader(DXRenderer* renderer)
 	PS = nullptr;
 
 	// Constant Buffer
+	D3D11_BUFFER_DESC matrixBufferDesc;
 	matrixBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
 	matrixBufferDesc.ByteWidth = sizeof(MatrixBuffer);
 	matrixBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
@@ -75,19 +77,20 @@ DXShader::DXShader(DXRenderer* renderer)
 	matrixBufferDesc.MiscFlags = 0;
 	matrixBufferDesc.StructureByteStride = 0;
 
-	result = renderer->GetDevice()->CreateBuffer(&matrixBufferDesc, NULL, &m_matrixBuffer);
+	result = renderer->GetDevice()->CreateBuffer(&matrixBufferDesc, NULL, &m_cbWVP);
 	if (FAILED(result))
 	{
 		// Debug
+		Logger::LogToConsole("SHADER: Failed to create constant buffer.");
 	}
 }
 
 DXShader::~DXShader()
 {
-	if (m_matrixBuffer)
+	if (m_cbWVP)
 	{
-		m_matrixBuffer->Release();
-		m_matrixBuffer = nullptr;
+		m_cbWVP->Release();
+		m_cbWVP = nullptr;
 	}
 
 	if (m_layout)
@@ -119,15 +122,15 @@ void DXShader::SetShaderParameters(ID3D11DeviceContext* context, XMMATRIX world,
 	view = XMMatrixTranspose(view);
 	proj = XMMatrixTranspose(proj);
 
-	context->Map(m_matrixBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+	context->Map(m_cbWVP, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 	dataPtr = (MatrixBuffer*)mappedResource.pData;
 	dataPtr->world = world;
 	dataPtr->view = view;
 	dataPtr->proj = proj;
-	context->Unmap(m_matrixBuffer, 0);
+	context->Unmap(m_cbWVP, 0);
 
 	bufferNo = 0;
-	context->VSSetConstantBuffers(bufferNo, 1, &m_matrixBuffer);
+	context->VSSetConstantBuffers(bufferNo, 1, &m_cbWVP);
 }
 
 void DXShader::Render(ID3D11DeviceContext* context, int iCount, XMMATRIX world, XMMATRIX view, XMMATRIX proj)

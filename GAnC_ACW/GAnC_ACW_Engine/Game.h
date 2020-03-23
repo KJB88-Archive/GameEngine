@@ -3,9 +3,9 @@
 #include "Window.h"
 
 // Management
-#include "Input.h"
+#include "InputManager.h"
 #include "Renderer.h"
-#include "Time.h"
+#include "TimeManager.h"
 #include "SceneManager.h"
 #include "Logger.h"
 
@@ -35,9 +35,9 @@ protected:
 
 	// Core Managers
 	Window* m_window;
-	Input* m_input;
+	InputManager* m_input;
 	Renderer* m_renderer;
-	Time* m_time;
+	TimeManager* m_time;
 	SceneManager* m_sceneManager;
 	Logger* m_logger;
 

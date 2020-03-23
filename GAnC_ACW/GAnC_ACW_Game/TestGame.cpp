@@ -26,7 +26,6 @@ void TestGame::Initialise(Window* wnd, Renderer* renderer)
 
 bool TestGame::Run()
 {
-	Logger::LogToConsole(std::to_string(m_time->GetDeltaTime()));
 	return Game::Run();
 }
 

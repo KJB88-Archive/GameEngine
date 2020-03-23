@@ -9,8 +9,8 @@
 #include "GL_VBO.h"
 #endif
 
-Mesh::Mesh(int id, std::string name)
-	: Asset(id, name, MESH)
+Mesh::Mesh()
+	: Asset()
 {
 
 }

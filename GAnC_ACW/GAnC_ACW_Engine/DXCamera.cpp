@@ -2,10 +2,19 @@
 
 using namespace DirectX;
 
-DXCamera::DXCamera()
+DXCamera::DXCamera(int screenWidth, int screenHeight, float screenNear, float screenDepth)
 	:m_posX(0.0f), m_posY(0.0f), m_posZ(0.0f), m_rotX(0.0f), m_rotY(0.0f), m_rotZ(0.0f)
 {
+	float FoV, aspectRatio;
 
+	// Proj
+	FoV = XM_PIDIV4;
+	aspectRatio = (float)screenWidth / (float)screenHeight;
+
+	m_proj = XMMatrixPerspectiveFovLH(FoV, aspectRatio, screenNear, screenDepth);
+
+	// Ortho
+	m_ortho = XMMatrixOrthographicLH((float)screenWidth, (float)screenHeight, screenNear, screenDepth);
 }
 
 DXCamera::~DXCamera()
@@ -40,6 +49,16 @@ XMFLOAT3 DXCamera::GetRotation()
 void DXCamera::GetViewMatrix(XMMATRIX& view)
 {
 	view = m_view;
+}
+
+void DXCamera::GetProjectionMatrix(DirectX::XMMATRIX& proj)
+{
+	proj = m_proj;
+}
+
+void DXCamera::GetOrthographicMatrix(DirectX::XMMATRIX& ortho)
+{
+	ortho = m_ortho;
 }
 
 void DXCamera::Render()

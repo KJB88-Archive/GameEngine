@@ -11,10 +11,12 @@ DXRenderer::DXRenderer(int screenWidth, int screenHeight, HWND hWnd, float scree
 {
 	InitializeCoreD3D(screenWidth, screenHeight, hWnd);
 	InitializeSecondaryD3D(screenWidth, screenHeight);
-	InitializeMatricesD3D(screenWidth, screenHeight, screenDepth, screenNear);
 	InitializeRenderSystem();
 
-	m_camera = new DXCamera();
+	// World
+	m_world = XMMatrixIdentity();
+
+	m_camera = new DXCamera(screenWidth, screenHeight, screenNear, screenDepth);
 	m_camera->SetPosition(0.0f, 0.0f, -5.0f);
 
 	m_shader = new DXShader(this);
@@ -254,28 +256,10 @@ void DXRenderer::InitializeSecondaryD3D(int screenWidth, int screenHeight)
 
 }
 
-void DXRenderer::InitializeMatricesD3D(int screenWidth, int screenHeight, float screenDepth, float screenNear)
-{
-	float FoV, aspectRatio;
-
-	// Proj
-	FoV = XM_PIDIV4;
-	aspectRatio = (float)screenWidth / (float)screenHeight;
-
-	m_projection = XMMatrixPerspectiveFovLH(FoV, aspectRatio, screenNear, screenDepth);
-
-	// World
-	m_world = XMMatrixIdentity();
-
-	// Ortho
-	m_ortho = XMMatrixOrthographicLH((float)screenWidth, (float)screenHeight, screenNear, screenDepth);
-}
-
 void DXRenderer::InitializeRenderSystem()
 {
 	renderSystem = new RenderSystem(this);
 }
-
 
 RenderSystem* DXRenderer::GetSystem()
 {
@@ -302,10 +286,10 @@ void DXRenderer::BeginScene(float r, float g, float b, float a)
 
 	GetWorldMatrix(m_world);
 	GetProjectionMatrix(m_projection);
-	m_camera->GetViewMatrix(m_view);
+	GetViewMatrix(m_view);
 
 	m_context->ClearRenderTargetView(m_renderTargetView, color);
-	m_context->ClearDepthStencilView(m_depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+	m_context->ClearDepthStencilView(m_depthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 
 	m_camera->Render();
 }
@@ -317,7 +301,7 @@ void DXRenderer::EndScene()
 
 void DXRenderer::GetProjectionMatrix(DirectX::XMMATRIX & proj)
 {
-	proj = m_projection;
+	m_camera->GetProjectionMatrix(proj);
 }
 
 void DXRenderer::GetWorldMatrix(DirectX::XMMATRIX & world)
@@ -327,7 +311,7 @@ void DXRenderer::GetWorldMatrix(DirectX::XMMATRIX & world)
 
 void DXRenderer::GetOrthographicMatrix(DirectX::XMMATRIX & ortho)
 {
-	m_ortho = ortho;
+	m_camera->GetProjectionMatrix(ortho);
 }
 
 void DXRenderer::GetViewMatrix(DirectX::XMMATRIX & view)

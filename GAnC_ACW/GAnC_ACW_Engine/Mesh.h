@@ -11,7 +11,7 @@ class Mesh
 {
 public:
 
-	Mesh(int id, std::string name);
+	Mesh();
 	virtual ~Mesh();
 
 	// Getsets

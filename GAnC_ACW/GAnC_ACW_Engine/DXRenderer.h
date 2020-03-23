@@ -26,6 +26,9 @@ public:
 
 	virtual RenderSystem * GetSystem() override;
 
+	static DXCamera* CreateCamera();
+	static DX_VBO* CreateVBO();
+
 	// Scene rendering
 	virtual void BeginScene(float r, float g, float b, float a) override;
 	virtual void Draw(const Mesh* mesh) override;
@@ -42,7 +45,6 @@ private:
 	// Initialize DX Resources
 	void InitializeCoreD3D(int screenWidth, int screenHeight, HWND hwnd);
 	void InitializeSecondaryD3D(int screenWidth, int screenHeight);
-	void InitializeMatricesD3D(int screenWidth, int screenHeight, float screenDepth, float screenNear);
 
 	// Rendering Abstractions
 	void InitializeRenderSystem();
@@ -59,6 +61,7 @@ private:
 
 	DXShader* m_shader;
 	DXCamera* m_camera;
+	//std::vector<DXCamera*> m_cams;
 
 	// Matrices
 	DirectX::XMMATRIX m_projection;

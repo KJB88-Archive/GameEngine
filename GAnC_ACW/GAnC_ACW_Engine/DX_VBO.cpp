@@ -19,8 +19,8 @@ void DX_VBO::Create(Renderer* renderer, std::vector<Vertex> vertices, int noOfVe
 
 	// Convert from generic struct to DX specific struct
 	// TODO 
-	m_vCount = 4;
-	m_iCount = 6;
+	m_vCount = 8;
+	m_iCount = 36;
 
 	DXVertex* dxVerts;
 	dxVerts = new DXVertex[m_vCount];
@@ -28,21 +28,23 @@ void DX_VBO::Create(Renderer* renderer, std::vector<Vertex> vertices, int noOfVe
 	unsigned long* indices;
 	indices = new unsigned long[m_iCount];
 
-	dxVerts[0].position = XMFLOAT3(1.0f, 1.0f, 0.0f);
-	dxVerts[1].position = XMFLOAT3(-1.0f, 1.0f, 0.0f);
-	dxVerts[2].position = XMFLOAT3(-1.0f, -1.0f, 0.0f);
-	dxVerts[3].position = XMFLOAT3(1.0f, -1.0f, 0.0f);
+	/* TEMPORARY - LOAD FROM ASSETMANAGER */
+	dxVerts[0].position = XMFLOAT3(1.0f, 1.0f, -1.0f);
+	dxVerts[1].position = XMFLOAT3(-1.0f, 1.0f, -1.0f);
+	dxVerts[2].position = XMFLOAT3(-1.0f, -1.0f, -1.0f);
+	dxVerts[3].position = XMFLOAT3(1.0f, -1.0f, -1.0f);
 
-	//dxVerts[4].position = XMFLOAT3(-1.0f, 0.0f, 1.0f);
-	//dxVerts[5].position = XMFLOAT3(1.0f, 0.0f, 1.0f);
-	//dxVerts[6].position = XMFLOAT3(1.0f, 1.0f, 1.0f);
-	//dxVerts[7].position = XMFLOAT3(-1.0f, 1.0f, 1.0f);
+	dxVerts[4].position = XMFLOAT3(-1.0f, -1.0f, 1.0f);
+	dxVerts[5].position = XMFLOAT3(1.0f, -1.0f, 1.0f);
+	dxVerts[6].position = XMFLOAT3(1.0f, 1.0f, 1.0f);
+	dxVerts[7].position = XMFLOAT3(-1.0f, 1.0f, 1.0f);
 
 	for (int i = 0; i < m_vCount; ++i)
 	{
 		dxVerts[i].color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	}
 
+	// Front
 	indices[0] = 0;
 	indices[1] = 3;
 	indices[2] = 2;
@@ -50,6 +52,47 @@ void DX_VBO::Create(Renderer* renderer, std::vector<Vertex> vertices, int noOfVe
 	indices[4] = 1;
 	indices[5] = 0;
 
+	// Side 1
+	indices[6] = 0;
+	indices[7] =3;
+	indices[8] = 5;
+	indices[9] = 5;
+	indices[10] = 3;
+	indices[11] = 7;
+
+	// Back
+	indices[12] = 7;
+	indices[13] = 6;
+	indices[14] = 5;
+	indices[15] = 5;
+	indices[16] = 4;
+	indices[17] = 7;
+
+	// Side 2
+	indices[18] = 1;
+	indices[19] = 2;
+	indices[20] = 4;
+	indices[21] = 4;
+	indices[22] = 6;
+	indices[23] = 2;
+
+	// Top
+	indices[24] = 2;
+	indices[25] = 3;
+	indices[26] = 6;
+	indices[27] = 6;
+	indices[28] = 7;
+	indices[29] = 2;
+
+	// Bottom
+	indices[30] = 1;
+	indices[31] = 0;
+	indices[32] = 4;
+	indices[33] = 4;
+	indices[34] = 5;
+	indices[35] = 1;
+
+	/* TEMPORARY - LOAD FROM ASSETMANAGER */
 	D3D11_BUFFER_DESC vBufferDesc;
 	vBufferDesc.Usage = D3D11_USAGE_DEFAULT;
 	vBufferDesc.ByteWidth = sizeof(DXVertex) * m_vCount;

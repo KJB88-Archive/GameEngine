@@ -1,5 +1,6 @@
 #pragma once
 #include "Manager.h"
+
 class InputManager
 	: public Manager
 {
@@ -7,12 +8,10 @@ public:
 	InputManager();
 	virtual ~InputManager();
 
-	void KeyDown(unsigned int);
-	void KeyUp(unsigned int);
+	void OnKey(unsigned int key, bool downState);
 	bool IsKeyDown(unsigned int);
 
-	void MouseDown(unsigned int, int, int);
-	void MouseUp(unsigned int, int, int);
+	void OnMouse(unsigned int key, bool downState, int xPos , int yPos);
 	bool IsMouseButtonDown(unsigned int);
 
 private:

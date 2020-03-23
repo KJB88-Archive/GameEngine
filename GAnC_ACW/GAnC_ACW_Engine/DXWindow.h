@@ -3,7 +3,7 @@
 #include "windowsx.h"
 #define WIN32_LEAN_AND_MEAN
 
-#include "Input.h"
+#include "InputManager.h"
 #include "Window.h"
 
 class DXWindow

@@ -19,6 +19,7 @@ public:
 
 private:
 
+
 	// Component container
 	std::vector<Component*> components;
 

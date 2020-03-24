@@ -23,6 +23,9 @@ RenderSystem::~RenderSystem()
 
 void RenderSystem::ProcessEntities(std::vector<Entity*> entities)
 {
+	// Setup scene for rendering
+	renderer->BeginScene(0.5f, 0.5f, 0.5f, 1.0f);
+
 	// Loop through entities
 	for (int i = 0; i < entities.size(); ++i)
 	{
@@ -35,37 +38,30 @@ void RenderSystem::ProcessEntities(std::vector<Entity*> entities)
 		// Loop through components
 		for (int j = 0; j < components.size(); ++j)
 		{
-			// Check to see if those components are the types we need
-			if (components[j]->ComponentType() == MASK)
+			// Determine which component we're looking at
+			switch (components[j]->ComponentType())
 			{
-				// Determine which component we're looking at
-				switch (components[j]->ComponentType())
-				{
 
-					// Store our render component
-				case Component::COMPONENT_RENDER:
-					render = (RenderComponent*)components[j];
-					break;
+				// Store our render component
+			case Component::COMPONENT_RENDER:
+				render = (RenderComponent*)components[j];
+				break;
 
-					// Store our transform component
-				case Component::COMPONENT_TRANSFORM:
-					transform = (TransformComponent*)components[j];
-					break;
-				}
+				// Store our transform component
+			case Component::COMPONENT_TRANSFORM:
+				transform = (TransformComponent*)components[j];
+				break;
+			}
 
-				// Break out early if we have required components
-				if (render && transform)
-				{
-					break;
-				}
+			// Break out early if we have required components
+			if (render && transform)
+			{
+				break;
 			}
 		}
 
-		// Setup scene for rendering
-		renderer->BeginScene(0.5f, 0.5f, 0.5f, 1.0f);
-
 		// Render the entity using it's component
-		if (render)
+		if (render && transform)
 		{
 			// TODO - Check for isVisible
 			if (render->mesh) // Does this component have a mesh?
@@ -77,7 +73,7 @@ void RenderSystem::ProcessEntities(std::vector<Entity*> entities)
 				}
 
 				// Draw
-				renderer->Draw(render->mesh);
+				renderer->Draw(transform->position, render->mesh);
 			}
 
 		}

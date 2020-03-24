@@ -14,9 +14,6 @@ public:
 
 private:
 
-	const Component::ComponentTypes MASK =
-		(Component::COMPONENT_RENDER /*| Component::COMPONENT_TRANSFORM*/);
-
 	// Ref to renderer
 	Renderer* renderer;
 

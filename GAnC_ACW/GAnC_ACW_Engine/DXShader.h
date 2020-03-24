@@ -12,6 +12,10 @@
 #include <DirectXMath.h>
 #include <fstream>
 
+#include "GL\GLM\GLM.hpp"
+#include "GL\GLM\GTC\matrix_transform.hpp"
+#include "GL\GLM\GTC\type_ptr.hpp"
+
 class DXRenderer;
 
 class DXShader
@@ -24,6 +28,7 @@ public:
 	void Render(ID3D11DeviceContext*, int, DirectX::XMMATRIX, DirectX::XMMATRIX, DirectX::XMMATRIX);
 
 private:
+	
 	void SetShaderParameters(ID3D11DeviceContext*, DirectX::XMMATRIX, DirectX::XMMATRIX, DirectX::XMMATRIX);
 	void RenderShader(ID3D11DeviceContext*, int);
 

@@ -2,8 +2,8 @@
 
 using namespace DirectX;
 
-DXCamera::DXCamera(int screenWidth, int screenHeight, float screenNear, float screenDepth)
-	:m_posX(0.0f), m_posY(0.0f), m_posZ(0.0f), m_rotX(0.0f), m_rotY(0.0f), m_rotZ(0.0f)
+DXCamera::DXCamera(const int screenWidth, const int screenHeight, const float screenNear, const float screenDepth)
+	: fieldOfView(XM_PIDIV4), m_posX(0.0f), m_posY(0.0f), m_posZ(0.0f), m_rotX(0.0f), m_rotY(0.0f), m_rotZ(0.0f)
 {
 	float FoV, aspectRatio;
 

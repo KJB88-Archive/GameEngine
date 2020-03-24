@@ -1,11 +1,14 @@
 #pragma once
 #include <DirectXMath.h>
+#include "GL\GLM\GLM.hpp"
+#include "GL\GLM\GTC\matrix_transform.hpp"
+#include "GL\GLM\GTC\type_ptr.hpp"
 
 class DXCamera
 {
 public:
 
-	DXCamera(int screenWidth, int screenHeight, float screenNear, float screenDepth);
+	DXCamera(const int screenWidth, const int screenHeight, const float screenNear, const float screenDepth);
 	//DXCamera(const DXCamera&);
 	~DXCamera();
 
@@ -21,6 +24,9 @@ public:
 	void GetOrthographicMatrix(DirectX::XMMATRIX&);
 
 private:
+
+	const float fieldOfView;
+
 	float m_posX, m_posY, m_posZ;
 	float m_rotX, m_rotY, m_rotZ;
 	DirectX::XMMATRIX m_view;

@@ -17,7 +17,6 @@ class DXRenderer
 	: public Renderer
 {
 public:
-
 	DXRenderer(int screenWidth, int screenHeight, HWND hwnd, float screenDepth, float screenNear);
 	virtual ~DXRenderer();
 
@@ -26,12 +25,12 @@ public:
 
 	virtual RenderSystem * GetSystem() override;
 
-	static DXCamera* CreateCamera();
-	static DX_VBO* CreateVBO();
+	//static DXCamera* CreateCamera();
+	//static DX_VBO* CreateVBO();
 
 	// Scene rendering
 	virtual void BeginScene(float r, float g, float b, float a) override;
-	virtual void Draw(const Mesh* mesh) override;
+	virtual void Draw(Vector3& pos,  const Mesh* mesh) override;
 	virtual void EndScene() override;
 
 	// Matrices

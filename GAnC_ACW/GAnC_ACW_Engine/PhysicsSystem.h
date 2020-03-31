@@ -1,19 +1,19 @@
 #pragma once
-#include "ISystem.h"
+#include "BaseSystem.h"
+#include "PhysicsManager.h"
 
 class PhysicsSystem
-	: public ISystem
+	: public BaseSystem
 {
 
 public:
-	PhysicsSystem();
+	PhysicsSystem(PhysicsManager* physics);
 	virtual ~PhysicsSystem();
 
 	virtual void ProcessEntities(std::vector<Entity*> entities) override;
 
 private:
 
-	const Component::ComponentTypes MASK =
-		(Component::COMPONENT_TRANSFORM | Component::COMPONENT_PHYSICS);
+	const PhysicsManager* m_physics;
 };
 

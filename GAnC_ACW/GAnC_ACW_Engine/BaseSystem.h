@@ -1,28 +1,29 @@
 #pragma once
 #include <vector>
-#include "Component.h"
+#include "BaseComponent.h"
 class Entity;
 
-class ISystem
+class BaseSystem
 {
 public:
 	enum SystemType
 	{
 		INPUT,
 		RENDER,
-		PHYSICS,
-		CAMERA
+		PHYSICS
 	};
 
-	ISystem(SystemType type)
-		: m_type(type) {};
-	virtual ~ISystem() {};
+	BaseSystem(std::string systemName, SystemType type)
+		: m_name(systemName), m_type(type) {};
+	virtual ~BaseSystem() {};
 
+	std::string GetName() { return m_name; }
 	SystemType GetType(){ return m_type; }
 
 	virtual void ProcessEntities(std::vector<Entity*> entities) = 0;
 
 protected:
 
+	std::string m_name;
 	SystemType m_type;
 };

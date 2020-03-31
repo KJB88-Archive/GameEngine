@@ -36,6 +36,8 @@ bool SceneManager::RunScene()
 	{
 		return scenes.top()->RunScene();
 	}
-	
-	// Return false to continue game loop
+
+	// If we have no scenes, 
+	// let Game know that the application is basically finished
+	return true;
 }

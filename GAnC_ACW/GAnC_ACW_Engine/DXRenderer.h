@@ -30,7 +30,7 @@ public:
 
 	// Scene rendering
 	virtual void BeginScene(float r, float g, float b, float a) override;
-	virtual void Draw(Vector3& pos,  const Mesh* mesh) override;
+	virtual void Draw(const Vector3& pos, const Vector3& rot, const Vector3& scale, const Mesh* mesh) override;
 	virtual void EndScene() override;
 
 	// Matrices

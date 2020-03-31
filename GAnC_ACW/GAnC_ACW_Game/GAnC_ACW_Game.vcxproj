@@ -45,10 +45,12 @@
   <ItemGroup>
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TestEntity.cpp" />
     <ClCompile Include="TestGame.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="TestEntity.h" />
     <ClInclude Include="TestGame.h" />
   </ItemGroup>
   <ItemGroup>

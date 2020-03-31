@@ -5,8 +5,8 @@
 #include "TransformComponent.h"
 #include "Entity.h"
 
-PhysicsSystem::PhysicsSystem()
-	: ISystem(PHYSICS)
+PhysicsSystem::PhysicsSystem(PhysicsManager* physics)
+	: BaseSystem("Physics", PHYSICS)
 {
 
 }
@@ -25,28 +25,24 @@ void PhysicsSystem::ProcessEntities(std::vector<Entity*> entities)
 		TransformComponent* transform = NULL;
 
 		// get list of components attached to this entity
-		std::vector<Component*> components = entities[i]->GetComponents();
+		std::vector<BaseComponent*> components = entities[i]->GetComponents();
 
 		// Loop through components
 		for (int j = 0; i < components.size(); ++j)
 		{
-			// Check to see if those components are the types we need
-			if (components[j]->ComponentType() == MASK)
+			// Determine which component we're looking at
+			switch (components[j]->GetType())
 			{
-				// Determine which component we're looking at
-				switch (components[j]->ComponentType())
-				{
-				
-					// Store our Physics component
-				case Component::COMPONENT_PHYSICS:
-					physics = dynamic_cast<PhysicsComponent*>(components[j]);
-					break;
 
-					// Store our Transform component
-				case Component::COMPONENT_TRANSFORM:
-					transform = dynamic_cast<TransformComponent*>(components[j]);
-					break;
-				}
+				// Store our Physics component
+			case BaseComponent::COMPONENT_PHYSICS:
+				physics = dynamic_cast<PhysicsComponent*>(components[j]);
+				break;
+
+				// Store our Transform component
+			case BaseComponent::COMPONENT_TRANSFORM:
+				transform = dynamic_cast<TransformComponent*>(components[j]);
+				break;
 			}
 
 			// Break out early if we have required components

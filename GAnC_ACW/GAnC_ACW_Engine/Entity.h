@@ -1,28 +1,28 @@
 #pragma once
 #include <vector>
 
-#include "Component.h"
+#include "BaseComponent.h"
+#include "Components.h"
+
 class Entity
 {
 
 public:
-	
+
 	Entity(int id, const std::string& name);
 	virtual ~Entity();
 
 	const int id;
 	std::string name;
 
-	Component* const GetComponent(const Component::ComponentTypes componentType);
-	std::vector<Component*> GetComponents();
-	void AddComponent(Component* component);
+	BaseComponent* const GetComponent(const BaseComponent::ComponentType componentType);
+	std::vector<BaseComponent*> GetComponents();
+	void AddComponent(BaseComponent* component);
 
 private:
-
-
 	// Component container
-	std::vector<Component*> components;
+	std::vector<BaseComponent*> components;
 
-	Entity(const Entity& other);
+	Entity(const Entity& other) = delete;
 
 };

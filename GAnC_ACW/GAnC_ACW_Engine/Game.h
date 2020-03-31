@@ -8,9 +8,8 @@
 #include "TimeManager.h"
 #include "SceneManager.h"
 #include "Logger.h"
-
-// Systems
-#include "RenderSystem.h"
+#include "SystemManager.h"
+#include "PhysicsManager.h"
 
 class Game
 {
@@ -39,10 +38,9 @@ protected:
 	Renderer* m_renderer;
 	TimeManager* m_time;
 	SceneManager* m_sceneManager;
+	PhysicsManager* m_physicsManager;
 	Logger* m_logger;
-
-	// Systems
-	RenderSystem* m_renderSystem;
+	SystemManager*  m_systemManager;
 
 private:
 

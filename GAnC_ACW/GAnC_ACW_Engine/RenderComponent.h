@@ -1,9 +1,9 @@
 #pragma once
-#include "Component.h"
+#include "BaseComponent.h"
 #include "Mesh.h"
 
 class RenderComponent 
-	: public Component
+	: public BaseComponent
 {
 public:
 	RenderComponent(Entity* owner);

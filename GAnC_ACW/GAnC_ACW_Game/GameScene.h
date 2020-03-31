@@ -8,7 +8,7 @@ class GameScene
 
 public:
 
-	GameScene();
+	GameScene(int id, SceneManager* sm);
 	virtual ~GameScene();
 
 	virtual bool RunScene() override;

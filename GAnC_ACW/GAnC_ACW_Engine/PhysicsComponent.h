@@ -1,9 +1,9 @@
 #pragma once
-#include "Component.h"
+#include "BaseComponent.h"
 #include "Vector3.h"
 
 class PhysicsComponent
-	: public Component
+	: public BaseComponent
 {
 
 public:

@@ -11,7 +11,7 @@ public:
 
 	void Update();
 
-	float GetDeltaTime();
+	static float GetDeltaTime();
 
 private:
 
@@ -19,7 +19,7 @@ private:
 
 	std::chrono::steady_clock::time_point m_currentTime;
 	std::chrono::steady_clock::time_point m_previousTime;
-	float m_deltaTime;
+	static float m_deltaTime;
 
 	TimeManager(const TimeManager&) = delete;
 	TimeManager& operator=(const TimeManager&) = delete;

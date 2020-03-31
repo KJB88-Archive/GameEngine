@@ -12,7 +12,7 @@
 
 
 RenderSystem::RenderSystem(Renderer* renderer)
-	: ISystem(RENDER), renderer(renderer)
+	: BaseSystem("Render", RENDER), renderer(renderer)
 {
 }
 
@@ -33,7 +33,7 @@ void RenderSystem::ProcessEntities(std::vector<Entity*> entities)
 		TransformComponent* transform = NULL;
 
 		// Get list of components attached to this entity
-		std::vector<Component*> components = entities[i]->GetComponents();
+		std::vector<BaseComponent*> components = entities[i]->GetComponents();
 
 		// Loop through components
 		for (int j = 0; j < components.size(); ++j)
@@ -43,12 +43,12 @@ void RenderSystem::ProcessEntities(std::vector<Entity*> entities)
 			{
 
 				// Store our render component
-			case Component::COMPONENT_RENDER:
+			case BaseComponent::COMPONENT_RENDER:
 				render = (RenderComponent*)components[j];
 				break;
 
 				// Store our transform component
-			case Component::COMPONENT_TRANSFORM:
+			case BaseComponent::COMPONENT_TRANSFORM:
 				transform = (TransformComponent*)components[j];
 				break;
 			}
@@ -72,8 +72,12 @@ void RenderSystem::ProcessEntities(std::vector<Entity*> entities)
 					render->mesh->CreateVBO(renderer); // Create VBO
 				}
 
-				// Draw
-				renderer->Draw(transform->position, render->mesh);
+				// Draw (send transform values to do translation, rotation and scaling)
+				renderer->Draw(
+					transform->position, 
+					transform->rotation, 
+					transform->scale, 
+					render->mesh);
 			}
 
 		}

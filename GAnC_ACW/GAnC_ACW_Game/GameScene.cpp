@@ -1,17 +1,22 @@
 #include "GameScene.h"
-#include "TransformComponent.h"
-#include "RenderComponent.h"
+#include "SystemManager.h"
+#include "Components.h"
 
-GameScene::GameScene()
-	: Scene(0, "Game Scene")
+// Entities
+#include "TestEntity.h"
+GameScene::GameScene(int id, SceneManager* sm)
+	: Scene(id, "Game Scene", sm)
 {
-	Entity* newEntity = new Entity(0, "New Entity");
-	newEntity->AddComponent(new TransformComponent(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.0f, 0.0f, 0.0f), Vector3(0.0f, 0.0f, 0.0f), newEntity));
-	newEntity->AddComponent(new RenderComponent(newEntity)); // TODO
 
-	AddEntity(newEntity);
+	// Add Systems
+	systems.emplace_back(SystemManager::GetSystem("Render"));
+	systems.emplace_back(SystemManager::GetSystem("Physics"));
 
-	Logger::LogToConsole("SCENE: Entity with name " + newEntity->name);
+	// Add Entities
+	entities.emplace_back(new TestEntity(entities.size(), "TestEntity"));
+
+	Logger::LogToConsole("SCENE: System with name: Render");
+
 }
 
 GameScene::~GameScene()

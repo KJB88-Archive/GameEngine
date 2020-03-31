@@ -30,6 +30,17 @@ Game::Game()
 	{
 		Logger::LogToConsole("GAME: Unable to create SceneManager object.");
 	}
+
+	m_physicsManager = new PhysicsManager();
+	if (!m_physicsManager)
+	{
+		Logger::LogToConsole("GAME: Unable to create PhysicsManager object.");
+	}
+	m_systemManager = new SystemManager();
+	if (!m_systemManager)
+	{
+		Logger::LogToConsole("GAME: Unable to create SystemManager object.");
+	}
 }
 
 Game::~Game()
@@ -68,14 +79,9 @@ void Game::Initialise(Window* window, Renderer* renderer)
 {
 	m_renderer = renderer;
 	m_window = window;
-	
-	// Create Render System
-	m_renderSystem = m_renderer->GetSystem();
-	if (!m_renderSystem)
-	{
-		Logger::LogToConsole("GAME: Unable to get RenderSystem object.");
-	}
 
+	SystemManager::AddSystem(m_renderer->GetSystem());
+	SystemManager::AddSystem(m_physics->GetSystem());
 }
 
 bool Game::Run()

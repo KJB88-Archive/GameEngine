@@ -1,9 +1,9 @@
 #pragma once
-#include "ISystem.h"
+#include "BaseSystem.h"
 class Renderer;
 
 class RenderSystem
-	: public ISystem
+	: public BaseSystem
 {
 public:
 	RenderSystem(Renderer* renderer);

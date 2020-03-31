@@ -1,10 +1,9 @@
 #include "Scene.h"
+#include "SceneManager.h"
 
-Scene::Scene(const int id, const std::string& name)
-	: id(id), name(name)
+Scene::Scene(const int id, const std::string& name, SceneManager* sm)
+	: id(id), name(name), sceneManager(sm)
 {
-	InitializeCoreResources();
-
 	Logger::LogToConsole("SCENE: " + name + " created.");
 }
 
@@ -24,12 +23,6 @@ bool Scene::RunScene()
 	return false; // Return false to continue game loop
 }
 
-void Scene::InitializeCoreResources()
-{
-	entities = std::vector<Entity*>();
-	systems = std::vector<ISystem*>();
-}
-
 const std::string& Scene::GetName()
 {
 	return name;
@@ -38,22 +31,6 @@ const std::string& Scene::GetName()
 const int Scene::GetID()
 {
 	return id;
-}
-
-void Scene::AddSystem(ISystem* system)
-{
-	systems.emplace_back(system);
-}
-
-void Scene::RemoveSystem(ISystem::SystemType type)
-{
-	for (int i = 0; i < systems.size(); ++i)
-	{
-		if (systems[i]->GetType() == type)
-		{
-			systems.erase(systems.begin() + i);
-		}
-	}
 }
 
 void Scene::AddEntity(Entity* go)
@@ -85,6 +62,56 @@ void Scene::RemoveEntity(const int id)
 		{
 			// Erase that entity
 			entities.erase(entities.begin() + i);
+		}
+	}
+}
+
+void Scene::AddSystem(std::string systemName)
+{
+	BaseSystem* sys = SystemManager::GetSystem(systemName);
+
+	if (sys != nullptr)
+	{
+		systems.emplace_back(sys);
+	}
+	else
+	{
+		Logger::LogToConsole("SCENE: Error adding manager to scene: " + systemName);
+	}
+}
+
+void Scene::AddSystem(BaseSystem::SystemType systemType)
+{
+	BaseSystem* sys = SystemManager::GetSystem(systemType);
+
+	if (sys != nullptr)
+	{
+		systems.emplace_back(sys);
+	}
+	else
+	{
+		Logger::LogToConsole("SCENE: Error adding manager to scene via type.");
+	}
+}
+
+void Scene::RemoveSystem(std::string systemName)
+{
+	for (int i = 0; i < systems.size(); ++i)
+	{
+		if (systems[i]->GetName() == systemName)
+		{
+			systems.erase(systems.begin() + i);
+		}
+	}
+}
+
+void Scene::RemoveSystem(BaseSystem::SystemType systemType)
+{
+	for (int i = 0; i < systems.size(); ++i)
+	{
+		if (systems[i]->GetType() == systemType)
+		{
+			systems.erase(systems.begin() + i);
 		}
 	}
 }

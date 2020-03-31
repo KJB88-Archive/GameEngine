@@ -1,16 +1,13 @@
 #pragma once
 #include "Vector3.h"
-#include "Component.h"
+#include "BaseComponent.h"
 
 class TransformComponent 
-	: public Component
+	: public BaseComponent
 {
 public:
 
-	//TransformComponent();
-	//TransformComponent(Vector3 pos);
-	//TransformComponent(Vector3 pos, Vector3 rot);
-	TransformComponent(Vector3 pos, Vector3 rot, Vector3 scale, Entity* entity);
+	TransformComponent(Entity* owner);
 	virtual ~TransformComponent();
 
 	Vector3 position;

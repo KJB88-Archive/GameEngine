@@ -5,8 +5,6 @@
 Entity::Entity(int id, const std::string& name)
 	: id(id), name(name)
 {
-	components = std::vector<Component*>();
-
 	Logger::LogToConsole("GAMEOBJECT: " + name + " created.");
 }
 
@@ -15,11 +13,11 @@ Entity::~Entity()
 	components.clear();
 }
 
-Component* const Entity::GetComponent(const Component::ComponentTypes componentType)
+BaseComponent* const Entity::GetComponent(const BaseComponent::ComponentType componentType)
 {
 	for (int i = 0; i < (int)components.size(); i++)
 	{
-		if (components[i]->ComponentType() == componentType)
+		if (components[i]->GetType() == componentType)
 		{
 
 			return components[i];
@@ -27,12 +25,12 @@ Component* const Entity::GetComponent(const Component::ComponentTypes componentT
 	}
 }
 
-std::vector<Component*> Entity::GetComponents()
+std::vector<BaseComponent*> Entity::GetComponents()
 {
 	return components;
 }
 
-void Entity::AddComponent(Component* component)
+void Entity::AddComponent(BaseComponent* component)
 {
 	components.push_back(component);
 }

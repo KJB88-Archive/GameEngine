@@ -266,12 +266,13 @@ RenderSystem* DXRenderer::GetSystem()
 	return renderSystem;
 }
 
-void DXRenderer::Draw(Vector3& pos, const Mesh* mesh)
+void DXRenderer::Draw(const Vector3& pos, const Vector3&, const Vector3& scale, const Mesh* mesh)
 {
 	DX_VBO* vbo = dynamic_cast<DX_VBO*>(mesh->GetVBO());
 
 	// TRANSLATE
 	m_world = XMMatrixTranslation(pos.x, 0.0f, 0.0f);
+
 	// ROTATE
 	// SCALE
 

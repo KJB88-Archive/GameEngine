@@ -18,9 +18,7 @@ void TestGame::Initialise(Window* wnd, Renderer* renderer)
 	Game::Initialise(wnd, renderer);
 
 	// Scene construction
-	GameScene* gameScene = new GameScene();
-	gameScene->AddSystem(m_renderSystem);
-	m_sceneManager->PushScene(gameScene);
+	m_sceneManager->PushScene(new GameScene(0, m_sceneManager));
 
 }
 

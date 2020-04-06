@@ -1,5 +1,4 @@
 #include "Entity.h"
-#include "RenderComponent.h"
 #include "Logger.h"
 
 Entity::Entity(int id, const std::string& name)

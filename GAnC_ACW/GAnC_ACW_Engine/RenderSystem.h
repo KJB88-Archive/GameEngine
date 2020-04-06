@@ -15,7 +15,7 @@ public:
 private:
 
 	// Ref to renderer
-	Renderer* renderer;
+	Renderer* m_renderer;
 
 	RenderSystem(const RenderSystem& other);
 };

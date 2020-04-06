@@ -2,9 +2,9 @@
 #include "GameScene.h"
 
 TestGame::TestGame()
-	: Game()
+	: Game(), ObserverSubject(), Observer()
 {
-
+	AddObserver("Hello", this);
 }
 
 TestGame::~TestGame()
@@ -20,6 +20,7 @@ void TestGame::Initialise(Window* wnd, Renderer* renderer)
 	// Scene construction
 	m_sceneManager->PushScene(new GameScene(0, m_sceneManager));
 
+	
 }
 
 bool TestGame::Run()

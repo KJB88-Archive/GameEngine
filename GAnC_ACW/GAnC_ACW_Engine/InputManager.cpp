@@ -24,23 +24,6 @@ void InputManager::OnKey(unsigned int key, bool down)
 
 }
 
-//void Input::KeyDown(unsigned int input)
-//{
-//	if (m_keys)
-//	{
-//		m_keys[input] = true;
-//	}
-//	else
-//	{
-//		printf("...");
-//	}
-//}
-//
-//void Input::KeyUp(unsigned int input)
-//{
-//	m_keys[input] = false;
-//}
-
 bool InputManager::IsKeyDown(unsigned int key)
 {
 	if (m_keys[key])

@@ -1,7 +1,6 @@
 #pragma once
 #include <vector>
 
-#include "BaseComponent.h"
 #include "Components.h"
 
 class Entity

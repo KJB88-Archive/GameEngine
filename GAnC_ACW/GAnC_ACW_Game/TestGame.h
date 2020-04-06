@@ -1,6 +1,7 @@
 #pragma once
 #include "Game.h"
-
+#include "ObserverSubject.h"
+#include "Observer.h"
 
 class TestGame
 	: public Game
@@ -15,6 +16,8 @@ public:
 	virtual void Reset() override;
 	virtual bool Run() override;
 
+	virtual void NotifyAll(BaseMessage* msg) override;
+	virtual void OnNotify(BaseMessage* msg) override;
 private:
 
 };

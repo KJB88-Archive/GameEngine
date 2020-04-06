@@ -80,8 +80,10 @@ void Game::Initialise(Window* window, Renderer* renderer)
 	m_renderer = renderer;
 	m_window = window;
 
+	// Add systems to SystemManager
+	SystemManager::AddSystem(m_physicsManager->GetSystem());
 	SystemManager::AddSystem(m_renderer->GetSystem());
-	SystemManager::AddSystem(m_physics->GetSystem());
+
 }
 
 bool Game::Run()

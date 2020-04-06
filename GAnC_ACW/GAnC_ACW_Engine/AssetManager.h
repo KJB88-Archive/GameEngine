@@ -22,19 +22,22 @@ public:
 	AssetManager();
 	~AssetManager();
 
-	Asset* GetAsset(std::string fileName);
+	static Asset* GetAsset(std::string fileName);
 
 private:
 
-	int idCount = 0;
+	static int idCount;
+
+	//bool CreateAsset(std::string fileName, Asset& asset);
+	//bool CreateMesh(std::ifstream& stream, Asset& asset);
 
 	// Asset creation
-	Asset* CreateAsset(std::string fileName);
-	Mesh* CreateMesh(std::ifstream& stream);
+	static Asset* CreateAsset(std::string fileName);
+	static Mesh* CreateMesh(std::ifstream& stream);
 	//bool CreateScene(std::ifstream stream, Asset& asset);
 
 	// Map Manipulation
-	void AddAsset(std::string fileName, Asset* asset);
+	static void AddAsset(std::string fileName, Asset* asset);
 
-	ASSETMAP assets;
+	static ASSETMAP assets;
 };

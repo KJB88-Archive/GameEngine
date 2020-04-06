@@ -1,6 +1,7 @@
 #pragma once
 #include "BaseSystem.h"
-#include "PhysicsManager.h"
+
+class PhysicsManager;
 
 class PhysicsSystem
 	: public BaseSystem

@@ -1,8 +1,8 @@
 #pragma once
 #include "Manager.h"
 #include "Vector3.h"
+#include "PhysicsSystem.h"
 
-class PhysicsSystem;
 
 class PhysicsManager
 	: public Manager
@@ -18,6 +18,5 @@ public:
 
 private:
 
-	TimeManager* m_timeManager;
 	PhysicsSystem* m_physicsSystem;
 };

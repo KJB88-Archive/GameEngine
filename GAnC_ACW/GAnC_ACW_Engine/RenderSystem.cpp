@@ -12,8 +12,9 @@
 
 
 RenderSystem::RenderSystem(Renderer* renderer)
-	: BaseSystem("Render", RENDER), renderer(renderer)
+	: BaseSystem("Render", RENDER)
 {
+	m_renderer = renderer;
 }
 
 RenderSystem::~RenderSystem()
@@ -24,7 +25,7 @@ RenderSystem::~RenderSystem()
 void RenderSystem::ProcessEntities(std::vector<Entity*> entities)
 {
 	// Setup scene for rendering
-	renderer->BeginScene(0.5f, 0.5f, 0.5f, 1.0f);
+	m_renderer->BeginScene(0.5f, 0.5f, 0.5f, 1.0f);
 
 	// Loop through entities
 	for (int i = 0; i < entities.size(); ++i)
@@ -39,7 +40,7 @@ void RenderSystem::ProcessEntities(std::vector<Entity*> entities)
 		for (int j = 0; j < components.size(); ++j)
 		{
 			// Determine which component we're looking at
-			switch (components[j]->ComponentType())
+			switch (components[j]->GetType())
 			{
 
 				// Store our render component
@@ -69,11 +70,11 @@ void RenderSystem::ProcessEntities(std::vector<Entity*> entities)
 				if (!render->mesh->GetVBO()) // Does the mesh have a valid VBO?
 				{
 					Logger::LogToConsole("RENDER SYSTEM: Object does not have a VBO, creating VBO...");
-					render->mesh->CreateVBO(renderer); // Create VBO
+					render->mesh->CreateVBO(m_renderer); // Create VBO
 				}
 
 				// Draw (send transform values to do translation, rotation and scaling)
-				renderer->Draw(
+				m_renderer->Draw(
 					transform->position, 
 					transform->rotation, 
 					transform->scale, 
@@ -84,5 +85,5 @@ void RenderSystem::ProcessEntities(std::vector<Entity*> entities)
 	}
 
 	// Finish scene setup for rendering
-	renderer->EndScene();
+	m_renderer->EndScene();
 }

@@ -2,8 +2,6 @@
 #include "SystemManager.h"
 #include "Components.h"
 
-// Entities
-#include "TestEntity.h"
 GameScene::GameScene(int id, SceneManager* sm)
 	: Scene(id, "Game Scene", sm)
 {
@@ -13,7 +11,7 @@ GameScene::GameScene(int id, SceneManager* sm)
 	systems.emplace_back(SystemManager::GetSystem("Physics"));
 
 	// Add Entities
-	entities.emplace_back(new TestEntity(entities.size(), "TestEntity"));
+	entities.emplace_back(new Entity(entities.size(), "TestEntity"));
 
 	Logger::LogToConsole("SCENE: System with name: Render");
 

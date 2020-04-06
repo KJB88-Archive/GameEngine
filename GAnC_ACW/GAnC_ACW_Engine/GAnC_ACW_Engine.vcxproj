@@ -337,6 +337,7 @@
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="Manager.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="ObserverSubject.cpp" />
     <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="PhysicsManager.cpp" />
     <ClCompile Include="PhysicsSystem.cpp" />
@@ -344,6 +345,7 @@
     <ClCompile Include="RenderSystem.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="SubjectManager.cpp" />
     <ClCompile Include="SystemManager.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
@@ -352,6 +354,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AssetManager.h" />
+    <ClInclude Include="BaseInputProvider.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Colour.h" />
     <ClInclude Include="Components.h" />
@@ -362,6 +365,10 @@
     <ClInclude Include="BaseComponent.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="MathsHelper.h" />
+    <ClInclude Include="BaseMessage.h" />
+    <ClInclude Include="MouseInputProvider.h" />
+    <ClInclude Include="Observer.h" />
+    <ClInclude Include="ObserverSubject.h" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PhysicsManager.h" />
     <ClInclude Include="PhysicsSystem.h" />
@@ -371,6 +378,7 @@
     <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="SubjectManager.h" />
     <ClInclude Include="SystemManager.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="TransformComponent.h" />

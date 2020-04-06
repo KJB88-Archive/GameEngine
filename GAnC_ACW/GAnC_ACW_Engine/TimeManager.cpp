@@ -2,6 +2,9 @@
 
 using namespace std::chrono;
 #include <ctime>
+// TODO - Make this manager handle spawning new Time objects for Thread timing
+
+float TimeManager::m_deltaTime = 0;
 
 TimeManager::TimeManager()
 	: Manager("Time")

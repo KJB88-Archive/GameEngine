@@ -1,6 +1,8 @@
 #include "AssetManager.h"
 #include "Vertex.h"
 
+int AssetManager::idCount = 0;
+
 AssetManager::AssetManager()
 {
 	assets = std::map<std::string, Asset*>();
@@ -12,6 +14,8 @@ AssetManager::~AssetManager()
 	assets.clear();
 }
 
+// Load Asset type from file
+// and pass stream to specific creation function
 Asset* AssetManager::CreateAsset(std::string fileName)
 {
 	// Create stream to file
@@ -34,6 +38,7 @@ Asset* AssetManager::CreateAsset(std::string fileName)
 	return false;
 }
 
+// Get the asset by file name and return as base Asset pointer
 Asset* AssetManager::GetAsset(std::string fileName)
 {
 	ASSETMAP::const_iterator iterator = assets.find(fileName);
@@ -54,11 +59,13 @@ Asset* AssetManager::GetAsset(std::string fileName)
 	}
 }
 
+// Add asset to Asset collection
 void AssetManager::AddAsset(std::string fileName, Asset* asset)
 {
 	assets.try_emplace(fileName, asset);
 }
 
+// Create Mesh asset
 Mesh* AssetManager::CreateMesh(std::ifstream& stream)
 {
 	Mesh* mesh = new Mesh();

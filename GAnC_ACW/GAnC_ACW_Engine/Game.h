@@ -17,6 +17,8 @@ public:
 	Game();
 	~Game();
 
+	// TODO - Abstract this class and enforce any children to implement ALL functionality
+
 	// Setup external resources
 	virtual void Initialise(Window* wnd, Renderer* window);
 

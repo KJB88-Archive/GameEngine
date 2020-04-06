@@ -2,7 +2,6 @@
 #include "Logger.h"
 
 #include "DX_VBO.h"
-#include "RenderSystem.h"
 
 using namespace DirectX;
 

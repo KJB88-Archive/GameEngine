@@ -8,8 +8,9 @@
 #include "GL\GLM\GTC\type_ptr.hpp"
 #include <vector>
 
+#include "RenderSystem.h"
+
 class VBO;
-class RenderSystem;
 
 class Renderer
 {

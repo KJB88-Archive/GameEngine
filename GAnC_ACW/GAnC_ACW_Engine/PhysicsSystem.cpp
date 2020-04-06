@@ -6,7 +6,7 @@
 #include "Entity.h"
 
 PhysicsSystem::PhysicsSystem(PhysicsManager* physics)
-	: BaseSystem("Physics", PHYSICS)
+	: BaseSystem("Physics", PHYSICS), m_physics(physics)
 {
 
 }

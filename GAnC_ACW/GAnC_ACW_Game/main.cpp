@@ -21,14 +21,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	TestGame game;
 	bool result;
 
-	////GameObject* obj = new GameObject("New Object", "TAG1", Vector3(1.1f, 2.2f, 3.3f));
-	//
-	////printf("GameObject: %s with tag %s has a position of %f, %f, %f.",
-	////	obj->name, obj->tag, obj->transform->position.x, obj->transform->position.y, obj->transform->position.z);
-
-	//printf("GameObject: %s, with Tag: %s, at Position: %f, %f, %f\n", obj->name.c_str(), obj->tag.c_str(), obj->transform->position.x, obj->transform->position.y, obj->transform->position.z);
-	////printf("Transform contains a Vector3 of: %f, %f, %f\n", transf->position.x, transf->position.y, transf->position.z);
-
 	DXWindow* window = new DXWindow(&game, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_DEPTH, SCREEN_NEAR, hInstance, nShowCmd);
 
 	// Run the game

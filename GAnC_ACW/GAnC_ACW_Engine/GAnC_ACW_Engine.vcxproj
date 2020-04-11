@@ -331,7 +331,7 @@
     <ClCompile Include="DXRenderer.cpp" />
     <ClCompile Include="DXShader.cpp" />
     <ClCompile Include="DXWindow.cpp" />
-    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Logger.cpp" />
@@ -361,6 +361,7 @@
     <ClInclude Include="DXCamera.h" />
     <ClInclude Include="DXRenderer.h" />
     <ClInclude Include="DXWindow.h" />
+    <ClInclude Include="Engine.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="BaseComponent.h" />
     <ClInclude Include="Logger.h" />

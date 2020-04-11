@@ -1,7 +1,8 @@
-#include "Game.h"
+#include "Engine.h"
 
-Game::Game()
-	: m_input(nullptr), m_renderer(nullptr), m_time(nullptr), m_sceneManager(nullptr)
+Engine::Engine()
+	: m_logger(nullptr), m_time(nullptr), m_input(nullptr), m_sceneManager(nullptr),
+	m_physicsManager(nullptr), m_systemManager(nullptr)
 {
 	// Create Logger Manager
 	m_logger = new Logger();
@@ -31,11 +32,14 @@ Game::Game()
 		Logger::LogToConsole("GAME: Unable to create SceneManager object.");
 	}
 
+	// Create Physics Manager
 	m_physicsManager = new PhysicsManager();
 	if (!m_physicsManager)
 	{
 		Logger::LogToConsole("GAME: Unable to create PhysicsManager object.");
 	}
+
+	// Create System Manager
 	m_systemManager = new SystemManager();
 	if (!m_systemManager)
 	{
@@ -43,7 +47,7 @@ Game::Game()
 	}
 }
 
-Game::~Game()
+Engine::~Engine()
 {
 	if (m_time)
 	{
@@ -63,45 +67,54 @@ Game::~Game()
 		m_input = nullptr;
 	}
 
+	if (m_physicsManager)
+	{
+		delete m_physicsManager;
+		m_physicsManager = nullptr;
+	}
+
 	if (m_sceneManager)
 	{
 		delete m_sceneManager;
 		m_sceneManager = nullptr;
 	}
 
+	if (m_systemManager)
+	{
+		delete m_systemManager;
+		m_systemManager = nullptr;
+	}
+
 	if (m_window)
 	{
+		// Window is deleted by application, not Engine or Game
 		m_window = nullptr;
+	}
+
+	if (m_logger)
+	{
+		delete m_logger;
+		m_logger = nullptr;
 	}
 }
 
-void Game::Initialise(Window* window, Renderer* renderer)
+void Engine::Initialise(Window* window, Renderer* renderer)
 {
-	m_renderer = renderer;
 	m_window = window;
-
-	// Add systems to SystemManager
-	SystemManager::AddSystem(m_physicsManager->GetSystem());
-	SystemManager::AddSystem(m_renderer->GetSystem());
-
+	m_renderer = renderer;
 }
 
-bool Game::Run()
+void Engine::Update()
 {
-	// Update managers and systems here
 	m_time->Update();
-
-	return m_sceneManager->RunScene(); // Main update call
-
-	// Return false to continue game loop
 }
 
-void Game::OnKeyboard(int key, bool down)
+void Engine::OnKeyboard(int key, bool down)
 {
 	m_input->OnKey(key, down);
 }
 
-void Game::OnMouse(int mouseButton, bool down, int xPos, int yPos)
+void Engine::OnMouse(int mouseButton, bool down, int xPos, int yPos)
 {
 	m_input->OnMouse(mouseButton, down, xPos, yPos);
 }

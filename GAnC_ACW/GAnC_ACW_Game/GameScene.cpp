@@ -7,12 +7,16 @@ GameScene::GameScene(int id, SceneManager* sm)
 {
 
 	// Add Systems
-	systems.emplace_back(SystemManager::GetSystem("Render"));
 	systems.emplace_back(SystemManager::GetSystem("Physics"));
+	systems.emplace_back(SystemManager::GetSystem("Render"));
 
 	// Add Entities
-	entities.emplace_back(new Entity(entities.size(), "TestEntity"));
+	Entity* newEntity = new Entity(entities.size(), "TestEntity");
+	newEntity->AddComponent(new TransformComponent(newEntity));
+	newEntity->AddComponent(new RenderComponent(newEntity));
 
+	entities.emplace_back(newEntity);
+	
 	Logger::LogToConsole("SCENE: System with name: Render");
 
 }

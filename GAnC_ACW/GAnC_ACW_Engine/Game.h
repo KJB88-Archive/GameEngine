@@ -1,50 +1,29 @@
 #pragma once
-// Window
-#include "Window.h"
-
-// Management
-#include "InputManager.h"
-#include "Renderer.h"
-#include "TimeManager.h"
-#include "SceneManager.h"
-#include "Logger.h"
-#include "SystemManager.h"
-#include "PhysicsManager.h"
+#include "Engine.h"
 
 class Game
 {
 public:
-	Game();
-	~Game();
+	Game() : m_engine(new Engine()) {};
+	~Game() { delete m_engine; m_engine = nullptr; };
 
-	// TODO - Abstract this class and enforce any children to implement ALL functionality
+	// Get pointer to Engine
+	Engine* engine() const { return m_engine; }
 
-	// Setup external resources
-	virtual void Initialise(Window* wnd, Renderer* window);
+	// Setup resources before run
+	virtual void Initialise() = 0;
 
 	// Main game loop
-	virtual bool Run();
-
-	// Input
-	virtual void OnKeyboard(int key, bool down);
-	virtual void OnMouse(int mouseButton, bool down, int xPos, int yPos);
+	virtual bool Run() = 0;
 
 protected:
 
 	// Reset game
 	virtual void Reset() = 0;
 
-	// Core Managers
-	Window* m_window;
-	InputManager* m_input;
-	Renderer* m_renderer;
-	TimeManager* m_time;
-	SceneManager* m_sceneManager;
-	PhysicsManager* m_physicsManager;
-	Logger* m_logger;
-	SystemManager*  m_systemManager;
-
 private:
+
+	Engine* m_engine;
 
 	Game(const Game&) = delete;
 	Game* operator=(const Game&) = delete;

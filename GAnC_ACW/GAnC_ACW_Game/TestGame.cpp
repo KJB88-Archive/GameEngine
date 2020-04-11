@@ -2,9 +2,8 @@
 #include "GameScene.h"
 
 TestGame::TestGame()
-	: Game(), ObserverSubject(), Observer()
+	: Game()
 {
-	AddObserver("Hello", this);
 }
 
 TestGame::~TestGame()
@@ -12,23 +11,22 @@ TestGame::~TestGame()
 
 }
 
-void TestGame::Initialise(Window* wnd, Renderer* renderer)
+void TestGame::Initialise()
 {
-	// Initialise base resources
-	Game::Initialise(wnd, renderer);
+	// Add systems to SystemManager
+	SystemManager::AddSystem(engine()->physicsManager()->GetSystem());
+	SystemManager::AddSystem(engine()->renderer()->GetSystem());
 
 	// Scene construction
-	m_sceneManager->PushScene(new GameScene(0, m_sceneManager));
-
-	
+	engine()->sceneManager()->PushScene(new GameScene(0, engine()->sceneManager()));
 }
 
 bool TestGame::Run()
 {
-	return Game::Run();
+	return engine()->sceneManager()->RunScene();
 }
 
 void TestGame::Reset()
 {
-
+	// TODO
 }

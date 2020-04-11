@@ -46,7 +46,8 @@ DXWindow::DXWindow(Game* game, int screenWidth, int screenHeight, float screenDe
 	Logger::LogToConsole("WINDOW: Created and initialized.");
 
 	// Initialise Game & Renderer
-	m_game->Initialise(this, new DXRenderer(m_screenWidth, m_screenHeight, m_hWnd, m_screenDepth, m_screenNear));
+	m_game->engine()->Initialise(this, new DXRenderer(m_screenWidth, m_screenHeight, m_hWnd, m_screenDepth, m_screenNear));
+	m_game->Initialise();
 
 }
 
@@ -112,19 +113,19 @@ LRESULT CALLBACK DXWindow::MessageHandler(HWND hWnd, UINT uMessage, WPARAM wPara
 		{
 			PostQuitMessage(0);
 		}
-		m_game->OnKeyboard((unsigned int)wParam, true);
+		m_game->engine()->OnKeyboard((unsigned int)wParam, true);
 		break;
 
 	case WM_KEYUP:
-		m_game->OnKeyboard((unsigned int)wParam, false);
+		m_game->engine()->OnKeyboard((unsigned int)wParam, false);
 		break;
 
 	case WM_LBUTTONDOWN:
-		m_game->OnMouse((unsigned int)wParam, true, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
+		m_game->engine()->OnMouse((unsigned int)wParam, true, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
 		break;
 
 	case WM_LBUTTONUP:
-		m_game->OnMouse((unsigned int)wParam, false, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
+		m_game->engine()->OnMouse((unsigned int)wParam, false, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
 		break;
 
 	default:

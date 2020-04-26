@@ -64,3 +64,13 @@ void ObserverSubject::RemoveObserver(std::string msg, Observer* observer)
 		}
 	}
 }
+
+std::vector<Observer*> ObserverSubject::FindObservers(std::string targetMsg)
+{
+	MessageListenerMapIterator it = subscribedObservers.find(targetMsg);
+
+	if (it != subscribedObservers.end())
+	{
+		return it->second;
+	}
+}

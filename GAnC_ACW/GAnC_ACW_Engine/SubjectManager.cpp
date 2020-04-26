@@ -2,19 +2,15 @@
 #include "Logger.h"
 
 #include "ObserverSubject.h"
+#include "Observer.h"
 
 typedef std::pair<SubjectMap::iterator, bool> ResultPair;
 
+SubjectMap SubjectManager::m_subjects = std::map<std::string, ObserverSubject*>();
 SubjectManager::SubjectManager()
-	: Manager("Subject")
-{
+	: Manager("Subject") {};
 
-}
-
-SubjectManager::~SubjectManager()
-{
-
-}
+SubjectManager::~SubjectManager() {};
 
 // Register subject with relevant messages
 void SubjectManager::RegisterSubject(std::string msg, ObserverSubject* subject)

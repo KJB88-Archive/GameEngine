@@ -3,6 +3,11 @@
 #include "Game.h"
 #include "Logger.h"
 
+// Input Messaging
+#include "InputKeyboardMessage.h"
+#include "InputMouseButtonMessage.h"
+#include "InputMouseMoveMessage.h"
+
 DXWindow::DXWindow(Game* game, int screenWidth, int screenHeight, float screenDepth, float screenNear, HINSTANCE hInstance, int nCmdShow)
 	: Window(screenWidth, screenHeight, game, screenDepth, screenNear)
 {
@@ -48,7 +53,6 @@ DXWindow::DXWindow(Game* game, int screenWidth, int screenHeight, float screenDe
 	// Initialise Game & Renderer
 	m_game->engine()->Initialise(this, new DXRenderer(m_screenWidth, m_screenHeight, m_hWnd, m_screenDepth, m_screenNear));
 	m_game->Initialise();
-
 }
 
 DXWindow::~DXWindow()
@@ -67,7 +71,7 @@ void DXWindow::Run()
 	bool done = false;
 
 	// Loop until quit
-	while (!done) // TODO - This loop is causing hard lock?
+	while (!done)
 	{
 		// Window messaging
 		if (Messaging())
@@ -75,6 +79,10 @@ void DXWindow::Run()
 			done = true;
 		}
 
+		// Update engine resources first
+		m_game->engine();
+
+		// Run game logic
 		done = m_game->Run();
 	}
 	return;
@@ -108,25 +116,136 @@ LRESULT CALLBACK DXWindow::MessageHandler(HWND hWnd, UINT uMessage, WPARAM wPara
 	switch (uMessage)
 	{
 	case WM_KEYDOWN:
+	{
 		// Exit application
 		if (wParam == VK_ESCAPE)
 		{
+			Logger::LogToConsole("APPLICATION: Posting quit message.");
 			PostQuitMessage(0);
+			return 0;
 		}
-		m_game->engine()->OnKeyboard((unsigned int)wParam, true);
+
+		InputKeyboardMessage kb;
+		kb.m_type = "InputKeyboard";
+		kb.m_key = (unsigned int)wParam;
+		kb.m_down = true;
+
+		InputKeyboardMessage& msg = kb;
+		m_game->engine()->OnInput(msg);
+
+		//m_game->engine()->OnKeyboard((unsigned int)wParam, true);
 		break;
+	}
 
 	case WM_KEYUP:
-		m_game->engine()->OnKeyboard((unsigned int)wParam, false);
+	{
+		InputKeyboardMessage kb;
+		kb.m_type = "InputKeyboard";
+		kb.m_key = (unsigned int)wParam;
+		kb.m_down = false;
+
+		InputKeyboardMessage& msg = kb;
+		m_game->engine()->OnInput(msg);
+
+		//m_game->engine()->OnKeyboard((unsigned int)wParam, false);
 		break;
+	}
 
 	case WM_LBUTTONDOWN:
-		m_game->engine()->OnMouse((unsigned int)wParam, true, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
+	{
+		InputMouseButtonMessage mb;
+		mb.m_type = "InputMouseButton";
+		mb.m_button = (unsigned int)wParam;
+		mb.m_down = true;
+
+		InputMouseButtonMessage& msg = mb;
+		m_game->engine()->OnInput(msg);
+
+		//m_game->engine()->OnMouse((unsigned int)wParam, true, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
 		break;
+	}
 
 	case WM_LBUTTONUP:
-		m_game->engine()->OnMouse((unsigned int)wParam, false, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
+	{
+		InputMouseButtonMessage mb;
+		mb.m_type = "InputMouseButton";
+		mb.m_button = (unsigned int)wParam;
+		mb.m_down = false;
+
+		InputMouseButtonMessage& msg = mb;
+		m_game->engine()->OnInput(msg);
+
+		//m_game->engine()->OnMouse((unsigned int)wParam, false, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
 		break;
+	}
+
+	case WM_RBUTTONDOWN:
+	{
+		InputMouseButtonMessage mb;
+		mb.m_type = "InputMouseButton";
+		mb.m_button = (unsigned int)wParam;
+		mb.m_down = true;
+
+		InputMouseButtonMessage& msg = mb;
+		m_game->engine()->OnInput(msg);
+
+		//m_game->engine()->OnMouse((unsigned int)wParam, true, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
+		break;
+	}
+
+	case WM_RBUTTONUP:
+	{
+		InputMouseButtonMessage mb;
+		mb.m_type = "InputMouseButton";
+		mb.m_button = (unsigned int)wParam;
+		mb.m_down = false;
+
+		InputMouseButtonMessage& msg = mb;
+		m_game->engine()->OnInput(msg);
+
+		//m_game->engine()->OnMouse((unsigned int)wParam, false, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
+		break;
+	}
+
+	case WM_MBUTTONDOWN:
+	{
+		InputMouseButtonMessage mb;
+		mb.m_type = "InputMouseButton";
+		mb.m_button = (unsigned int)wParam;
+		mb.m_down = true;
+
+		InputMouseButtonMessage& msg = mb;
+		m_game->engine()->OnInput(msg);
+
+		//m_game->engine()->OnMouse((unsigned int)wParam, true, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
+		break;
+	}
+
+	case WM_MBUTTONUP:
+	{
+		InputMouseButtonMessage mb;
+		mb.m_type = "InputMouseButton";
+		mb.m_button = (unsigned int)wParam;
+		mb.m_down = false;
+
+		InputMouseButtonMessage& msg = mb;
+		m_game->engine()->OnInput(msg);
+
+		//m_game->engine()->OnMouse((unsigned int)wParam, false, GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
+		break;
+	}
+
+	case WM_MOUSEMOVE:
+	{
+		InputMouseMoveMessage mm;
+		mm.m_type = "InputMouseMove";
+		mm.m_x = GET_X_LPARAM(lParam);
+		mm.m_y = GET_Y_LPARAM(lParam);
+
+		InputMouseMoveMessage& msg = mm;
+		m_game->engine()->OnInput(msg);
+		break;
+	}
 
 	default:
 		return DefWindowProc(hWnd, uMessage, wParam, lParam);
@@ -138,10 +257,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT uMessage, WPARAM wParam, LPARAM lParam)
 	switch (uMessage)
 	{
 	case WM_DESTROY:
+		Logger::LogToConsole("APPLICATION: Posting quit message.");
 		PostQuitMessage(0);
 		return 0;
 
 	case WM_CLOSE:
+		Logger::LogToConsole("APPLICATION: Posting quit message.");
 		PostQuitMessage(0);
 		return 0;
 

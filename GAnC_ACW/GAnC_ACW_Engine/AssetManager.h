@@ -4,11 +4,14 @@
 #include <map>
 #include <iostream>
 #include <fstream>
-#include "Mesh.h"
+class Mesh;
+
+#include "Manager.h"
 
 typedef std::map<std::string, Asset*> ASSETMAP;
 
 class AssetManager
+	: Manager
 {
 public:
 
@@ -22,6 +25,7 @@ public:
 	AssetManager();
 	~AssetManager();
 
+	// Simplified API call
 	static Asset* GetAsset(std::string fileName);
 
 private:
@@ -30,6 +34,7 @@ private:
 
 	//bool CreateAsset(std::string fileName, Asset& asset);
 	//bool CreateMesh(std::ifstream& stream, Asset& asset);
+	static void CloseFileStream(std::ifstream& stream);
 
 	// Asset creation
 	static Asset* CreateAsset(std::string fileName);

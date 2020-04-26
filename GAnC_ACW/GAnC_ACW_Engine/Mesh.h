@@ -19,13 +19,16 @@ public:
 	VBO* GetVBO() const;
 	Vertex GetVertex(int i);
 	Vertex& GetVertexRef(int i);
+	int GetIndex(int i);
 
 	// Vertex / VBO manip
 	void CreateVBO(Renderer* renderer);
 
 	bool AddVertex(Vertex v);
+	bool AddIndex(int i);
 	bool Clear();
 	bool DeleteVertex(int i);
+	bool DeleteIndex(int i);
 
 	void Reset();
 
@@ -37,5 +40,5 @@ private:
 
 	// Mesh
 	std::vector<Vertex> vertices;
-	int indices[];
+	std::vector<int> indices;
 };

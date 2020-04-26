@@ -13,16 +13,6 @@ Scene::~Scene()
 	systems.clear();
 }
 
-bool Scene::RunScene()
-{
-	for (int i = 0; i < systems.size(); ++i)
-	{
-		systems[i]->ProcessEntities(entities);
-	}
-
-	return false; // Return false to continue game loop
-}
-
 const std::string& Scene::GetName()
 {
 	return name;

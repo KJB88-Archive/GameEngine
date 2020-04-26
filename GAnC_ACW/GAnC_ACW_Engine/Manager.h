@@ -12,5 +12,4 @@ public:
 
 private:
 	const std::string& m_name;
-
 };

@@ -1,49 +1,171 @@
 #include "InputManager.h"
+#include "InputDeviceManager.h"
+
 #include <string>
 #include "Logger.h"
 
-InputManager::InputManager()
-	: Manager("Input")
-{
-	// Default keys to false
-	for (int i = 0; i < 256; ++i)
-	{
-		m_keys[i] = false;
-	}
+// Actions
+#include "BaseInputAction.h"
+#include "InputStateAction.h"
+#include "InputRangeAction.h"
 
+std::map<std::string, BaseInputAction*> InputManager::m_actionMap = std::map<std::string, BaseInputAction*>();
+
+InputManager::InputManager(InputDeviceManager* idm)
+	: Manager("Input"), m_inputDeviceManager(idm)
+{
+	AddBinaryToActionMap("Jump", StateActionType::PRESS, InputProviderType::KEYBOARD, 32);
+	//AddBinaryToActionMap()
 }
 
 InputManager::~InputManager()
 {
-
+	m_actionMap.clear();
 }
 
-void InputManager::OnKey(unsigned int key, bool down)
+bool InputManager::GetButtonDown(std::string action)
 {
-	m_keys[key] = down;
+	// Try to find the action in the map
+	ActionMapIterator it = m_actionMap.find(action);
 
-}
-
-bool InputManager::IsKeyDown(unsigned int key)
-{
-	if (m_keys[key])
+	// If the action exists under the given command
+	if (it != m_actionMap.end())
 	{
-		Logger::LogToConsole("KEY: State is true.");
+		// Get the type of the action
+		InputActionType type = it->second->GetActionType();
+
+		// Check if it's the action we're interested in
+		if (type == InputActionType::STATE)
+		{
+			// Cast the base ptr to the derived ptr
+			InputStateAction* stateAction = dynamic_cast<InputStateAction*>(it->second);
+
+			// Check if the cast has worked
+			if (stateAction != nullptr)
+			{
+				// Check if the action is a press
+				if (stateAction->GetStateActionType() == StateActionType::PRESS)
+				{
+					return stateAction->GetActionValue();
+				}
+			}
+		}
+	}
+
+	return false;
+}
+
+bool InputManager::GetButtonUp(std::string action)
+{
+	// Try to find the action in the map
+	ActionMapIterator it = m_actionMap.find(action);
+
+	// If the action exists under the given command
+	if (it != m_actionMap.end())
+	{
+		// Get the type of the action
+		InputActionType type = it->second->GetActionType();
+
+		// Check if it's the action we're interested in
+		if (type == InputActionType::STATE)
+		{
+			// Cast the base ptr to the derived ptr
+			InputStateAction* stateAction = dynamic_cast<InputStateAction*>(it->second);
+
+			// Check if the cast has worked
+			if (stateAction != nullptr)
+			{
+				// Check if the action is a press
+				if (stateAction->GetStateActionType() == StateActionType::RELEASE)
+				{
+					return stateAction->GetActionValue();
+				}
+			}
+		}
+	}
+	return false;
+}
+
+bool InputManager::GetButtonHeld(std::string action)
+{
+	// Try to find the action in the map
+	ActionMapIterator it = m_actionMap.find(action);
+
+	// If the action exists under the given command
+	if (it != m_actionMap.end())
+	{
+		// Get the type of the action
+		InputActionType type = it->second->GetActionType();
+
+		// Check if it's the action we're interested in
+		if (type == InputActionType::STATE)
+		{
+			// Cast the base ptr to the derived ptr
+			InputStateAction* stateAction = dynamic_cast<InputStateAction*>(it->second);
+
+			// Check if the cast has worked
+			if (stateAction != nullptr)
+			{
+				// Check if the action is a press
+				if (stateAction->GetStateActionType() == StateActionType::HOLD)
+				{
+					return stateAction->GetActionValue();
+				}
+			}
+		}
+	}
+	return false;
+}
+
+float InputManager::GetAxis(std::string axis)
+{
+	return 0.0f;
+}
+
+void InputManager::AddBinaryToActionMap(
+	std::string actionName, StateActionType binaryType,
+	InputProviderType deviceType, int buttonIndex)
+{
+	// Create action
+	InputStateAction* inputAction = new InputStateAction
+	(
+		actionName,
+		binaryType,
+		m_inputDeviceManager->GetInputProvider(deviceType),
+		buttonIndex
+	);
+
+	// Add to map
+	m_actionMap.try_emplace(actionName, inputAction);
+
+	// Nullify temporary ptr
+	inputAction = nullptr;
+}
+
+void InputManager::AddRangeToActionMap(std::string actionName, InputProviderType deviceType)
+{
+	InputRangeAction* inputAction = new InputRangeAction
+	(
+		actionName,
+		actionName,
+		m_inputDeviceManager->GetInputProvider(deviceType)
+	);
+
+	m_actionMap.try_emplace(actionName, inputAction);
+
+	inputAction = nullptr;
+}
+
+BaseInputAction* InputManager::FindAction(std::string action)
+{
+	ActionMapIterator it = m_actionMap.find(action);
+
+	if (it != m_actionMap.end())
+	{
+		return it->second;
 	}
 	else
 	{
-		Logger::LogToConsole("KEY: State is false.");
+		return nullptr;
 	}
-
-	return m_keys[key];
-}
-
-void InputManager::OnMouse(unsigned int button, bool down, int xPos, int yPos)
-{
-	m_LMB = down;
-}
-
-bool InputManager::IsMouseButtonDown(unsigned int button)
-{
-	return m_LMB;
 }

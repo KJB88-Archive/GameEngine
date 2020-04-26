@@ -15,9 +15,10 @@ public:
 	virtual ~DX_VBO();
 
 	// Inherited via VBO
-	virtual void Create(Renderer* renderer, std::vector<Vertex> vertices, int noOfVerts) override;
+	virtual void Create(Renderer* renderer, std::vector<Vertex> vertices, std::vector<int> indices) override;
 	virtual void Draw(Renderer* renderer) override;
 
+	const int GetVertexCount() const { return m_vCount; }
 	const int GetIndexCount() const { return m_iCount; }
 
 private:

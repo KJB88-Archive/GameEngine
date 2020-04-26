@@ -2,6 +2,8 @@
 #include "SystemManager.h"
 #include "Components.h"
 
+#include "InputManager.h"
+
 GameScene::GameScene(int id, SceneManager* sm)
 	: Scene(id, "Game Scene", sm)
 {
@@ -28,7 +30,15 @@ GameScene::~GameScene()
 
 bool GameScene::RunScene()
 {
-	return Scene::RunScene(); 
-	
-	// Return false to continue game loop
+	if (InputManager::GetButtonDown("Jump"))
+	{
+	}
+
+	for (int i = 0; i < systems.size(); ++i)
+	{
+		systems[i]->ProcessEntities(entities);
+	}
+
+	return false; // Return false to continue game loop
+	  
 }

@@ -11,12 +11,7 @@ public:
 	virtual ~VBO() {};
 
 	virtual void Create
-	(Renderer* renderer, std::vector<Vertex> vertices, int numVerts) = 0;
+	(Renderer* renderer, std::vector<Vertex> vertices, std::vector<int> indices) = 0;
 
 	virtual void Draw(Renderer* renderer) = 0;
-
-protected:
-
-	int numVerts;
-	int numIndices;
 };

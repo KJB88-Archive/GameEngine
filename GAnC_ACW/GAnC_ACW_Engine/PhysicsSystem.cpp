@@ -28,7 +28,7 @@ void PhysicsSystem::ProcessEntities(std::vector<Entity*> entities)
 		std::vector<BaseComponent*> components = entities[i]->GetComponents();
 
 		// Loop through components
-		for (int j = 0; i < components.size(); ++j)
+		for (int j = 0; j < components.size(); ++j)
 		{
 			// Determine which component we're looking at
 			switch (components[j]->GetType())

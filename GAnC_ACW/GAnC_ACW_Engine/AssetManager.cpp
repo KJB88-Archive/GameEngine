@@ -1,11 +1,13 @@
 #include "AssetManager.h"
 #include "Vertex.h"
-
+#include "Logger.h"
+#include "Mesh.h"
 int AssetManager::idCount = 0;
+ASSETMAP AssetManager::assets = std::map<std::string, Asset*>();
 
 AssetManager::AssetManager()
+	: Manager("Asset")
 {
-	assets = std::map<std::string, Asset*>();
 }
 
 AssetManager::~AssetManager()
@@ -19,7 +21,9 @@ AssetManager::~AssetManager()
 Asset* AssetManager::CreateAsset(std::string fileName)
 {
 	// Create stream to file
-	std::ifstream in(fileName);
+	std::ifstream in(fileName.c_str());
+	Asset* asset = nullptr;
+
 	if (in)
 	{
 		// Get type
@@ -30,12 +34,17 @@ Asset* AssetManager::CreateAsset(std::string fileName)
 		switch (type)
 		{
 			// Mesh
-		case 0:
-			return CreateMesh(in);
+		case 1:
+			asset = CreateMesh(in);
 		}
 	}
+	else
+	{
+		Logger::LogToConsole("ASSET MANAGER: Unable to open file: " + fileName);
+	}
 
-	return false;
+	CloseFileStream(in);
+	return asset;
 }
 
 // Get the asset by file name and return as base Asset pointer
@@ -57,26 +66,34 @@ Asset* AssetManager::GetAsset(std::string fileName)
 		// Return id;
 		return iterator->second;
 	}
+
 }
 
 // Add asset to Asset collection
 void AssetManager::AddAsset(std::string fileName, Asset* asset)
 {
 	assets.try_emplace(fileName, asset);
+	idCount++;
+}
+
+void AssetManager::CloseFileStream(std::ifstream& stream)
+{
+	stream.close();
 }
 
 // Create Mesh asset
 Mesh* AssetManager::CreateMesh(std::ifstream& stream)
 {
 	Mesh* mesh = new Mesh();
-	idCount++;
 
+	// Vertices
 	int numVertices;
 	stream >> numVertices;
+	
 	for (int i = 0; i < numVertices; i++)
 	{
 		Vertex v;
-		stream >> v.x;
+		stream >> v.x; 
 		stream >> v.y;
 		stream >> v.z;
 
@@ -88,5 +105,24 @@ Mesh* AssetManager::CreateMesh(std::ifstream& stream)
 		mesh->AddVertex(v);
 	}
 
+	// Indices
+	int numIndices;
+	stream >> numIndices;
+
+	int index;
+	for (int i = 0; i < numIndices; i++)
+	{
+		stream >> index;
+		mesh->AddIndex(index);
+	}
+
+	if (stream.fail())
+	{
+		// TODO - Add elegant handling of stream failure.
+		Logger::LogToConsole("ASSET MANAGER: Filestream has failed.");
+		return nullptr;
+	}
+
+	Logger::LogToConsole("ASSET MANAGER: Loaded Mesh file.");
 	return mesh;
 }

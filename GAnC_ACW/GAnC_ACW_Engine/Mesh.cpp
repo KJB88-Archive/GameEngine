@@ -35,7 +35,7 @@ void Mesh::CreateVBO(Renderer* renderer)
 	vbo = new GL_VBO();
 #endif
 
-	vbo->Create(renderer, vertices, NumVerts());
+	vbo->Create(renderer, vertices, indices);
 }
 
 const int Mesh::NumVerts()
@@ -53,6 +53,11 @@ Vertex& Mesh::GetVertexRef(int i)
 	return vertices[i];
 }
 
+int Mesh::GetIndex(int i)
+{
+	return indices[i];
+}
+
 bool Mesh::AddVertex(Vertex v)
 {
 	if (!isLocked)
@@ -64,6 +69,28 @@ bool Mesh::AddVertex(Vertex v)
 	{
 		return false;
 	}
+}
+
+bool Mesh::AddIndex(int i)
+{
+	if (!isLocked)
+	{
+		indices.push_back(i);
+		return true;
+	}
+	
+	return false;
+}
+
+bool Mesh::DeleteIndex(int i)
+{
+	if (isLocked)
+	{
+		indices.erase(indices.begin() + i);
+		return true;
+	}
+
+	return false;
 }
 
 bool Mesh::DeleteVertex(int i)

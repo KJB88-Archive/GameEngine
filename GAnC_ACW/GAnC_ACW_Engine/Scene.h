@@ -16,7 +16,7 @@ public:
 	Scene(const int id, const std::string& name, SceneManager* sm);
 	virtual ~Scene();
 
-	virtual bool RunScene();
+	virtual bool RunScene() = 0;
 
 	const int GetID();
 	const std::string& GetName();

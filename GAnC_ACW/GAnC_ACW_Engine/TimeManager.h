@@ -10,16 +10,16 @@ public:
 	~TimeManager();
 
 	void Update();
-
-	static float GetDeltaTime();
+	void PostUpdate();
+	static double GetDeltaTime();
 
 private:
 
-	std::chrono::steady_clock timer;
+	static double m_deltaTime;
 
-	std::chrono::steady_clock::time_point m_currentTime;
-	std::chrono::steady_clock::time_point m_previousTime;
-	static float m_deltaTime;
+	typedef std::chrono::high_resolution_clock Clock;
+	Clock::time_point previousTime;
+	Clock::time_point currentTime;
 
 	TimeManager(const TimeManager&) = delete;
 	TimeManager& operator=(const TimeManager&) = delete;

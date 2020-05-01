@@ -8,11 +8,14 @@ class GameScene
 
 public:
 
-	GameScene(int id, SceneManager* sm);
+	GameScene(int id, Camera* mainCam, SceneManager* sm);
 	virtual ~GameScene();
 
 	virtual bool RunScene() override;
 
 private:
 
+	float m_camRotSpeed = 180.0f;
+	float m_camSpeed = 10.0f;
+	Entity* square;
 };

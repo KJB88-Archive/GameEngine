@@ -1,9 +1,11 @@
 #include "DXCamera.h"
-
 using namespace DirectX;
 
+#include "InputManager.h"
+#include "TimeManager.h"
+
 DXCamera::DXCamera(const int screenWidth, const int screenHeight, const float screenNear, const float screenDepth)
-	: fieldOfView(XM_PIDIV4), m_posX(0.0f), m_posY(0.0f), m_posZ(0.0f), m_rotX(0.0f), m_rotY(0.0f), m_rotZ(0.0f)
+	: Camera(), fieldOfView(XM_PIDIV4)
 {
 	float FoV, aspectRatio;
 
@@ -15,35 +17,33 @@ DXCamera::DXCamera(const int screenWidth, const int screenHeight, const float sc
 
 	// Ortho
 	m_ortho = XMMatrixOrthographicLH((float)screenWidth, (float)screenHeight, screenNear, screenDepth);
+
+	XMFLOAT3 eyePos;
+	eyePos.x = 0.0f;
+	eyePos.y = 0.0f;
+	eyePos.z = -5.0f;
+	m_dxEyePos = XMLoadFloat3(&eyePos);
+
+	XMFLOAT3 up;
+	up.x = 0.0f;
+	up.y = 1.0f;
+	up.z = 0.0f;
+	m_dxUp = XMLoadFloat3(&up);
+
+	XMFLOAT3 lookAt;
+	lookAt.x = 0.0f;
+	lookAt.y = 0.0f;
+	lookAt.z = 1.0f;
+	m_dxLookAt = XMLoadFloat3(&lookAt);
+
+	//UpdateUpVector(Vector3(0.0f, 1.0f, 0.0f));
+	//UpdateLookAtPosition(Vector3(0.0f, 0.0f, 1.0f));
+
 }
 
 DXCamera::~DXCamera()
 {
 
-}
-
-void DXCamera::SetPosition(float x, float y, float z)
-{
-	m_posX = x;
-	m_posY = y;
-	m_posZ = z;
-}
-
-void DXCamera::SetRotation(float x, float y, float z)
-{
-	m_rotX = x;
-	m_rotY = y;
-	m_rotZ = z;
-}
-
-XMFLOAT3 DXCamera::GetPosition()
-{
-	return XMFLOAT3(m_posX, m_posY, m_posZ);
-}
-
-XMFLOAT3 DXCamera::GetRotation()
-{
-	return XMFLOAT3(m_rotX, m_rotY, m_rotZ);
 }
 
 void DXCamera::GetViewMatrix(XMMATRIX& view)
@@ -61,43 +61,147 @@ void DXCamera::GetOrthographicMatrix(DirectX::XMMATRIX& ortho)
 	ortho = m_ortho;
 }
 
+//void DXCamera::Update()
+//{
+//
+//	//double dt = TimeManager::GetDeltaTime();
+//
+//	//Vector3 camPos = m_mainCam->GetEyePosition();
+//	//float camYaw = m_mainCam->GetYaw();
+//
+//	//if (InputManager::GetButtonDown("Forward"))
+//	//{
+//	//	camPos.z += m_camSpeed * dt;
+//	//	m_mainCam->Translate(camPos);
+//	//}
+//	//else if (InputManager::GetButtonDown("Backward"))
+//	//{
+//	//	camPos.z -= m_camSpeed * dt;
+//	//	m_mainCam->Translate(camPos);
+//	//}
+//
+//	//if (InputManager::GetButtonDown("Left"))
+//	//{
+//	//	camPos.x += m_camSpeed * dt;
+//	//	m_mainCam->Translate(camPos);
+//	//}
+//
+//	//else if (InputManager::GetButtonDown("Right"))
+//	//{
+//	//	camPos.x -= m_camSpeed * dt;
+//	//	m_mainCam->Translate(camPos);
+//	//}
+//
+//	//if (InputManager::GetButtonDown("RotateLeft"))
+//	//{
+//	//	camYaw += m_camRotSpeed * dt;
+//	//	m_mainCam->Rotate(Vector3(0.0f, 1.0f, 0.0f), camYaw);
+//	//}
+//	//else if (InputManager::GetButtonDown("RotateRight"))
+//	//{
+//	//	camYaw -= m_camRotSpeed * dt;
+//	//	m_mainCam->Rotate(Vector3(0.0f, 1.0f, 0.0f), camYaw);
+//	//}
+//}
+
+//void DXCamera::Translate(Vector3 newVec)
+//{
+//	m_dxEyePos = XMVector3Transform(m_dxEyePos, XMMatrixTranslation(newVec.x, newVec.y, newVec.z));
+//	m_dxLookAt = XMVector3Transform(m_dxLookAt, XMMatrixTranslation(newVec.x, newVec.y, newVec.z));
+//	m_dxUp = XMVector3Transform(m_dxUp, XMMatrixTranslation(newVec.x, newVec.y, newVec.z));
+//}
+//
+//void DXCamera::Rotate(Vector3 axis, float degrees)
+//{
+//	XMFLOAT3 dxAxis;
+//	dxAxis.x = axis.x;
+//	dxAxis.y = axis.y;
+//	dxAxis.z = axis.z;
+//	XMVECTOR dxAxisVec;
+//	dxAxisVec = XMLoadFloat3(&dxAxis);
+//
+//	XMVECTOR dxLookAt = XMVector3Transform(m_dxLookAt, XMMatrixRotationAxis(dxAxisVec, XMConvertToRadians(degrees)));
+//	XMVECTOR dxUp = XMVector3Transform(m_dxUp, XMMatrixRotationAxis(dxAxisVec, XMConvertToRadians(degrees)));
+//
+//	m_dxLookAt = XMVectorAdd(m_dxEyePos, dxLookAt);
+//	m_dxUp = XMVectorAdd(m_dxEyePos, dxUp);
+//}
+
+//void DXCamera::UpdateYaw(float yaw)
+//{
+//	m_yaw = yaw * XM_PIDIV2;
+//}
+//
+//void DXCamera::UpdatePitch(float pitch)
+//{
+//	m_pitch = pitch * XM_PIDIV2;
+//}
+//
+//void DXCamera::UpdateRoll(float roll)
+//{
+//	m_roll = roll * XM_PIDIV2;
+//}
+
+//void DXCamera::Render()
+//{
+//	//// Rotate
+////m_dxRotMatrix = XMMatrixRotationRollPitchYaw(m_pitch, m_yaw, m_roll);
+//
+//////// Correct vectors due to rotation
+//////m_dxLookAt = XMVector3TransformCoord(m_dxLookAt, m_dxRotMatrix);
+//////m_dxUp = XMVector3TransformCoord(m_dxUp, m_dxRotMatrix);
+//
+////// Update view matrix with deltas
+////m_view = XMMatrixLookAtLH(m_dxEyePos, m_dxLookAt, m_dxUp);
+//}
+
 void DXCamera::Render()
 {
-	XMFLOAT3 up, eye, lookAt;
-	XMVECTOR upVector, eyeVector, lookAtVector;
-	float yaw, pitch, roll;
-	XMMATRIX rotationMatrix;
+	if (InputManager::GetButtonDown("Left"))
+	{
+		moveLeftRight -= 10.0f * TimeManager::GetDeltaTime();
+	}
+	else if (InputManager::GetButtonDown("Right"))
+	{
+		moveLeftRight += 10.0f * TimeManager::GetDeltaTime();
+	}
 
-	// Up
-	up.x = 0.0f;
-	up.y = 1.0f;
-	up.z = 0.0f;
-	upVector = XMLoadFloat3(&up);
+	if (InputManager::GetButtonDown("Forward"))
+	{
+		moveBackForward += 10.0f * TimeManager::GetDeltaTime();
+	}
+	else if (InputManager::GetButtonDown("Backward"))
+	{
+		moveBackForward -= 10.0f * TimeManager::GetDeltaTime();
+	}
 
-	// Eye
-	eye.x = m_posX;
-	eye.y = m_posY;
-	eye.z = m_posZ;
-	eyeVector = XMLoadFloat3(&eye);
+	if (InputManager::GetButtonDown("RotateLeft"))
+	{
+		m_yaw -= 2.5f * TimeManager::GetDeltaTime();
+	}
+	else if (InputManager::GetButtonDown("RotateRight"))
+	{
+		m_yaw += 2.5f * TimeManager::GetDeltaTime();
+	}
 
-	// Lookat
-	lookAt.x = 0.0f;
-	lookAt.y = 0.0f;
-	lookAt.z = 1.0f;
-	lookAtVector = XMLoadFloat3(&lookAt);
+	m_dxRotMatrix = XMMatrixRotationRollPitchYaw(m_pitch, m_yaw, m_roll);
+	m_dxLookAt = XMVector3TransformCoord(FWD, m_dxRotMatrix);
+	m_dxLookAt = XMVector3Normalize(m_dxLookAt);
 
-	// Rotation
-	pitch = m_rotX * 0.0174532925f;
-	yaw = m_rotY * 0.0174532925f;
-	roll = m_rotZ * 0.0174532925f;
-	rotationMatrix = XMMatrixRotationRollPitchYaw(pitch, yaw, roll);
+	XMMATRIX RotateYTempMatrix;
+	RotateYTempMatrix = XMMatrixRotationY(m_yaw);
 
-	// Correct vectors due to rotation
-	lookAtVector = XMVector3TransformCoord(lookAtVector, rotationMatrix);
-	upVector = XMVector3TransformCoord(upVector, rotationMatrix);
+	camRight = XMVector3TransformCoord(RIGHT, RotateYTempMatrix);
+	m_dxUp = XMVector3TransformCoord(m_dxUp, RotateYTempMatrix);
+	camFwd = XMVector3TransformCoord(FWD, RotateYTempMatrix);
 
-	// Translate to location of viewer
-	lookAtVector = XMVectorAdd(eyeVector, lookAtVector);
+	m_dxEyePos += moveLeftRight * camRight;
+	m_dxEyePos += moveBackForward * camFwd;
 
-	m_view = XMMatrixLookAtLH(eyeVector, lookAtVector, upVector);
+	moveLeftRight = 0.0f;
+	moveBackForward = 0.0f;
+
+	m_dxLookAt = m_dxEyePos + m_dxLookAt;
+
+	m_view = XMMatrixLookAtLH(m_dxEyePos, m_dxLookAt, m_dxUp);
 }

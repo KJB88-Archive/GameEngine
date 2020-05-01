@@ -14,6 +14,7 @@ public:
 	virtual bool GetButtonHeld(unsigned int index) override;
 	virtual float GetAxis(std::string axis) override;
 
+	virtual void Update() override;
 	virtual void SetInput(BaseMessage& msg) override;
 
 private:

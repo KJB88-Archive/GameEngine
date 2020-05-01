@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include "Logger.h"
 
 class Entity;
 
@@ -14,7 +15,8 @@ public:
 		COMPONENT_TRANSFORM = 1 << 0,
 		COMPONENT_RENDER = 1 << 1,
 		COMPONENT_CAMERA = 1 << 2,
-		COMPONENT_PHYSICS = 1 << 3
+		COMPONENT_PHYSICS = 1 << 3,
+		COMPONENT_LOCALINPUT = 1 << 4
 	};
 
 	BaseComponent(std::string name, ComponentType type, Entity* owner)

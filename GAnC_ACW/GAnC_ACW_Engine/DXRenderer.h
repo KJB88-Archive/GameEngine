@@ -23,10 +23,8 @@ public:
 	ID3D11Device* GetDevice() const;
 	ID3D11DeviceContext* GetContext() const;
 
+	virtual Camera* GetMainCam() override;
 	virtual RenderSystem * GetSystem() override;
-
-	//static DXCamera* CreateCamera();
-	//static DX_VBO* CreateVBO();
 
 	// Scene rendering
 	virtual void BeginScene(float r, float g, float b, float a) override;

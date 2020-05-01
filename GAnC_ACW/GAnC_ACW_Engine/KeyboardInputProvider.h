@@ -13,6 +13,7 @@ public:
 	virtual bool GetButtonUp(unsigned int index) override;
 	virtual bool GetButtonHeld(unsigned int index) override;
 
+	virtual void Update() override;
 	virtual void SetInput(BaseMessage& msg) override;
 
 private:

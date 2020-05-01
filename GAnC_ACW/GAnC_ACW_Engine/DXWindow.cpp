@@ -68,23 +68,27 @@ DXWindow::~DXWindow()
 
 void DXWindow::Run()
 {
-	bool done = false;
-
 	// Loop until quit
-	while (!done)
+	while (!m_appDone)
 	{
 		// Window messaging
 		if (Messaging())
 		{
-			done = true;
+			m_appDone = true;
 		}
+		else
+		{
+			// Update engine resources
+			m_game->engine()->Update();
 
-		// Update engine resources first
-		m_game->engine();
+			// Run game logic
+			m_appDone = m_game->Run();
 
-		// Run game logic
-		done = m_game->Run();
+			// Update engine resources after game updates
+			m_game->engine()->PostUpdate();
+		}
 	}
+
 	return;
 }
 
@@ -101,6 +105,7 @@ bool DXWindow::Messaging()
 		// If exit signal
 		if (msg.message == WM_QUIT)
 		{
+			Logger::LogToConsole("APPLICATION: Posting quit message.");
 			return true;
 		}
 

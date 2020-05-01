@@ -326,6 +326,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AssetManager.cpp" />
+    <ClCompile Include="CameraComponent.cpp" />
     <ClCompile Include="Colour.cpp" />
     <ClCompile Include="DXCamera.cpp" />
     <ClCompile Include="DXRenderer.cpp" />
@@ -361,6 +362,8 @@
   <ItemGroup>
     <ClInclude Include="AssetManager.h" />
     <ClInclude Include="BaseInputProvider.h" />
+    <ClInclude Include="CameraComponent.h" />
+    <ClInclude Include="LocalInputComponent.h" />
     <ClInclude Include="StateActionType.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Colour.h" />

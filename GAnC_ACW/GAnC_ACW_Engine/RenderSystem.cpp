@@ -8,8 +8,7 @@
 // Targets
 #include "RenderComponent.h"
 #include "TransformComponent.h"
-#include "Entity.h"
-
+#include "CameraComponent.h"
 
 RenderSystem::RenderSystem(Renderer* renderer)
 	: BaseSystem("Render", RENDER)
@@ -32,6 +31,7 @@ void RenderSystem::ProcessEntities(std::vector<Entity*> entities)
 	{
 		RenderComponent* render = NULL;
 		TransformComponent* transform = NULL;
+		//CameraComponent* camera = NULL;
 
 		// Get list of components attached to this entity
 		std::vector<BaseComponent*> components = entities[i]->GetComponents();
@@ -42,45 +42,50 @@ void RenderSystem::ProcessEntities(std::vector<Entity*> entities)
 			// Determine which component we're looking at
 			switch (components[j]->GetType())
 			{
-
 				// Store our render component
 			case BaseComponent::COMPONENT_RENDER:
 				render = (RenderComponent*)components[j];
 				break;
+
+			//	// Store our camera component
+			//case BaseComponent::COMPONENT_CAMERA:
+			//	camera = (CameraComponent*)components[j];
+			//	break;
 
 				// Store our transform component
 			case BaseComponent::COMPONENT_TRANSFORM:
 				transform = (TransformComponent*)components[j];
 				break;
 			}
-
 			// Break out early if we have required components
-			if (render && transform)
+			if (transform && render/* && camera*/)
 			{
 				break;
 			}
 		}
 
-		// Render the entity using it's component
-		if (render && transform)
+		if (transform)
 		{
-			// TODO - Check for isVisible
-			if (render->mesh) // Does this component have a mesh?
+			// Render the entity using it's component
+			if (render)
 			{
-				if (!render->mesh->GetVBO()) // Does the mesh have a valid VBO?
+				// TODO - Check for isVisible
+				if (render->mesh) // Does this component have a mesh?
 				{
-					Logger::LogToConsole("RENDER SYSTEM: Object does not have a VBO, creating VBO...");
-					render->mesh->CreateVBO(m_renderer); // Create VBO
+					if (!render->mesh->GetVBO()) // Does the mesh have a valid VBO?
+					{
+						Logger::LogToConsole("RENDER SYSTEM: Object does not have a VBO, creating VBO...");
+						render->mesh->CreateVBO(m_renderer); // Create VBO
+					}
+
+					// Draw (send transform values to do translation, rotation and scaling)
+					m_renderer->Draw(
+						transform->position,
+						transform->rotation,
+						transform->scale,
+						render->mesh);
 				}
-
-				// Draw (send transform values to do translation, rotation and scaling)
-				m_renderer->Draw(
-					transform->position, 
-					transform->rotation, 
-					transform->scale, 
-					render->mesh);
 			}
-
 		}
 	}
 

@@ -38,6 +38,7 @@ public:
 
 	// Update engine resources
 	void Update();
+	void PostUpdate();
 
 	// Input passthrough
 	void OnInput(BaseMessage& msg);

@@ -21,6 +21,7 @@ public:
 
 private:
 
+	bool m_appDone = false;
 	bool Messaging();
 
 	HWND m_hWnd;

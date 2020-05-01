@@ -6,6 +6,7 @@
 #include "BaseSystem.h"
 #include "Logger.h"
 #include "SystemManager.h"
+#include "Camera.h"
 
 class SceneManager;
 
@@ -13,7 +14,7 @@ class Scene
 {
 public:
 
-	Scene(const int id, const std::string& name, SceneManager* sm);
+	Scene(const int id, const std::string& name, Camera* mainCam, SceneManager* sm);
 	virtual ~Scene();
 
 	virtual bool RunScene() = 0;
@@ -44,6 +45,9 @@ public:
 	void RemoveSystem(BaseSystem::SystemType systemType);
 
 protected:
+
+	// Main camera for scene
+	Camera* m_mainCam;
 
 	// Entity container
 	std::vector<Entity*> entities;

@@ -16,6 +16,15 @@ KeyboardInputProvider::~KeyboardInputProvider()
 
 }
 
+void KeyboardInputProvider::Update()
+{
+	for (int i = 0; i < 256; ++i)
+	{
+		m_lastKeys[i] = m_keys[i];
+		m_keys[i] = false;
+	}
+}
+
 bool KeyboardInputProvider::GetButtonDown(unsigned int i)
 {
 	if (i >= 256)
@@ -25,6 +34,7 @@ bool KeyboardInputProvider::GetButtonDown(unsigned int i)
 
 	if (m_keys[i] && !m_lastKeys[i])
 	{
+		m_keys[i] = false;
 		return true;
 	}
 	else
@@ -42,6 +52,7 @@ bool KeyboardInputProvider::GetButtonUp(unsigned int i)
 
 	if (!m_keys[i] && m_lastKeys[i])
 	{
+		m_lastKeys[i] = false;
 		return true;
 	}
 	else

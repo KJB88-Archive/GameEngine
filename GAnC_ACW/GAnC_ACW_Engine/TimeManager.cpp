@@ -4,16 +4,17 @@ using namespace std::chrono;
 #include <ctime>
 // TODO - Make this manager handle spawning new Time objects for Thread timing
 
-float TimeManager::m_deltaTime = 0;
+double TimeManager::m_deltaTime = 0;
 
 TimeManager::TimeManager()
 	: Manager("Time")
 {
-	timer = steady_clock();
-	m_currentTime = steady_clock::now();
-	m_previousTime = steady_clock::now();
-	
-	m_deltaTime = 0.0f;
+	time_point<Clock> currentTime = Clock::now();
+	//timer = high_resolution_clock();
+	//m_currentTime = high_resolution_clock::now();
+	//m_previousTime = high_resolution_clock::now();
+	//
+	//m_deltaTime = 0.0f;
 }
 
 TimeManager::~TimeManager()
@@ -21,15 +22,32 @@ TimeManager::~TimeManager()
 
 }
 
-float TimeManager::GetDeltaTime()
+double TimeManager::GetDeltaTime()
 {
 	return m_deltaTime;
 }
 
+//m_currentTime = timer.now();
+//m_deltaTime = duration_cast<milliseconds>(m_currentTime - m_previousTime).count();
+
 void TimeManager::Update()
 {
-	m_currentTime = timer.now();
-	m_deltaTime = duration_cast<milliseconds>(m_currentTime - m_previousTime).count();
+	currentTime = Clock::now();
+	using ms = duration<double, std::milli>;
+	double elapsed = duration_cast<ms>((currentTime - previousTime) / 1000.0f).count();
 
-	m_previousTime = m_currentTime;
+	m_deltaTime = elapsed;
 }
+
+void TimeManager::PostUpdate()
+{
+	previousTime = currentTime;
+}
+
+//	auto currentTime = std::chrono::high_resolution_clock::now();
+//	auto elapsed = m_previousTime - currentTime;
+//
+//	m_deltaTime = elapsed.count();
+//
+//	m_previousTime = currentTime;
+//}

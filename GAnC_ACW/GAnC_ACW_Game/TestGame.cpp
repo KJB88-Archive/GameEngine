@@ -18,7 +18,7 @@ void TestGame::Initialise()
 	SystemManager::AddSystem(engine()->renderer()->GetSystem());
 
 	// Scene construction
-	engine()->sceneManager()->PushScene(new GameScene(0, engine()->sceneManager()));
+	engine()->sceneManager()->PushScene(new GameScene(0, engine()->renderer()->GetMainCam(), engine()->sceneManager()));
 }
 
 bool TestGame::Run()

@@ -18,6 +18,15 @@ MouseInputProvider::~MouseInputProvider()
 
 }
 
+void MouseInputProvider::Update()
+{
+	for (int i = 0; i < 3; ++i)
+	{
+		m_lastButtons[i] = m_buttons[i];
+		m_buttons[i] = false;
+	}
+}
+
 float MouseInputProvider::GetAxis(std::string axis)
 {
 	if (axis == "MouseX")

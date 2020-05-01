@@ -43,11 +43,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CameraControllerComponent.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TestGame.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CameraControllerComponent.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="TestGame.h" />
   </ItemGroup>

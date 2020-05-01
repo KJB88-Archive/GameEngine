@@ -16,7 +16,7 @@ DXRenderer::DXRenderer(int screenWidth, int screenHeight, HWND hWnd, float scree
 	m_world = XMMatrixIdentity();
 
 	m_camera = new DXCamera(screenWidth, screenHeight, screenNear, screenDepth);
-	m_camera->SetPosition(0.0f, 0.0f, -5.0f);
+	//m_camera->SetPosition(0.0f, 0.0f, -5.0f);
 
 	m_shader = new DXShader(this);
 }
@@ -260,6 +260,11 @@ void DXRenderer::InitializeRenderSystem()
 	renderSystem = new RenderSystem(this);
 }
 
+Camera* DXRenderer::GetMainCam()
+{
+	return m_camera;
+}
+
 RenderSystem* DXRenderer::GetSystem()
 {
 	return renderSystem;
@@ -270,7 +275,7 @@ void DXRenderer::Draw(const Vector3& pos, const Vector3&, const Vector3& scale, 
 	DX_VBO* vbo = dynamic_cast<DX_VBO*>(mesh->GetVBO());
 
 	// TRANSLATE
-	m_world = XMMatrixTranslation(pos.x, 0.0f, 0.0f);
+	m_world = XMMatrixTranslation(pos.x, pos.y, pos.z);
 
 	// ROTATE
 	// SCALE

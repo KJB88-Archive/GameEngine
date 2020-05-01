@@ -23,6 +23,14 @@ InputDeviceManager::~InputDeviceManager()
 	m_inputProviders.clear();
 }
 
+void InputDeviceManager::PostUpdate()
+{
+	for (int i = 0; i < m_inputProviders.size(); ++i)
+	{
+		m_inputProviders[i]->Update();
+	}
+}
+
 BaseInputProvider* InputDeviceManager::GetInputProvider(InputProviderType type)
 {
 	BaseInputProvider* provider = FindProvider(type);
@@ -30,24 +38,6 @@ BaseInputProvider* InputDeviceManager::GetInputProvider(InputProviderType type)
 	return provider;
 
 }
-
-//bool InputDeviceManager::GetButtonInput(InputDeviceType deviceType, int button/*, ButtonInputType inputType*/)
-//{
-//	BaseInputProvider* provider = FindProvider(deviceType);
-//
-//	switch (deviceType)
-//	{
-//	case KEYBOARD:
-//		KeyboardInputProvider* kb = dynamic_cast<KeyboardInputProvider*>(provider);
-//		break;
-//
-//	case MOUSE:
-//		MouseInputProvider* m = dynamic_cast<MouseInputProvider*>(provider);
-//		break;
-//	}
-//
-//	return false;
-//}
 
 float InputDeviceManager::GetAxisInput(InputProviderType deviceType, std::string axis)
 {

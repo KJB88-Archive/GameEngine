@@ -1,8 +1,8 @@
 #include "Scene.h"
 #include "SceneManager.h"
 
-Scene::Scene(const int id, const std::string& name, SceneManager* sm)
-	: id(id), name(name), sceneManager(sm)
+Scene::Scene(const int id, const std::string& name, Camera* mainCam, SceneManager* sm)
+	: id(id), name(name), sceneManager(sm), m_mainCam(mainCam)
 {
 	Logger::LogToConsole("SCENE: " + name + " created.");
 }

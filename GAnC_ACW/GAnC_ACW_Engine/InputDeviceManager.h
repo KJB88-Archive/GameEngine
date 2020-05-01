@@ -23,7 +23,10 @@ public:
 
 	BaseInputProvider* GetInputProvider(InputProviderType type);
 
-	bool GetButtonInput(InputProviderType deviceType, int button/*, ButtonInputType inputType*/);
+	// Update provider states
+	void PostUpdate();
+
+	//bool GetButtonInput(InputProviderType deviceType, int button/*, ButtonInputType inputType*/);
 	float GetAxisInput(InputProviderType deviceType, std::string axis);
 	// Input Message Handling (routes to correct provider)
 	void OnInput(BaseMessage& msg);

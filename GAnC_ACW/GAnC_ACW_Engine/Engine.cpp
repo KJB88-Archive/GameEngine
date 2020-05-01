@@ -144,12 +144,19 @@ void Engine::Initialise(Window* window, Renderer* renderer)
 	m_window = window;
 	m_renderer = renderer;
 }
-
 /// Update  engine resources
 void Engine::Update()
 {
 	// Keep timing updated
 	m_time->Update();
+
+}
+
+/// Update engine resources before next frame
+void Engine::PostUpdate()
+{
+	m_time->PostUpdate();
+	m_inputDeviceManager->PostUpdate();
 }
 
 /// Pass input through to input device manager

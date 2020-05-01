@@ -3,7 +3,6 @@
 // Targets
 #include "PhysicsComponent.h"
 #include "TransformComponent.h"
-#include "Entity.h"
 
 PhysicsSystem::PhysicsSystem(PhysicsManager* physics)
 	: BaseSystem("Physics", PHYSICS), m_physics(physics)
@@ -52,10 +51,10 @@ void PhysicsSystem::ProcessEntities(std::vector<Entity*> entities)
 			}
 		}
 
-		if (physics)
+		if (transform && physics)
 		{
-			// TODO - Check for isResting
-			transform->position.x++;
+			//TODO - Check for isResting
+			//transform->position.x++;
 		}
 	}
 }

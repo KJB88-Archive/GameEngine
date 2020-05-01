@@ -9,6 +9,7 @@
 #include <vector>
 
 #include "RenderSystem.h"
+#include "Camera.h"
 
 class VBO;
 
@@ -23,6 +24,7 @@ public:
 	virtual void Draw(const Vector3& pos, const Vector3& rot, const Vector3& scale, const Mesh* mesh) = 0;
 	virtual void EndScene() = 0;
 
+	virtual Camera* GetMainCam() = 0;
 	virtual RenderSystem* GetSystem() = 0;
 
 protected:

@@ -39,6 +39,9 @@ public:
 		return 0.0f;
 	}
 
+	// Update button / axis states
+	virtual void Update() = 0;
+
 	/// Perform message casting and handling
 	virtual void SetInput(BaseMessage& msg) = 0;
 

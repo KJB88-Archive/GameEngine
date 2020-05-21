@@ -15,6 +15,6 @@ public:
 
 private:
 
-	const PhysicsManager* m_physics;
+	PhysicsManager* m_physics;
 };
 

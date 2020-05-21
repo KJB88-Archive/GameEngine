@@ -17,7 +17,10 @@ public:
 
 	enum AssetType
 	{
-		MESH
+		UNKNOWN = 0,
+		MESH = 1,
+		MESH_SPHERE = 2,
+
 		// Other resources can go here,
 		// such as audioClips, backgroundMusic, textures, shaders, etc
 	};
@@ -39,6 +42,8 @@ private:
 	// Asset creation
 	static Asset* CreateAsset(std::string fileName);
 	static Mesh* CreateMesh(std::ifstream& stream);
+	static Mesh* CreateSphereMesh(std::ifstream& stream);
+
 	//bool CreateScene(std::ifstream stream, Asset& asset);
 
 	// Map Manipulation

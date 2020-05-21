@@ -1,7 +1,6 @@
 #pragma once
 #include <string>
 #include "Logger.h"
-
 class Entity;
 
 class BaseComponent
@@ -14,9 +13,8 @@ public:
 		COMPONENT_NONE = 0,
 		COMPONENT_TRANSFORM = 1 << 0,
 		COMPONENT_RENDER = 1 << 1,
-		COMPONENT_CAMERA = 1 << 2,
-		COMPONENT_PHYSICS = 1 << 3,
-		COMPONENT_LOCALINPUT = 1 << 4
+		COMPONENT_PHYSICS = 1 << 2,
+		COMPONENT_COLLIDER = 1 << 3
 	};
 
 	BaseComponent(std::string name, ComponentType type, Entity* owner)
@@ -34,7 +32,7 @@ protected:
 	Entity* m_owner;
 
 private:
-	
+
 	BaseComponent(const BaseComponent& other);
 };
 

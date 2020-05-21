@@ -3,9 +3,6 @@
 #include "Vertex.h"
 #include "Colour.h"
 
-#include "GL\GLM\GLM.hpp"
-#include "GL\GLM\GTC\matrix_transform.hpp"
-#include "GL\GLM\GTC\type_ptr.hpp"
 #include <vector>
 
 #include "RenderSystem.h"

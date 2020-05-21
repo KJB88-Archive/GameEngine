@@ -7,7 +7,6 @@
 
 #include "TestGame.h"
 
-
 #if DX_BUILD
 #include "DXWindow.h"
 

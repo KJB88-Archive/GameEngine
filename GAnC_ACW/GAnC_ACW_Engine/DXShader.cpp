@@ -112,28 +112,33 @@ DXShader::~DXShader()
 	}
 }
 
-void DXShader::SetShaderParameters(ID3D11DeviceContext* context, XMMATRIX world, XMMATRIX view, XMMATRIX proj)
+void DXShader::SetShaderParameters(ID3D11DeviceContext* context, XMMATRIX& world, XMMATRIX& view, XMMATRIX& proj)
 {
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
 	MatrixBuffer* dataPtr;
 	unsigned int bufferNo;
 
-	world = XMMatrixTranspose(world);
-	view = XMMatrixTranspose(view);
-	proj = XMMatrixTranspose(proj);
+	// Make a copy of the refs (hacky fix)
+	XMMATRIX nWorld = world;
+	XMMATRIX nView = view;
+	XMMATRIX nProj = proj;
+
+	nWorld = XMMatrixTranspose(nWorld);
+	nView = XMMatrixTranspose(nView);
+	nProj = XMMatrixTranspose(nProj);
 
 	context->Map(m_cbWVP, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 	dataPtr = (MatrixBuffer*)mappedResource.pData;
-	dataPtr->world = world;
-	dataPtr->view = view;
-	dataPtr->proj = proj;
+	dataPtr->world = nWorld;
+	dataPtr->view = nView;
+	dataPtr->proj = nProj;
 	context->Unmap(m_cbWVP, 0);
 
 	bufferNo = 0;
 	context->VSSetConstantBuffers(bufferNo, 1, &m_cbWVP);
 }
 
-void DXShader::Render(ID3D11DeviceContext* context, int iCount, XMMATRIX world, XMMATRIX view, XMMATRIX proj)
+void DXShader::Render(ID3D11DeviceContext* context, int iCount, XMMATRIX& world, XMMATRIX& view, XMMATRIX& proj)
 {
 	SetShaderParameters(context, world, view, proj);
 	RenderShader(context, iCount);

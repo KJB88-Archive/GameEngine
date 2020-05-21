@@ -14,6 +14,43 @@ class InputManager
 {
 public:
 
+	enum KeyCode
+	{
+		W = 87,
+		S = 83,
+		A = 65,
+		D = 68,
+		Q = 81,
+		E = 69,
+
+		NUMPAD_2 = 98,
+		NUMPAD_8 = 104,
+		NUMPAD_4 = 100,
+		NUMPAD_6 = 102,
+
+		R = 82,
+		T = 84,
+		G = 71,
+		U = 85,
+		J = 74,
+		Y = 89,
+		H = 72,
+		LESS_THAN = 188,
+		GREATER_THAN = 190,
+
+		ARROW_LEFT = 37,
+		ARROW_RIGHT = 39,
+		ARROW_UP = 38,
+		ARROW_DOWN = 40,
+	};
+
+	enum MouseButton
+	{
+		LMB = 2,
+		RMB =2,
+		MMB = 4
+	};
+
 	InputManager(InputDeviceManager* idm);
 	virtual ~InputManager();
 

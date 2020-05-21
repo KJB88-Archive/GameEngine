@@ -14,12 +14,39 @@ std::map<std::string, BaseInputAction*> InputManager::m_actionMap = std::map<std
 InputManager::InputManager(InputDeviceManager* idm)
 	: Manager("Input"), m_inputDeviceManager(idm)
 {
-	AddBinaryToActionMap("Forward", StateActionType::PRESS, InputProviderType::KEYBOARD, 87);
-	AddBinaryToActionMap("Backward", StateActionType::PRESS, InputProviderType::KEYBOARD, 83);
-	AddBinaryToActionMap("Left", StateActionType::PRESS, InputProviderType::KEYBOARD, 65);
-	AddBinaryToActionMap("Right", StateActionType::PRESS, InputProviderType::KEYBOARD, 68);
-	AddBinaryToActionMap("RotateLeft", StateActionType::PRESS, InputProviderType::KEYBOARD, 81);
-	AddBinaryToActionMap("RotateRight", StateActionType::PRESS, InputProviderType::KEYBOARD, 69);
+	// Cam Translation
+	AddBinaryToActionMap("Forward", StateActionType::PRESS, InputProviderType::KEYBOARD, KeyCode::W);
+	AddBinaryToActionMap("Backward", StateActionType::PRESS, InputProviderType::KEYBOARD, KeyCode::S);
+	AddBinaryToActionMap("Left", StateActionType::PRESS, InputProviderType::KEYBOARD, KeyCode::A);
+	AddBinaryToActionMap("Right", StateActionType::PRESS, InputProviderType::KEYBOARD, KeyCode::D);
+	AddBinaryToActionMap("Up", StateActionType::PRESS, InputProviderType::KEYBOARD, KeyCode::Q);
+	AddBinaryToActionMap("Down", StateActionType::PRESS, InputProviderType::KEYBOARD, KeyCode::E);
+
+	// Cam Rotation
+	AddBinaryToActionMap("YawLeft", StateActionType::PRESS, InputProviderType::KEYBOARD, KeyCode::NUMPAD_4);
+	AddBinaryToActionMap("YawRight", StateActionType::PRESS, InputProviderType::KEYBOARD, KeyCode::NUMPAD_6);
+	AddBinaryToActionMap("PitchUp", StateActionType::PRESS, InputProviderType::KEYBOARD, KeyCode::NUMPAD_8);
+	AddBinaryToActionMap("PitchDown", StateActionType::PRESS, InputProviderType::KEYBOARD, KeyCode::NUMPAD_2);
+
+	// Sim Functionality
+	AddBinaryToActionMap("Reset", StateActionType::PRESS, InputProviderType::KEYBOARD, KeyCode::R);
+
+	AddBinaryToActionMap("IncreasePyramid", StateActionType::PRESS, InputProviderType::KEYBOARD, KeyCode::T);
+	AddBinaryToActionMap("DecreasePyramid", StateActionType::PRESS, InputProviderType::KEYBOARD, KeyCode::G);
+
+	AddBinaryToActionMap("IncreaseGraphics", StateActionType::PRESS, InputProviderType::KEYBOARD, KeyCode::U);
+	AddBinaryToActionMap("DecreaseGraphics", StateActionType::PRESS, InputProviderType::KEYBOARD, KeyCode::J);
+
+	AddBinaryToActionMap("IncreaseNetworking", StateActionType::PRESS, InputProviderType::KEYBOARD, KeyCode::Y);
+	AddBinaryToActionMap("DecreaseNetworking", StateActionType::PRESS, InputProviderType::KEYBOARD, KeyCode::H);
+
+	AddBinaryToActionMap("IncreasePlaybackSpeed", StateActionType::PRESS, InputProviderType::KEYBOARD, KeyCode::GREATER_THAN);
+	AddBinaryToActionMap("DecreasePlaybackSpeed", StateActionType::PRESS, InputProviderType::KEYBOARD, KeyCode::LESS_THAN);
+
+	AddBinaryToActionMap("PlaybackForward", StateActionType::PRESS, InputProviderType::KEYBOARD, KeyCode::ARROW_RIGHT);
+	AddBinaryToActionMap("PlaybackBackward", StateActionType::PRESS, InputProviderType::KEYBOARD, KeyCode::ARROW_LEFT);
+	AddBinaryToActionMap("PlaybackPause", StateActionType::PRESS, InputProviderType::KEYBOARD, KeyCode::ARROW_UP);
+	AddBinaryToActionMap("PlaybackUnpause", StateActionType::PRESS, InputProviderType::KEYBOARD, KeyCode::ARROW_DOWN);
 }
 
 InputManager::~InputManager()

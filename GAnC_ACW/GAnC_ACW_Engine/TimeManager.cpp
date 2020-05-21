@@ -9,12 +9,13 @@ double TimeManager::m_deltaTime = 0;
 TimeManager::TimeManager()
 	: Manager("Time")
 {
-	time_point<Clock> currentTime = Clock::now();
 	//timer = high_resolution_clock();
 	//m_currentTime = high_resolution_clock::now();
 	//m_previousTime = high_resolution_clock::now();
 	//
 	//m_deltaTime = 0.0f;
+
+	previousTime = Clock::now();
 }
 
 TimeManager::~TimeManager()

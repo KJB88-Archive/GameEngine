@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="DebugDX|Win32">
@@ -45,34 +45,42 @@
   <ItemGroup>
     <ClCompile Include="CameraControllerComponent.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="GroundPlane.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="TestGame.cpp" />
+    <ClCompile Include="TestObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CameraControllerComponent.h" />
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="GroundPlane.h" />
+    <ClInclude Include="Sphere.h" />
+    <ClInclude Include="TestObject.h" />
     <ClInclude Include="TestGame.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="ColorPixel.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='DebugDX|Win32'">PShader</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='DebugDX|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="PassthroughVertex.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='DebugDX|Win32'">VShader</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='DebugDX|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GAnC_ACW_Engine\GAnC_ACW_Engine.vcxproj">
       <Project>{d67b1d1d-5880-4d4b-9e4f-c4c3042cdbed}</Project>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="ColorPixel.hlsl">
-      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='DebugDX|Win32'">PShader</EntryPointName>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='DebugDX|Win32'">Pixel</ShaderType>
-    </FxCompile>
-    <FxCompile Include="PassthroughVertex.hlsl">
-      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='DebugDX|Win32'">VShader</EntryPointName>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='DebugDX|Win32'">Vertex</ShaderType>
-    </FxCompile>
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{8E3E389D-48D1-4F95-A643-1513DF6DF472}</ProjectGuid>
     <RootNamespace>GNACACW</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
     <ProjectName>GAnC_ACW_Game</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -85,7 +93,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugGL|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDX|Win32'" Label="Configuration">
@@ -97,14 +105,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDX|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -117,26 +125,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugGL|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDX|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDX|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -185,12 +193,12 @@
     <LibraryPath>C:\GAnC\DirectX SDK\Lib\x86;C:\GAnC\CSLib\lib;C:\GAnC\DirectX SDK\DirectX SDK\Lib\x86;C:\GAnC\CSLib\CSLib\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDX|Win32'">
-    <IncludePath>C:\Users\kevin\Desktop\GAnC\GAnC_ACW\Game Engine\GameEngine\GAnC_ACW\GAnC_ACW_Engine;C:\Users\kevin\Desktop\GAnC\GAnC_ACW\Game Engine\GameEngine\GAnC_ACW;C:\GAnC\GameEngine\GAnC_ACW\GAnC_ACW_Engine;C:\Users\kevin\Desktop\GAnC\GAnC_ACW\Game Engine\GameEngine\GNAC_ACW\GNAC_ACW;D:\Kevin Barr Files\GAnC\Custom\Game Engine\GameEngine\GAnC_ACW\GAnC_ACW_Engine;C:\GAnC\GameEngine\GNAC_ACW\GNAC_ACW;C:\GAnC\DirectX SDK\Include;C:\GAnC\DirectX SDK\DirectX SDK\Include;C:\GAnC\CSLib\CSLib\inc;C:\GAnC\CSLib\inc;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\GAnC\DirectX SDK\Lib\x86;C:\GAnC\CSLib\lib;C:\GAnC\DirectX SDK\DirectX SDK\Lib\x86;C:\GAnC\CSLib\CSLib\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\kevin\Desktop\GAnC\GAnC_ACW\Game Engine\GameEngine\GAnC_ACW\GAnC_ACW_Engine;C:\Users\kevin\Desktop\GAnC\GAnC_ACW\Game Engine\GameEngine\GAnC_ACW;C:\GAnC\DirectX SDK\DirectX SDK\Include;C:\GAnC\CSLib\CSLib\inc;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\GAnC\DirectX SDK\DirectX SDK\Lib\x86;C:\GAnC\CSLib\CSLib\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\GAnC\DirectX SDK\Include;C:\GAnC\CSLib\inc;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\GAnC\DirectX SDK\Lib\x86;C:\GAnC\CSLib\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\kevin\Desktop\GAnC\GAnC_ACW\Game Engine\GameEngine\GAnC_ACW\GAnC_ACW_Engine;C:\GAnC\DirectX SDK\Include;C:\GAnC\DirectX SDK\DirectX SDK\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\GAnC\DirectX SDK\DirectX SDK\Lib\x86;C:\GAnC\DirectX SDK\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugGL|x64'">
     <IncludePath>C:\GAnC\DirectX SDK\Include;C:\GAnC\CSLib\inc;$(IncludePath)</IncludePath>
@@ -238,6 +246,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -250,7 +259,7 @@
       </DisableSpecificWarnings>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;DX_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EntryPointSymbol>WinMain</EntryPointSymbol>

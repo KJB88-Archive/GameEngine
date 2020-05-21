@@ -1,5 +1,4 @@
 #pragma once
-
 class Vector3
 {
 
@@ -13,7 +12,8 @@ public:
 	Vector3(float x, float y, float z);
 
 	// Creates a vector3 with the same xyz component as the given vector3
-	Vector3(const Vector3&);
+	Vector3(const Vector3& other);
+
 	~Vector3();
 
 	float x;
@@ -29,21 +29,116 @@ public:
 	static const Vector3 back;
 	static const Vector3 forward;
 
+	void normalized();
+	float Magnitude() const;
 
-	//// Operators
-	//inline Vector3 operator=(const Vector3);
-	//inline Vector3 operator+(const Vector3);
-	//inline Vector3 operator-(const Vector3);
-	//inline Vector3 operator*(const float);
-	//inline Vector3 operator/(const float);
-	//inline bool operator==(const Vector3);
-	//inline bool operator!=(const Vector3);
-	/*inline ostream& operator<<(ostream& o, const Vector4& vec)
+	static Vector3 Normalize(const Vector3 value);
+	static float Dot(const Vector3& first, const Vector3& second);
+	static Vector3 Cross(const Vector3& first, const Vector3& second);
+
+	// Operators
+	Vector3& operator=(const Vector3& other)
 	{
-		o << "[" << v[0] << ", " << v[1] << ", " << v[2] << ", " << v[3] << "]" << endl;
-		return o;
-	}*/
+		if (this == &other) return *this;
 
-private:
+		x = other.x;
+		y = other.y;
+		z = other.z;
+
+		return *this;
+	}
+
+	Vector3& operator+(const Vector3& other)
+	{
+		x += other.x;
+		y += other.y;
+		z += other.z;
+
+		return *this;
+	}
+
+	Vector3& operator+(const float val)
+	{
+		x += val;
+		y += val;
+		z += val;
+
+		return *this;
+	}
+
+	Vector3& operator-(const Vector3& other)
+	{
+		x -= other.x;
+		y -= other.y;
+		z -= other.z;
+
+		return *this;
+	}
+
+	Vector3& operator-(const float val)
+	{
+		x -= val;
+		y -= val;
+		z -= val;
+
+		return *this;
+	}
+
+	Vector3& operator*(const float val)
+	{
+		x *= val;
+		y *= val;
+		z *= val;
+
+		return *this;
+	}
+
+	Vector3& operator*(const double val)
+	{
+		x *= val;
+		y *= val;
+		z *= val;
+
+		return *this;
+	}
+
+	//Vector3& operator*(const Vector3& other)
+	//{
+	//	x *= other.x;
+	//	y *= other.y;
+	//	z *= other.z;
+
+	//	return *this;
+	//}
+
+	Vector3& operator/(const float val)
+	{
+		x /= val;
+		y /= val;
+		z /= val;
+
+		return *this;
+	}
+
+	bool operator==(const Vector3& other)
+	{
+		if (x == other.x &&
+			y == other.y &&
+			z == other.z)
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	bool operator!=(const Vector3& other)
+	{
+		if (x != other.x || y != other.y || z != other.z)
+		{
+			return true;
+		}
+
+		return false;
+	}
 };
-

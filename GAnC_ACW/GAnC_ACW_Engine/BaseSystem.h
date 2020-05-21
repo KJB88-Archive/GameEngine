@@ -10,7 +10,8 @@ public:
 	{
 		INPUT,
 		RENDER,
-		PHYSICS
+		PHYSICS,
+		COLLISION
 	};
 
 	BaseSystem(std::string systemName, SystemType type)

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="DebugDX|Win32">
@@ -46,12 +46,12 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{D67B1D1D-5880-4D4B-9E4F-C4C3042CDBED}</ProjectGuid>
     <RootNamespace>GNACACW</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
     <ProjectName>GAnC_ACW_Engine</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
@@ -59,7 +59,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugGL|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDX|Win32'" Label="Configuration">
@@ -71,19 +71,19 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDX|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
@@ -91,26 +91,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugGL|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDX|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDX|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -159,12 +159,12 @@
     <LibraryPath>C:\GAnC\DirectX SDK\Lib\x86;C:\GAnC\CSLib\lib;C:\GAnC\DirectX SDK\DirectX SDK\Lib\x86;C:\GAnC\CSLib\CSLib\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDX|Win32'">
-    <IncludePath>C:\GAnC\DirectX SDK\Include;C:\GAnC\DirectX SDK\DirectX SDK\Include;C:\GAnC\CSLib\CSLib\inc;C:\GAnC\CSLib\inc;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\GAnC\DirectX SDK\Lib\x86;C:\GAnC\CSLib\lib;C:\GAnC\DirectX SDK\DirectX SDK\Lib\x86;C:\GAnC\CSLib\CSLib\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\GAnC\DirectX SDK\DirectX SDK\Include;C:\GAnC\CSLib\CSLib\inc;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\GAnC\CSLib\CSLib\lib;C:\GAnC\DirectX SDK\DirectX SDK\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\GAnC\DirectX SDK\Include;C:\GAnC\CSLib\inc;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\GAnC\DirectX SDK\Lib\x86;C:\GAnC\CSLib\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\GAnC\DirectX SDK\DirectX SDK\Include;C:\GAnC\CSLib\CSLib\inc;C:\GAnC\DirectX SDK\Include;C:\GAnC\CSLib\inc;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\GAnC\CSLib\CSLib\lib;C:\GAnC\DirectX SDK\DirectX SDK\Lib\x86;C:\GAnC\DirectX SDK\Lib\x86;C:\GAnC\CSLib\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugGL|x64'">
     <IncludePath>C:\GAnC\DirectX SDK\Include;C:\GAnC\CSLib\inc;$(IncludePath)</IncludePath>
@@ -224,7 +224,7 @@
       </DisableSpecificWarnings>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;DX_BUILD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EntryPointSymbol>WinMain</EntryPointSymbol>
@@ -326,7 +326,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AssetManager.cpp" />
-    <ClCompile Include="CameraComponent.cpp" />
+    <ClCompile Include="BaseComponent.cpp" />
+    <ClCompile Include="ColliderPlaneComponent.cpp" />
+    <ClCompile Include="ColliderSphereComponent.cpp" />
+    <ClCompile Include="CollisionManager.cpp" />
+    <ClCompile Include="CollisionSystem.cpp" />
     <ClCompile Include="Colour.cpp" />
     <ClCompile Include="DXCamera.cpp" />
     <ClCompile Include="DXRenderer.cpp" />
@@ -358,12 +362,16 @@
     <ClCompile Include="TransformComponent.cpp" />
     <ClCompile Include="DX_VBO.cpp" />
     <ClCompile Include="Vector3.cpp" />
+    <ClCompile Include="Vector4.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AssetManager.h" />
+    <ClInclude Include="BaseColliderComponent.h" />
     <ClInclude Include="BaseInputProvider.h" />
-    <ClInclude Include="CameraComponent.h" />
-    <ClInclude Include="LocalInputComponent.h" />
+    <ClInclude Include="ColliderPlaneComponent.h" />
+    <ClInclude Include="ColliderSphereComponent.h" />
+    <ClInclude Include="CollisionManager.h" />
+    <ClInclude Include="CollisionSystem.h" />
     <ClInclude Include="StateActionType.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Colour.h" />

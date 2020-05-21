@@ -46,6 +46,8 @@ private:
 	// Rendering Abstractions
 	void InitializeRenderSystem();
 
+	const DirectX::XMVECTOR clearColour = DirectX::XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f);
+
 	// Core DX Resources
 	IDXGISwapChain* m_swapChain;
 	ID3D11Device* m_device;

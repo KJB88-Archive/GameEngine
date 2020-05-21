@@ -270,7 +270,7 @@ RenderSystem* DXRenderer::GetSystem()
 	return renderSystem;
 }
 
-void DXRenderer::Draw(const Vector3& pos, const Vector3&, const Vector3& scale, const Mesh* mesh)
+void DXRenderer::Draw(const Vector3& pos, const Vector3& rotation, const Vector3& scale, const Mesh* mesh)
 {
 	DX_VBO* vbo = dynamic_cast<DX_VBO*>(mesh->GetVBO());
 
@@ -279,7 +279,9 @@ void DXRenderer::Draw(const Vector3& pos, const Vector3&, const Vector3& scale, 
 
 	// ROTATE
 	// SCALE
+	m_world *= XMMatrixScaling(scale.x, scale.y, scale.z);
 
+	
 	vbo->Draw(this);
 
 	m_shader->Render(GetContext(), vbo->GetIndexCount(), m_world, m_view, m_projection);

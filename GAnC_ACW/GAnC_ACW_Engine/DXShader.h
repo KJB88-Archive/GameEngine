@@ -25,11 +25,11 @@ public:
 	DXShader(DXRenderer* renderer);
 	~DXShader();
 
-	void Render(ID3D11DeviceContext*, int, DirectX::XMMATRIX, DirectX::XMMATRIX, DirectX::XMMATRIX);
+	void Render(ID3D11DeviceContext*, int, DirectX::XMMATRIX&, DirectX::XMMATRIX&, DirectX::XMMATRIX&);
 
 private:
 	
-	void SetShaderParameters(ID3D11DeviceContext*, DirectX::XMMATRIX, DirectX::XMMATRIX, DirectX::XMMATRIX);
+	void SetShaderParameters(ID3D11DeviceContext*, DirectX::XMMATRIX&, DirectX::XMMATRIX&, DirectX::XMMATRIX&);
 	void RenderShader(ID3D11DeviceContext*, int);
 
 	struct MatrixBuffer

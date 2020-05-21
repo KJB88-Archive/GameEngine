@@ -12,11 +12,14 @@ public:
 	PhysicsManager();
 	virtual ~PhysicsManager();
 
-	Vector3 CalculateNewPositions(Vector3 position);
+	void ApplyPhysics(Vector3& position, Vector3& velocity);
 
 	PhysicsSystem* GetSystem();
-
 private:
 
-	PhysicsSystem* m_physicsSystem;
+	void ApplyConstants(Vector3& velocity);
+
+	const float m_grav;
+
+	 PhysicsSystem* m_physicsSystem;
 };

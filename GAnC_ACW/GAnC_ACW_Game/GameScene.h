@@ -14,8 +14,4 @@ public:
 	virtual bool RunScene() override;
 
 private:
-
-	float m_camRotSpeed = 180.0f;
-	float m_camSpeed = 10.0f;
-	Entity* square;
 };

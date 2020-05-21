@@ -18,27 +18,11 @@ DXCamera::DXCamera(const int screenWidth, const int screenHeight, const float sc
 	// Ortho
 	m_ortho = XMMatrixOrthographicLH((float)screenWidth, (float)screenHeight, screenNear, screenDepth);
 
-	XMFLOAT3 eyePos;
-	eyePos.x = 0.0f;
-	eyePos.y = 0.0f;
-	eyePos.z = -5.0f;
-	m_dxEyePos = XMLoadFloat3(&eyePos);
+	camPos = EYEPOS;
+	camUp = UP;
+	lookAtPos = LOOKAT;
 
-	XMFLOAT3 up;
-	up.x = 0.0f;
-	up.y = 1.0f;
-	up.z = 0.0f;
-	m_dxUp = XMLoadFloat3(&up);
-
-	XMFLOAT3 lookAt;
-	lookAt.x = 0.0f;
-	lookAt.y = 0.0f;
-	lookAt.z = 1.0f;
-	m_dxLookAt = XMLoadFloat3(&lookAt);
-
-	//UpdateUpVector(Vector3(0.0f, 1.0f, 0.0f));
-	//UpdateLookAtPosition(Vector3(0.0f, 0.0f, 1.0f));
-
+	m_pitch = 0.5f;
 }
 
 DXCamera::~DXCamera()
@@ -61,147 +45,81 @@ void DXCamera::GetOrthographicMatrix(DirectX::XMMATRIX& ortho)
 	ortho = m_ortho;
 }
 
-//void DXCamera::Update()
-//{
-//
-//	//double dt = TimeManager::GetDeltaTime();
-//
-//	//Vector3 camPos = m_mainCam->GetEyePosition();
-//	//float camYaw = m_mainCam->GetYaw();
-//
-//	//if (InputManager::GetButtonDown("Forward"))
-//	//{
-//	//	camPos.z += m_camSpeed * dt;
-//	//	m_mainCam->Translate(camPos);
-//	//}
-//	//else if (InputManager::GetButtonDown("Backward"))
-//	//{
-//	//	camPos.z -= m_camSpeed * dt;
-//	//	m_mainCam->Translate(camPos);
-//	//}
-//
-//	//if (InputManager::GetButtonDown("Left"))
-//	//{
-//	//	camPos.x += m_camSpeed * dt;
-//	//	m_mainCam->Translate(camPos);
-//	//}
-//
-//	//else if (InputManager::GetButtonDown("Right"))
-//	//{
-//	//	camPos.x -= m_camSpeed * dt;
-//	//	m_mainCam->Translate(camPos);
-//	//}
-//
-//	//if (InputManager::GetButtonDown("RotateLeft"))
-//	//{
-//	//	camYaw += m_camRotSpeed * dt;
-//	//	m_mainCam->Rotate(Vector3(0.0f, 1.0f, 0.0f), camYaw);
-//	//}
-//	//else if (InputManager::GetButtonDown("RotateRight"))
-//	//{
-//	//	camYaw -= m_camRotSpeed * dt;
-//	//	m_mainCam->Rotate(Vector3(0.0f, 1.0f, 0.0f), camYaw);
-//	//}
-//}
-
-//void DXCamera::Translate(Vector3 newVec)
-//{
-//	m_dxEyePos = XMVector3Transform(m_dxEyePos, XMMatrixTranslation(newVec.x, newVec.y, newVec.z));
-//	m_dxLookAt = XMVector3Transform(m_dxLookAt, XMMatrixTranslation(newVec.x, newVec.y, newVec.z));
-//	m_dxUp = XMVector3Transform(m_dxUp, XMMatrixTranslation(newVec.x, newVec.y, newVec.z));
-//}
-//
-//void DXCamera::Rotate(Vector3 axis, float degrees)
-//{
-//	XMFLOAT3 dxAxis;
-//	dxAxis.x = axis.x;
-//	dxAxis.y = axis.y;
-//	dxAxis.z = axis.z;
-//	XMVECTOR dxAxisVec;
-//	dxAxisVec = XMLoadFloat3(&dxAxis);
-//
-//	XMVECTOR dxLookAt = XMVector3Transform(m_dxLookAt, XMMatrixRotationAxis(dxAxisVec, XMConvertToRadians(degrees)));
-//	XMVECTOR dxUp = XMVector3Transform(m_dxUp, XMMatrixRotationAxis(dxAxisVec, XMConvertToRadians(degrees)));
-//
-//	m_dxLookAt = XMVectorAdd(m_dxEyePos, dxLookAt);
-//	m_dxUp = XMVectorAdd(m_dxEyePos, dxUp);
-//}
-
-//void DXCamera::UpdateYaw(float yaw)
-//{
-//	m_yaw = yaw * XM_PIDIV2;
-//}
-//
-//void DXCamera::UpdatePitch(float pitch)
-//{
-//	m_pitch = pitch * XM_PIDIV2;
-//}
-//
-//void DXCamera::UpdateRoll(float roll)
-//{
-//	m_roll = roll * XM_PIDIV2;
-//}
-
-//void DXCamera::Render()
-//{
-//	//// Rotate
-////m_dxRotMatrix = XMMatrixRotationRollPitchYaw(m_pitch, m_yaw, m_roll);
-//
-//////// Correct vectors due to rotation
-//////m_dxLookAt = XMVector3TransformCoord(m_dxLookAt, m_dxRotMatrix);
-//////m_dxUp = XMVector3TransformCoord(m_dxUp, m_dxRotMatrix);
-//
-////// Update view matrix with deltas
-////m_view = XMMatrixLookAtLH(m_dxEyePos, m_dxLookAt, m_dxUp);
-//}
-
 void DXCamera::Render()
 {
+	double dt = TimeManager::GetDeltaTime();
+
+	// X
 	if (InputManager::GetButtonDown("Left"))
 	{
-		moveLeftRight -= 10.0f * TimeManager::GetDeltaTime();
+		moveLeftRight -= m_translationSpeed * dt;
 	}
 	else if (InputManager::GetButtonDown("Right"))
 	{
-		moveLeftRight += 10.0f * TimeManager::GetDeltaTime();
+		moveLeftRight += m_translationSpeed * dt;
 	}
 
+	// Z
 	if (InputManager::GetButtonDown("Forward"))
 	{
-		moveBackForward += 10.0f * TimeManager::GetDeltaTime();
+		moveBackForward += m_translationSpeed * dt;
 	}
 	else if (InputManager::GetButtonDown("Backward"))
 	{
-		moveBackForward -= 10.0f * TimeManager::GetDeltaTime();
+		moveBackForward -= m_translationSpeed * dt;
 	}
 
-	if (InputManager::GetButtonDown("RotateLeft"))
+	// Y
+	if (InputManager::GetButtonDown("Up"))
 	{
-		m_yaw -= 2.5f * TimeManager::GetDeltaTime();
+		moveUpDown += m_translationSpeed * dt;
 	}
-	else if (InputManager::GetButtonDown("RotateRight"))
+	else if (InputManager::GetButtonDown("Down"))
 	{
-		m_yaw += 2.5f * TimeManager::GetDeltaTime();
+		moveUpDown -= m_translationSpeed * dt;
 	}
 
-	m_dxRotMatrix = XMMatrixRotationRollPitchYaw(m_pitch, m_yaw, m_roll);
-	m_dxLookAt = XMVector3TransformCoord(FWD, m_dxRotMatrix);
-	m_dxLookAt = XMVector3Normalize(m_dxLookAt);
+	// YAW
+	if (InputManager::GetButtonDown("YawLeft"))
+	{
+		m_yaw -= m_rotationSpeed * dt;
+	}
+	else if (InputManager::GetButtonDown("YawRight"))
+	{
+		m_yaw += m_rotationSpeed * dt;
+	}
+
+	// PITCH
+	if (InputManager::GetButtonDown("PitchUp"))
+	{
+		m_pitch -= m_rotationSpeed * dt;
+	}
+	else if (InputManager::GetButtonDown("PitchDown"))
+	{
+		m_pitch += m_rotationSpeed * dt;
+	}
+
+	// Camera Movement basis from Brayznarsoft template
+	rotationMatrix = XMMatrixRotationRollPitchYaw(m_pitch, m_yaw, m_roll);
+	lookAtPos = XMVector3TransformCoord(FWD, rotationMatrix);
+	lookAtPos = XMVector3Normalize(lookAtPos);
 
 	XMMATRIX RotateYTempMatrix;
 	RotateYTempMatrix = XMMatrixRotationY(m_yaw);
 
 	camRight = XMVector3TransformCoord(RIGHT, RotateYTempMatrix);
-	m_dxUp = XMVector3TransformCoord(m_dxUp, RotateYTempMatrix);
+	camUp = XMVector3TransformCoord(UP, RotateYTempMatrix);
 	camFwd = XMVector3TransformCoord(FWD, RotateYTempMatrix);
 
-	m_dxEyePos += moveLeftRight * camRight;
-	m_dxEyePos += moveBackForward * camFwd;
+	camPos += moveLeftRight * camRight;
+	camPos += moveBackForward * camFwd;
+	camPos += moveUpDown * camUp;
 
 	moveLeftRight = 0.0f;
 	moveBackForward = 0.0f;
+	moveUpDown = 0.0f;
 
-	m_dxLookAt = m_dxEyePos + m_dxLookAt;
+	lookAtPos = camPos + lookAtPos;
 
-	m_view = XMMatrixLookAtLH(m_dxEyePos, m_dxLookAt, m_dxUp);
+	m_view = XMMatrixLookAtLH(camPos, lookAtPos, camUp);
 }

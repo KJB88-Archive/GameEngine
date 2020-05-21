@@ -9,8 +9,9 @@ public:
 	RenderComponent(Entity* owner);
 	virtual ~RenderComponent();
 
-	Mesh* mesh;
+	Mesh* GetMesh();
+	void SetMesh(std::string fileName);
 
 private:
-
+	Mesh* mesh;
 };

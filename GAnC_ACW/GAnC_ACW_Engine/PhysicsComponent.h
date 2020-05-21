@@ -13,7 +13,6 @@ public:
 
 	float mass;
 	Vector3 velocity;
-	Vector3 acceleration;
 
 private:
 

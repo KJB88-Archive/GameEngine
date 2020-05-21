@@ -46,6 +46,12 @@ Engine::Engine()
 		Logger::LogToConsole("ENGINE: Unable to create PhysicsManager object.");
 	}
 
+	m_collisionManager = new CollisionManager();
+	if (!m_collisionManager)
+	{
+		Logger::LogToConsole("ENGINE: Unable to create CollisionManager object.");
+	}
+
 	// Create System Manager
 	m_systemManager = new SystemManager();
 	if (!m_systemManager)
@@ -98,6 +104,12 @@ Engine::~Engine()
 	{
 		delete m_physicsManager;
 		m_physicsManager = nullptr;
+	}
+
+	if (m_collisionManager)
+	{
+		delete m_collisionManager;
+		m_collisionManager = nullptr;
 	}
 
 	if (m_sceneManager)

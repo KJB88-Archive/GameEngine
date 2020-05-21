@@ -7,6 +7,7 @@
 #include "TimeManager.h"
 #include "SceneManager.h"
 #include "PhysicsManager.h"
+#include "CollisionManager.h"
 
 // Static Management
 #include "AssetManager.h"
@@ -32,6 +33,7 @@ public:
 	TimeManager* timeManager() const { return m_time; }
 	SceneManager* sceneManager() const { return m_sceneManager; }
 	PhysicsManager* physicsManager() const { return m_physicsManager; }
+	CollisionManager* collisionManager() const { return m_collisionManager; }
 
 	// Initialise Engine with window and graphics resources
 	void Initialise(Window* window, Renderer* renderer);
@@ -59,6 +61,7 @@ private:
 	TimeManager* m_time; // Handles time related functions (deltaTime, etc)
 	SceneManager* m_sceneManager; // Scene manipulation
 	PhysicsManager* m_physicsManager; // Physics logic
+	CollisionManager* m_collisionManager; // Collision logic
 
 	// Static Managers
 	AssetManager* m_assetManager; // Handles creation and loading of assets

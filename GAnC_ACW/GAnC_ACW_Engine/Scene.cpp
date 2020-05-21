@@ -106,3 +106,7 @@ void Scene::RemoveSystem(BaseSystem::SystemType systemType)
 	}
 }
 
+void Scene::Reset()
+{
+	// TODO
+}

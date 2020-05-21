@@ -44,6 +44,7 @@ public:
 	void RemoveSystem(std::string systemName);
 	void RemoveSystem(BaseSystem::SystemType systemType);
 
+	void Reset();
 protected:
 
 	// Main camera for scene

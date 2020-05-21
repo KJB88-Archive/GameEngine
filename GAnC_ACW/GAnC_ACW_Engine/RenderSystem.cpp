@@ -8,7 +8,6 @@
 // Targets
 #include "RenderComponent.h"
 #include "TransformComponent.h"
-#include "CameraComponent.h"
 
 RenderSystem::RenderSystem(Renderer* renderer)
 	: BaseSystem("Render", RENDER)
@@ -24,7 +23,7 @@ RenderSystem::~RenderSystem()
 void RenderSystem::ProcessEntities(std::vector<Entity*> entities)
 {
 	// Setup scene for rendering
-	m_renderer->BeginScene(0.5f, 0.5f, 0.5f, 1.0f);
+	m_renderer->BeginScene(0.0f, 0.0f, 0.0f, 1.0f);
 
 	// Loop through entities
 	for (int i = 0; i < entities.size(); ++i)
@@ -47,18 +46,13 @@ void RenderSystem::ProcessEntities(std::vector<Entity*> entities)
 				render = (RenderComponent*)components[j];
 				break;
 
-			//	// Store our camera component
-			//case BaseComponent::COMPONENT_CAMERA:
-			//	camera = (CameraComponent*)components[j];
-			//	break;
-
 				// Store our transform component
 			case BaseComponent::COMPONENT_TRANSFORM:
 				transform = (TransformComponent*)components[j];
 				break;
 			}
 			// Break out early if we have required components
-			if (transform && render/* && camera*/)
+			if (transform && render)
 			{
 				break;
 			}
@@ -69,13 +63,13 @@ void RenderSystem::ProcessEntities(std::vector<Entity*> entities)
 			// Render the entity using it's component
 			if (render)
 			{
-				// TODO - Check for isVisible
-				if (render->mesh) // Does this component have a mesh?
+				Mesh* mesh = render->GetMesh();
+				if (mesh) // Does this component have a mesh?
 				{
-					if (!render->mesh->GetVBO()) // Does the mesh have a valid VBO?
+					if (!mesh->GetVBO()) // Does the mesh have a valid VBO?
 					{
 						Logger::LogToConsole("RENDER SYSTEM: Object does not have a VBO, creating VBO...");
-						render->mesh->CreateVBO(m_renderer); // Create VBO
+						mesh->CreateVBO(m_renderer); // Create VBO
 					}
 
 					// Draw (send transform values to do translation, rotation and scaling)
@@ -83,7 +77,7 @@ void RenderSystem::ProcessEntities(std::vector<Entity*> entities)
 						transform->position,
 						transform->rotation,
 						transform->scale,
-						render->mesh);
+						mesh);
 				}
 			}
 		}
